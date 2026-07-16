@@ -234,28 +234,27 @@ def generate_config():
 
 
 def inject_courses_into_index(courses_list):
-    """Inject the compiled course list directly into site/index.html.
+    """Inject the compiled course list into site/index.html as a JSON data tag.
 
-    We replace the courses array inside the Alpine `app()` data with a real JS
-    array literal. This guarantees the course grid renders immediately.
+    We embed the courses as `application/json` (not a JS literal) so it can never
+    break the surrounding script, and `app()` reads it via `window.__COURSES__`.
     """
     index_path = os.path.join("site", "index.html")
     if not os.path.exists(index_path):
         return
 
     import re
-    courses_js = json.dumps(courses_list, ensure_ascii=False)
-    
+    courses_json = json.dumps(courses_list, ensure_ascii=False)
+    data_tag = f'<script id="courses-data" type="application/json">{courses_json}</script>'
+
     with open(index_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    pattern = r"courses:\s*\[.*?\],"
-    replacement = f"courses: {courses_js},"
-    
-    new_html, count = re.subn(pattern, replacement, html, count=1)
-    if count == 0:
-        print("⚠️  courses list pattern not found in index.html — skipping inject")
-        return
+    pattern = r'<script id="courses-data" type="application/json">.*?</script>'
+    if re.search(pattern, html, re.S):
+        new_html = re.sub(pattern, data_tag, html, count=1, flags=re.S)
+    else:
+        new_html = html.replace("</head>", data_tag + "\n</head>", 1)
 
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(new_html)
