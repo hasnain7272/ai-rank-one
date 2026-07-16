@@ -183,10 +183,53 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
+def _fetch_linked_supabase():
+    """Best-effort: pull the project ref + anon key from the linked Supabase CLI.
+
+    Falls back to placeholders if the CLI isn't linked or the call fails, so the
+    build never hard-fails.
+    """
+    url, anon = "https://YOUR_PROJECT.supabase.co", "YOUR_ANON_KEY"
+    try:
+        out = subprocess.run(
+            "supabase projects api-keys",
+            capture_output=True, text=True, timeout=30, shell=True,
+        )
+        data = json.loads(out.stdout)
+        for k in data.get("keys", []):
+            if k.get("id") == "anon":
+                anon = k["api_key"]
+                ref = json.loads(_b64_payload(anon)).get("ref", "")
+                if ref:
+                    url = f"https://{ref}.supabase.co"
+                break
+    except Exception:
+        pass
+    return url, anon
+
+
+def _b64_payload(jwt):
+    import base64
+    parts = jwt.split(".")
+    if len(parts) < 2:
+        return "{}"
+    pad = parts[1] + "=" * (-len(parts[1]) % 4)
+    return base64.urlsafe_b64decode(pad).decode("utf-8", "ignore")
+
+
 def generate_config():
-    """Generate site/assets/js/config.js from .env so keys live in ONE place."""
-    supabase_url = os.getenv("SUPABASE_URL", "https://YOUR_PROJECT.supabase.co")
-    anon_key = os.getenv("SUPABASE_ANON_KEY", "YOUR_ANON_KEY")
+    """Generate site/assets/js/config.js from .env so keys live in ONE place.
+
+    If Supabase creds aren't in .env, they're pulled from the linked Supabase
+    project automatically so the deployed site always has working auth.
+    """
+    supabase_url = os.getenv("SUPABASE_URL")
+    anon_key = os.getenv("SUPABASE_ANON_KEY")
+    if not supabase_url or not anon_key:
+        fetched_url, fetched_anon = _fetch_linked_supabase()
+        supabase_url = supabase_url or fetched_url
+        anon_key = anon_key or fetched_anon
+
     site_url = os.getenv("SITE_URL", "https://ai-rank-one.hasnainrazalakhani7272.workers.dev")
     variant_single = os.getenv("LEMON_VARIANT_SINGLE", "SINGLE_VARIANT_ID")
     variant_bundle = os.getenv("LEMON_VARIANT_BUNDLE", "BUNDLE_VARIANT_ID")

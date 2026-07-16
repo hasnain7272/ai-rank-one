@@ -3,7 +3,7 @@
 const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
 const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
 let sb = null;
-try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch (e) {}
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false } }); } catch (e) {}
 
 function courseView() {
   return {

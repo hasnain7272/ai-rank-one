@@ -607,12 +607,14 @@
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
         const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
 
-        // Initialize Supabase client
+        // Initialize Supabase client (no session persistence → no storage writes)
         let sb;
         try {
-            sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+                auth: { persistSession: false, autoRefreshToken: false },
+            });
         } catch (e) {
-            console.warn('Supabase not configured yet — auth will not work until credentials are set.');
+            sb = null;
         }
 
         // ========== ALPINE APP ==========
