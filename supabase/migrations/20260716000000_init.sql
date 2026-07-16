@@ -60,3 +60,6 @@ ALTER TABLE public.subscribers ENABLE ROW LEVEL SECURITY;
 DROP POLICY IF EXISTS "Anyone can subscribe" ON public.subscribers;
 CREATE POLICY "Anyone can subscribe" ON public.subscribers
     FOR INSERT WITH CHECK (true);
+
+-- Refresh PostgREST's cached schema so new tables/policies take effect immediately.
+NOTIFY pgrst, 'reload schema';
