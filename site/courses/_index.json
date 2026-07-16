@@ -33,18 +33,17 @@
   },
   {
     "slug": "building-a-production-rag-system",
-    "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب",
-    "description": "دورة هندسية متقدمة في بناء أنظمة الاسترجاع المعزز بالتوليد (RAG) القابلة للتطوير للتعامل مع ملايين المستندات بزمن استجابة منخفض ودقة عالية.",
+    "title": "دورة متقدمة في Building a Production RAG System",
+    "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات Building a Production RAG System في بيئات العمل الفعلية.",
     "tags": [
-      "RAG",
-      "Vector DB",
-      "Hybrid Search",
-      "Reranking"
+      "Building",
+      "Python",
+      "Mute"
     ],
     "modules": 5,
-    "duration": "5 ساعات",
-    "price": 49,
-    "gradient": "from-purple-500 to-pink-500"
+    "duration": "4 ساعات",
+    "price": 29,
+    "gradient": "from-brand-500 to-indigo-500"
   },
   {
     "slug": "langgraph-multi-agents",
