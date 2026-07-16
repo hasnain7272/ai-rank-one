@@ -17,6 +17,8 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/icon.svg">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>{title} | منصة الذكاء الاصطناعي العربية</title>
     <meta name="description" content="{description}">
     <link rel="manifest" href="../../manifest.json">
@@ -26,23 +28,7 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {{
-            theme: {{
-                extend: {{
-                    fontFamily: {{
-                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    }},
-                    colors: {{
-                        brand: {{ 400: '#59b0ff', 500: '#338dff', 600: '#1b6ff5', 950: '#142957' }},
-                        surface: {{ 50: '#f8fafc', 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }}
-                    }}
-                }}
-            }}
-        }}
-    </script>
+    <link rel="stylesheet" href="../../assets/css/tailwind.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>

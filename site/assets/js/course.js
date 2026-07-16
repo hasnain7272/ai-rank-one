@@ -2,8 +2,8 @@
 // Supabase init (config.js must load first)
 const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
 const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
-let supabase = null;
-try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch (e) {}
+let sb = null;
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch (e) {}
 
 function courseView() {
   return {
@@ -24,13 +24,13 @@ function courseView() {
       this.course = JSON.parse(document.getElementById('course-data').textContent);
       this.$watch('activeModule', async () => { await this.loadActiveModule(); });
 
-      if (!supabase) { this.hasAccess = true; return; } // offline/demo fallback
+      if (!sb) { this.hasAccess = true; return; } // offline/demo fallback
 
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await sb.auth.getSession();
       this.user = session?.user || null;
       await this.checkAccess();
 
-      supabase.auth.onAuthStateChange(async (event, session) => {
+      sb.auth.onAuthStateChange(async (event, session) => {
         this.user = session?.user || null;
         if (event === 'SIGNED_IN') this.showAuth = false;
         await this.checkAccess();
@@ -38,10 +38,10 @@ function courseView() {
     },
 
     async checkAccess() {
-      if (!supabase || !this.user) { this.hasAccess = false; return; }
+      if (!sb || !this.user) { this.hasAccess = false; return; }
       try {
         // Unlocked if this course is granted, OR user holds all-access ('*').
-        const { data, error } = await supabase
+        const { data, error } = await sb
           .from('user_course_access')
           .select('course_slug')
           .in('course_slug', [this.course.slug, '*']);
@@ -60,7 +60,7 @@ function courseView() {
       if (this.hasAccess && this.course.modules?.[idx] && !this.course.modules[idx].content) {
         this.loading = true; this.message = '';
         try {
-          const { data, error } = await supabase
+          const { data, error } = await sb
             .from('course_modules').select('content')
             .eq('course_slug', this.course.slug).eq('module_index', idx).single();
           if (error) throw error;
@@ -74,10 +74,10 @@ function courseView() {
     },
 
     async sendOTP() {
-      if (!supabase) { this.authError = 'Auth not configured'; return; }
+      if (!sb) { this.authError = 'Auth not configured'; return; }
       this.authLoading = true; this.authError = '';
       try {
-        const { error } = await supabase.auth.signInWithOtp({ email: this.authEmail });
+        const { error } = await sb.auth.signInWithOtp({ email: this.authEmail });
         if (error) throw error;
         this.authStep = 'otp';
       } catch (e) { this.authError = e.message || 'حدث خطأ — حاول مرة أخرى'; }
@@ -85,10 +85,10 @@ function courseView() {
     },
 
     async verifyOTP() {
-      if (!supabase) return;
+      if (!sb) return;
       this.authLoading = true; this.authError = '';
       try {
-        const { error } = await supabase.auth.verifyOtp({
+        const { error } = await sb.auth.verifyOtp({
           email: this.authEmail, token: this.authOTP, type: 'email',
         });
         if (error) throw error;
@@ -98,8 +98,8 @@ function courseView() {
     },
 
     async signOut() {
-      if (!supabase) return;
-      await supabase.auth.signOut();
+      if (!sb) return;
+      await sb.auth.signOut();
       this.user = null; this.hasAccess = false;
     },
 

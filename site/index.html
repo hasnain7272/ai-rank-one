@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
+    <link rel="icon" type="image/svg+xml" href="assets/images/icon.svg">
+
+    <link rel="stylesheet" href="assets/css/tailwind.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة الذكاء الاصطناعي العربية | تعلّم الذكاء الاصطناعي بالعربية</title>
@@ -14,7 +17,7 @@
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Fonts -->
@@ -22,54 +25,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef7ff',
-                            100: '#d9edff',
-                            200: '#bce0ff',
-                            300: '#8ecdff',
-                            400: '#59b0ff',
-                            500: '#338dff',
-                            600: '#1b6ff5',
-                            700: '#1459e1',
-                            800: '#1749b6',
-                            900: '#19408f',
-                            950: '#142957',
-                        },
-                        surface: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Lemon Squeezy Widget -->
     <script src="https://assets.lemonsqueezy.com/assets/button.js" defer></script>
-
-    <!-- Flowbite -->
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet">
 
     <style>
         * { font-family: 'IBM Plex Sans Arabic', sans-serif; }
@@ -633,14 +593,9 @@
     </div>
 
     <!-- ============================================ -->
-    <!-- Flowbite JS -->
-    <!-- ============================================ -->
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-
-    <!-- ============================================ -->
     <!-- SUPABASE SDK -->
     <!-- ============================================ -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@sb/sb-js@2/dist/umd/sb.min.js"></script>
 
     <!-- ============================================ -->
     <!-- APP LOGIC -->
@@ -653,9 +608,9 @@
         const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
 
         // Initialize Supabase client
-        let supabase;
+        let sb;
         try {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         } catch (e) {
             console.warn('Supabase not configured yet — auth will not work until credentials are set.');
         }
@@ -721,13 +676,13 @@
                     const params = new URLSearchParams(window.location.search);
                     this.activeCourseSlug = params.get('course') || null;
 
-                    if (!supabase) return;
-                    const { data } = await supabase.auth.getSession();
+                    if (!sb) return;
+                    const { data } = await sb.auth.getSession();
                     if (data.session) {
                         this.user = data.session.user;
                     }
                     // Listen for auth changes
-                    supabase.auth.onAuthStateChange((event, session) => {
+                    sb.auth.onAuthStateChange((event, session) => {
                         this.user = session?.user || null;
                         if (event === 'SIGNED_IN') {
                             this.showAuth = false;
@@ -737,11 +692,11 @@
 
                 // Auth methods
                 async sendOTP() {
-                    if (!supabase) { this.authError = 'Auth not configured'; return; }
+                    if (!sb) { this.authError = 'Auth not configured'; return; }
                     this.authLoading = true;
                     this.authError = '';
                     try {
-                        const { error } = await supabase.auth.signInWithOtp({
+                        const { error } = await sb.auth.signInWithOtp({
                             email: this.authEmail,
                         });
                         if (error) throw error;
@@ -753,11 +708,11 @@
                 },
 
                 async verifyOTP() {
-                    if (!supabase) return;
+                    if (!sb) return;
                     this.authLoading = true;
                     this.authError = '';
                     try {
-                        const { error } = await supabase.auth.verifyOtp({
+                        const { error } = await sb.auth.verifyOtp({
                             email: this.authEmail,
                             token: this.authOTP,
                             type: 'email',
@@ -771,21 +726,21 @@
                 },
 
                 async signOut() {
-                    if (!supabase) return;
-                    await supabase.auth.signOut();
+                    if (!sb) return;
+                    await sb.auth.signOut();
                     this.user = null;
                 },
 
                 // Newsletter
                 async subscribeNewsletter() {
                     if (!this.newsletterEmail) return;
-                    if (!supabase) {
+                    if (!sb) {
                         alert('شكراً! تم تسجيلك في النشرة الأسبوعية.');
                         this.newsletterEmail = '';
                         return;
                     }
                     try {
-                        const { error } = await supabase.from('subscribers').insert({
+                        const { error } = await sb.from('subscribers').insert({
                             email: this.newsletterEmail,
                             subscribed_at: new Date().toISOString(),
                         });
