@@ -11,3 +11,4 @@ Thumbs.db
 certificates/generated/
 newsletter/issues/
 *.log
+supabase/.temp/

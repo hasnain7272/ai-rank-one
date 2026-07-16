@@ -639,11 +639,12 @@
     <!-- ============================================ -->
     <!-- APP LOGIC -->
     <!-- ============================================ -->
+    <script src="/assets/js/config.js"></script>
     <script>
         // ========== CONFIG ==========
-        // TODO: Replace with your actual Supabase credentials
-        const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
-        const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+        // Loaded from /assets/js/config.js (generated from .env by deploy.py)
+        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
+        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
 
         // Initialize Supabase client
         let supabase;

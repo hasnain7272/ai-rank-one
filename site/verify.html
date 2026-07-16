@@ -111,10 +111,11 @@
         </div>
     </main>
 
+    <script src="/assets/js/config.js"></script>
     <script>
-        // TODO: Replace with actual Supabase credentials
-        const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
-        const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+        // Loaded from /assets/js/config.js (generated from .env by deploy.py)
+        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
+        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
 
         let supabase;
         try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
