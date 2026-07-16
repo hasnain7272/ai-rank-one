@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.local
+__pycache__/
+*.pyc
+.venv/
+venv/
+dist/
+.DS_Store
+Thumbs.db
+certificates/generated/
+newsletter/issues/
+*.log

@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "langgraph-multi-agents",
+    "title": "بناء أنظمة الوكلاء المتعددة باستخدام LangGraph",
+    "description": "تعلم كيفية بناء أنظمة وكلاء ذكية متعددة تتعاون وتنسق مع بعضها لحل المهام المعقدة باستخدام LangGraph.",
+    "tags": [
+      "LangGraph",
+      "Agents",
+      "Python"
+    ],
+    "modules": 5,
+    "duration": "4 ساعات",
+    "price": 29,
+    "gradient": "from-brand-500 to-blue-500"
+  }
+]
