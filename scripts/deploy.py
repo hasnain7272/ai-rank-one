@@ -431,7 +431,7 @@ def sync_course_to_supabase(course_data, slug):
         "gradient": course_data.get("gradient", "from-brand-500 to-blue-500")
     }
 
-    url_courses = f"{supabase_url.rstrip('/')}/rest/v1/courses"
+    url_courses = f"{supabase_url.rstrip('/')}/rest/v1/courses?on_conflict=slug"
     try:
         r = requests.post(url_courses, json=course_payload, headers=headers)
         if r.status_code not in [200, 201]:
@@ -443,7 +443,7 @@ def sync_course_to_supabase(course_data, slug):
         return
 
     # 2. Sync module contents to course_modules
-    url_modules = f"{supabase_url.rstrip('/')}/rest/v1/course_modules"
+    url_modules = f"{supabase_url.rstrip('/')}/rest/v1/course_modules?on_conflict=course_slug,module_index"
     for idx, mod in enumerate(course_data.get("modules", [])):
         module_payload = {
             "course_slug": slug,
