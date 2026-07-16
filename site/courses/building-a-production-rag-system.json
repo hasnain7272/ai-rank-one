@@ -1,34 +1,35 @@
 {
-  "title": "دورة متقدمة في Building a Production RAG System",
-  "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات Building a Production RAG System في بيئات العمل الفعلية.",
+  "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب",
+  "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.",
   "tags": [
-    "Building",
-    "Python",
-    "Mute"
+    "RAG",
+    "Vector Search",
+    "Hybrid Search",
+    "Embeddings"
   ],
   "price": 29,
-  "duration": "4 ساعات",
-  "gradient": "from-brand-500 to-indigo-500",
+  "duration": "5 ساعات",
+  "gradient": "from-emerald-500 to-teal-500",
   "modules": [
     {
-      "title": "الوحدة 1: المقدمة والمفاهيم الأساسية",
-      "content": "# مقدمة في Building a Production RAG System\n\nنظرة عامة على المفاهيم والركائز الأساسية لـ Building a Production RAG System وكيفية إعداد البيئة البرمجية للعمل.\n\n## الأساسيات:\n- فهم المشكلة التي يحلها هذا المفهوم.\n- البنية الهندسية العامة.\n\n```python\n# إعداد أولي لبدء العمل\ndef init_model():\n    print('تهيئة نظام Building a Production RAG System...')\n    return True\n```"
+      "title": "الوحدة 1: أساسيات RAG ولماذا يفشل في الإنتاج",
+      "content": "# أساسيات RAG ولماذا يفشل في الإنتاج\n\nنظام RAG يجمع بين **الاسترجاع** (Retrieval) و**التوليد** (Generation): يجلب مستندات ذات صلة ثم يغذيها للنموذج لإنتاج إجابة موثوقة.\n\n## المشكلة الشائعة\nالبحث المتجهي (Vector Search) وحده يفشل عند:\n- استعلام برقم تسلسلي دقيق (فشل التشابه الدلالي).\n- مصطلحات نادرة أو أسماء خاصة.\n\n## الحل: البحث الهجين\nيدمج بين البحث النصي الكلاسيكي (BM25) والبحث المتجهي الكثيف (Dense).\n\n```python\n# تضمين (Embedding) المستند\nfrom openai import OpenAI\nclient = OpenAI()\n\ndef embed(text: str) -> list[float]:\n    resp = client.embeddings.create(model=\"text-embedding-3-small\", input=text)\n    return resp.data[0].embedding\n```"
     },
     {
-      "title": "الوحدة 2: الهيكل الهندسي والتصميم المتقدم",
-      "content": "# الهيكل الهندسي والتصميم المتقدم لـ Building a Production RAG System\n\nشرح تفصيلي لتصميم وهيكلة الحلول البرمجية بالاعتماد على أفضل الممارسات التقنية."
+      "title": "الوحدة 2: التقسيم الذكي للمستندات (Chunking)",
+      "content": "# التقسيم الذكي للمستندات (Chunking)\n\nجودة التقسيم تحدّد جودة الاسترجاع. تجنّب تقسيم الجملة الواحدة عبر فقرتين.\n\n```python\nfrom langchain_text_splitters import RecursiveCharacterTextSplitter\n\nsplitter = RecursiveCharacterTextSplitter(\n    chunk_size=500,\n    chunk_overlap=80,\n    separators=[\"\\n\\n\", \"\\n\", \". \", \" \"]\n)\nchunks = splitter.split_text(long_document)\nprint(f\"عدد الأجزاء: {len(chunks)}\")\n```\n\n## نصائح\n- `chunk_overlap` يحافظ على السياق بين الأجزاء.\n- للمستندات العربية استخدم الفاصل `\\n\\n` أولاً لتجنّب بتر الكلام.\n- خزّن بيانات وصفية (عنوان، صفحة) مع كل جزء للتتبع."
     },
     {
-      "title": "الوحدة 3: التحديات والمشاكل وحلولها",
-      "content": "# التحديات والمشاكل وحلولها\n\nكيفية التعامل مع الأخطاء الشائعة وحل المشكلات المتعلقة بالأداء وتخفيض زمن الاستجابة."
+      "title": "الوحدة 3: البحث الهجين ودمج النتائج (RRF)",
+      "content": "# البحث الهجين ودمج النتائج (RRF)\n\nندمج نتائج بحثين باستخدام خوارزمية **Reciprocal Rank Fusion**:\n\n```python\ndef rrf(dense_results, sparse_results, k=60):\n    scores = {}\n    for rank, doc in enumerate(dense_results):\n        scores[doc] = scores.get(doc, 0) + 1.0 / (k + rank + 1)\n    for rank, doc in enumerate(sparse_results):\n        scores[doc] = scores.get(doc, 0) + 1.0 / (k + rank + 1)\n    return sorted(scores.items(), key=lambda x: x[1], reverse=True)\n```\n\n`k=60` ثابت تجريبي شائع يوازن بين الترتيبين. النتيجة قائمة موثّقة مرتّبة بأفضل صلة."
     },
     {
-      "title": "الوحدة 4: مشروع عملي تطبيقي متكامل",
-      "content": "# مشروع عملي تطبيقي متكامل لـ Building a Production RAG System\n\nخطوات بناء مشروع كامل مع الكود البرمجي وشرح مفصل لربط الأجزاء ببعضها."
+      "title": "الوحدة 4: إعادة الترتيب (Reranking) وتقليل الهلوسة",
+      "content": "# إعادة الترتيب (Reranking) وتقليل الهلوسة\n\nبعد الدمج الهجين، نمرّر أعلى النتائج (مثلاً 20) لنموذج Reranker يعيد ترتيبها بدقة أعلى.\n\n```python\nfrom langchain_community.cross_encoders import HuggingFaceCrossEncoder\n\nreranker = HuggingFaceCrossEncoder(model_name=\"BAAI/bge-reranker-v2-m3\")\npairs = [(query, chunk) for chunk in top_chunks]\nscores = reranker.predict(pairs)\nranked = [c for _, c in sorted(zip(scores, top_chunks), reverse=True)]\ncontext = \"\\n\".join(ranked[:5])  # أفضل 5 فقط للنموذج\n```\n\n## تقليل الهلوسة\n- أرسل أفضل 5 أجزاء فقط (أقل تشويشاً).\n- اطلب من النموذج الاعتماد حصراً على `context` وذكر \"لا أعرف\" عند غياب المعلومة."
     },
     {
-      "title": "الوحدة 5: النشر والتشغيل والمراقبة في الإنتاج",
-      "content": "# النشر والتشغيل والمراقبة في بيئة الإنتاج\n\nكيفية تغليف الكود ونشره على السحابة ومراقبة الأداء لضمان الكفاءة والدقة المستمرة."
+      "title": "الوحدة 5: التقييم والنشر والمراقبة",
+      "content": "# التقييم والنشر والمراقبة\n\n## التقييم (Evaluation)\nاستخدم مقاييس مثل الدقة@5 والإجابة المولّدة مقابل إجابة مرجعية:\n\n```python\nfrom ragas import evaluate\nfrom datasets import Dataset\n\ndataset = Dataset.from_dict({\n    \"question\": [q1, q2],\n    \"answer\": [a1, a2],\n    \"contexts\": [ctx1, ctx2],\n    \"ground_truth\": [gt1, gt2],\n})\nscore = evaluate(dataset, metrics=[\"faithfulness\", \"answer_relevancy\"])\n```\n\n## النشر\n- خزّن التضمينات في قاعدة متجهية (pgvector / Qdrant).\n- ذاكرة تخزين مؤقت (cache) للاستعلامات المتكررة.\n\n## المراقبة\nسجّل: وقت الاسترجاع، مدى تطابق السياق، معدل \"لا أعرف\". هذه مؤشرات صحة النظام."
     }
   ]
 }
