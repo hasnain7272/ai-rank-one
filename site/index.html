@@ -595,7 +595,7 @@
     <!-- ============================================ -->
     <!-- SUPABASE SDK -->
     <!-- ============================================ -->
-    <script src="https://cdn.jsdelivr.net/npm/@sb/sb-js@2/dist/umd/sb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
     <!-- ============================================ -->
     <!-- APP LOGIC -->
@@ -737,8 +737,7 @@
                 async subscribeNewsletter() {
                     if (!this.newsletterEmail) return;
                     if (!sb) {
-                        alert('شكراً! تم تسجيلك في النشرة الأسبوعية.');
-                        this.newsletterEmail = '';
+                        alert('عذراً، خدمة الاشتراك غير متاحة حالياً. يرجى المحاولة لاحقاً.');
                         return;
                     }
                     try {
