@@ -15,14 +15,13 @@ ALTER TABLE public.course_modules ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Allow public read for first module" ON public.course_modules
     FOR SELECT USING (module_index = 0);
 
--- Policy 2: Allow paid/authorized users to read premium modules (index > 0)
+-- Policy 2: Allow paid/authorized users to read premium modules (index > 0).
+-- Access requires an explicit grant row (course slug OR the all-access '*' flag).
 CREATE POLICY "Allow read for paid users" ON public.course_modules
     FOR SELECT USING (
-        auth.role() = 'authenticated' AND (
-            EXISTS (
-                SELECT 1 FROM public.user_course_access
-                WHERE user_course_access.user_id = auth.uid()
-                  AND user_course_access.course_slug = course_modules.course_slug
-            )
+        EXISTS (
+            SELECT 1 FROM public.user_course_access
+            WHERE user_course_access.user_id = auth.uid()
+              AND user_course_access.course_slug IN (course_modules.course_slug, '*')
         )
     );

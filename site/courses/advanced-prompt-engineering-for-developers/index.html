@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هندسة التلقين المتقدمة للمطورين (Prompt Engineering) | منصة الذكاء الاصطناعي العربية</title>
-    <meta name="description" content="دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.">
+    <title>هندسة التلقين المتقدمة للمطورين | منصة الذكاء الاصطناعي العربية</title>
+    <meta name="description" content="دورة عملية للمطورين لإتقان هندسة التلقين في 2026: المطالبات المهيكلة، استدعاء الأدوات، والتقييم المستمر عبر نماذج متعددة.">
     <link rel="manifest" href="../../manifest.json">
     <meta name="theme-color" content="#0f172a">
     
@@ -109,7 +109,7 @@
                 <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. يرجى الاشتراك في الدورة لفتح كامل المحتوى وكود المصدر والشهادة فوراً!</p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-                    <a href="../../index.html#pricing" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
+                    <a href="../../index.html#pricing?course=advanced-prompt-engineering-for-developers" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
                         اشترك في الدورة
                     </a>
                     <button @click="showAuth = true" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-surface-200 hover:text-white transition-all">
@@ -174,160 +174,10 @@
 
     <!-- Script Data Injected by Compiler -->
     <script id="course-data" type="application/json">
-    {"title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "price": 29, "duration": "4 ساعات", "gradient": "from-orange-500 to-red-500", "modules": [{"title": "الوحدة 1: تركيب تلقين فعّال", "content": "# تركيب تلقين فعّال\n\nتلقين جيد = **دور + تعليمات + سياق + قيود + صيغة المخرج**.\n\n```text\nأنت خبير أمان برمجي. راجع كود بايثون التالي وأعد تقريراً\nبصيغة JSON يحتوي على: الثغرات، الخطورة (low/medium/high)، والإصلاح المقترح.\nلا تكتب أي نص خارج كائن JSON.\n\nالكود:\n```python\n... \n```\n```\n\n## مبادئ\n- كن صريحاً بصيغة المخرج المطلوبة.\n- قيّد السلوك (\"لا تكتب نصاً خارجيًا\").\n- افصل التعليمات عن البيانات بوضوح."}, {"title": "الوحدة 2: القليل من الأمثلة (Few-Shot) والسلسلة الفكرية", "content": ""}, {"title": "الوحدة 3: التلقين المنظّم والمخرجات الموثوقة", "content": ""}, {"title": "الوحدة 4: ربط الأدوات (Tool Use) ووكلاء التلقين", "content": ""}, {"title": "الوحدة 5: التقييم والحماية (Guardrails)", "content": ""}], "slug": "advanced-prompt-engineering-for-developers"}
+    {"title": "هندسة التلقين المتقدمة للمطورين", "description": "دورة عملية للمطورين لإتقان هندسة التلقين في 2026: المطالبات المهيكلة، استدعاء الأدوات، والتقييم المستمر عبر نماذج متعددة.", "tags": ["هندسة التلقين", "Prompt Engineering", "المخرجات المهيكلة", "استدعاء الأدوات"], "price": 29, "duration": "4 ساعات", "gradient": "from-orange-500 to-red-500", "modules": [{"title": "الوحدة 1: أساسيات هندسة التلقين في 2026", "content": "# أساسيات هندسة التلقين في 2026\n\nهندسة التلقين لم تعد مجرد «صياغة أسئلة أفضل». في 2026 أصبحت **هندسة منتجات**: طبقة كتابة (تعليمات واضحة)، طبقة بنية (مخططات النظام ووسوم XML)، طبقة سلوك (التفكير المتسلسل، القليل من الأمثلة، استدعاء الأدوات)، وطبقة تقييم (مجموعات ذهبية، مقاييس، اختبار A/B).\n\n## القاعدة الذهبية\nالوضوح يتفوق على الذكاء الاصطناعي. أفضل التلقينات تُقرأ كبيان مهمة يكتبه مهندس خبير: موضوع محدد، قيود واضحة، مخرج متوقع، بلا حشو.\n\n## بنية رسالة النظام (System Prompt)\n\nضع الرسالة في أربع طبقات:\n1. **الهوية والدور**: جملة واحدة تصف من هو النموذج.\n2. **الهدف**: ما معنى النجاح.\n3. **القيود**: صياغة إيجابية («دائماً») وسلبية («أبداً»).\n4. **الصيغة**: JSON، XML، Markdown، أو صيغة مخصصة.\n\n```python\nSYSTEM_PROMPT = \"\"\"أنت محلل أمان خبير. مهمتك مراجعة شيفرة بايثون وكشف ثغرات حقن.\nالقيود: لا تقلّص الشرح، دائماً أرجع JSON، لا تقترح ترقيعات دون اختبار.\nالصيغة: JSON بمخطط {issue, severity, line, fix}.\"\"\"\n```\n\n## ترتيب السياق لتقليل التكلفة\nضع المحتوى الثابت (رسالة النظام، الأمثلة) أولاً والمحتوى الديناميكي (السؤال، المستند المسترجع) آخراً. معظم المزودين يخزّنون البادئة المكررة (prompt caching) ما يوفّر 80–90% من الرموز.\n\n## مصادر 2026\n- دليل OpenAI لهندسة التلقين: تمييز بين نماذج التفكير (o-series) ونماذج GPT.\n- Promtable: مرجع هندسة التلقين لعام 2026 (خمس طبقات).\n- NextFuture: 30 نمطاً نجا من 2024 إلى 2026."}, {"title": "الوحدة 2: القليل من الأمثلة والتفكير المتسلسل الانتقائي", "content": ""}, {"title": "الوحدة 3: المخرجات المهيكلة واستدعاء الأدوات", "content": ""}, {"title": "الوحدة 4: مشروع عملي — وكيل دعم فني", "content": ""}, {"title": "الوحدة 5: التقييم والإنتاج والأنماط الخاطئة", "content": ""}], "slug": "advanced-prompt-engineering-for-developers"}
     </script>
 
     <script src="../../assets/js/config.js"></script>
-    <script>
-        // Supabase Init loaded from config.js
-        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
-        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
-        let supabase;
-        try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
-
-        function courseView() {
-            return {
-                course: {},
-                activeModule: 0,
-                hasAccess: false,
-                user: null,
-                loading: false,
-                message: '',
-                
-                // Auth modal state
-                showAuth: false,
-                authStep: 'email',
-                authEmail: '',
-                authOTP: '',
-                authLoading: false,
-                authError: '',
-
-                async init() {
-                    this.course = JSON.parse(document.getElementById('course-data').textContent);
-                    
-                    // Watch for activeModule changes to fetch gated content
-                    this.$watch('activeModule', async (value) => {
-                        await this.loadActiveModule();
-                    });
-
-                    if (!supabase) {
-                        // Offline/demo fallback
-                        this.hasAccess = true;
-                        return;
-                    }
-                    
-                    const { data: { session } } = await supabase.auth.getSession();
-                    this.user = session?.user || null;
-                    await this.checkAccess();
-
-                    // Listen for auth changes
-                    supabase.auth.onAuthStateChange(async (event, session) => {
-                        this.user = session?.user || null;
-                        if (event === 'SIGNED_IN') {
-                            this.showAuth = false;
-                        }
-                        await this.checkAccess();
-                    });
-                },
-
-                async checkAccess() {
-                    if (!supabase) return;
-                    if (!this.user) {
-                        this.hasAccess = false;
-                        return;
-                    }
-                    
-                    try {
-                        const { data, error } = await supabase
-                            .from('user_course_access')
-                            .select('*')
-                            .eq('course_slug', this.course.slug)
-                            .maybeSingle();
-                        
-                        if (error) throw error;
-                        this.hasAccess = !!data;
-                    } catch (e) {
-                        console.error('Error checking course access:', e);
-                        this.hasAccess = false;
-                    }
-                    
-                    await this.loadActiveModule();
-                },
-
-                async loadActiveModule() {
-                    const idx = this.activeModule;
-                    if (idx === 0) return; // Module 1 is always embedded statically
-                    
-                    if (this.hasAccess && this.course.modules && this.course.modules[idx] && !this.course.modules[idx].content) {
-                        this.loading = true;
-                        this.message = '';
-                        try {
-                            const { data, error } = await supabase
-                                .from('course_modules')
-                                .select('content')
-                                .eq('course_slug', this.course.slug)
-                                .eq('module_index', idx)
-                                .single();
-                            
-                            if (error) throw error;
-                            if (data) {
-                                this.course.modules[idx].content = data.content;
-                            }
-                        } catch (e) {
-                            console.error('Error loading module content:', e);
-                            this.message = 'حدث خطأ أثناء تحميل محتوى الوحدة: ' + (e.message || e);
-                        }
-                        this.loading = false;
-                    }
-                },
-
-                // Auth methods
-                async sendOTP() {
-                    if (!supabase) { this.authError = 'Auth not configured'; return; }
-                    this.authLoading = true;
-                    this.authError = '';
-                    try {
-                        const { error } = await supabase.auth.signInWithOtp({
-                            email: this.authEmail,
-                        });
-                        if (error) throw error;
-                        this.authStep = 'otp';
-                    } catch (e) {
-                        this.authError = e.message || 'حدث خطأ — حاول مرة أخرى';
-                    }
-                    this.authLoading = false;
-                },
-
-                async verifyOTP() {
-                    if (!supabase) return;
-                    this.authLoading = true;
-                    this.authError = '';
-                    try {
-                        const { error } = await supabase.auth.verifyOtp({
-                            email: this.authEmail,
-                            token: this.authOTP,
-                            type: 'email',
-                        });
-                        if (error) throw error;
-                        this.showAuth = false;
-                    } catch (e) {
-                        this.authError = e.message || 'رمز غير صحيح — حاول مرة أخرى';
-                    }
-                    this.authLoading = false;
-                },
-
-                async signOut() {
-                    if (!supabase) return;
-                    await supabase.auth.signOut();
-                    this.user = null;
-                    this.hasAccess = false;
-                },
-
-                renderMarkdown(md) {
-                    return md ? marked.parse(md) : '';
-                }
-            }
-        }
-    </script>
+    <script src="../../assets/js/course.js"></script>
 </body>
 </html>

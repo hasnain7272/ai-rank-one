@@ -1,34 +1,30 @@
 {
-  "title": "دورة متقدمة في LLM Fine-tuning with LoRA and QLoRA",
-  "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات LLM Fine-tuning with LoRA and QLoRA في بيئات العمل الفعلية.",
-  "tags": [
-    "LLM",
-    "Python",
-    "Mute"
-  ],
+  "title": "ضبط نماذج اللغة الكبيرة بالدقة المنخفضة باستخدام LoRA وQLoRA",
+  "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لتطبيق ضبط نماذج اللغة الكبيرة بكفاءة عبر LoRA وQLoRA على أجهزة محدودة، من الإعداد إلى النشر.",
+  "tags": ["ضبط النماذج", "LoRA", "QLoRA", "PEFT"],
   "price": 29,
   "duration": "4 ساعات",
   "gradient": "from-brand-500 to-indigo-500",
   "modules": [
     {
-      "title": "الوحدة 1: المقدمة والمفاهيم الأساسية",
-      "content": "# مقدمة في LLM Fine-tuning with LoRA and QLoRA\n\nنظرة عامة على المفاهيم والركائز الأساسية لـ LLM Fine-tuning with LoRA and QLoRA وكيفية إعداد البيئة البرمجية للعمل.\n\n## الأساسيات:\n- فهم المشكلة التي يحلها هذا المفهوم.\n- البنية الهندسية العامة.\n\n```python\n# إعداد أولي لبدء العمل\ndef init_model():\n    print('تهيئة نظام LLM Fine-tuning with LoRA and QLoRA...')\n    return True\n```"
+      "title": "الوحدة 1: لماذا الضبط منخفض الرتبة (LoRA)",
+      "content": "# لماذا الضبط منخفض الرتبة (LoRA)\n\nالضبط الدقيق الكامل (full fine-tuning) لتعيين مليارات المعاملات مكلف جداً (ذاكرة + وقت). LoRA (Low-Rank Adaptation) يجمّد أوزان النموذج الأصلية ويضيف أزواج مصفوفات قابلة للتعلم ذات رتبة منخفضة (A,B) إلى كل طبقة انتباه.\n\n## الفكرة الرياضية\nبدل تحديث الوزن W، نعلّم ΔW = BA حيث B∈ℝ^{d×r}، A∈ℝ^{r×k} و r ≪ d,k. عدد المعاملات القابلة للتعلم ينخفض بمقدار ~10000×، والتكلفة تنخفض بشدة.\n\n```python\nfrom peft import LoraConfig, get_peft_model\nfrom transformers import AutoModelForCausalLM\n\nbase = AutoModelForCausalLM.from_pretrained(\"Qwen/Qwen2.5-7B\")\ncfg = LoraConfig(\n    r=16, lora_alpha=32, lora_dropout=0.05,\n    target_modules=[\"q_proj\", \"v_proj\"], task_type=\"CAUSAL_LM\")\nmodel = get_peft_model(base, cfg)\nmodel.print_trainable_parameters()  # قابلة للتعلم ~0.1% فقط\n```\n\n## QLoRA: الضبط الكمّي\nQLoRA يخزّن النموذج الأصلية بكمّية 4-bit (NF4) عبر bitsandbytes، ويبقّي تدرّجات LoRA بدقة 16-bit. يتيح ضبط نموذج 65B على GPU واحدة 48GB.\n\nالمزايا: عدة تعديلات (adapters) لنفس النموذج، قابلية تبديل، ونشر خفيف الوزن."
     },
     {
-      "title": "الوحدة 2: الهيكل الهندسي والتصميم المتقدم",
-      "content": "# الهيكل الهندسي والتصميم المتقدم لـ LLM Fine-tuning with LoRA and QLoRA\n\nشرح تفصيلي لتصميم وهيكلة الحلول البرمجية بالاعتماد على أفضل الممارسات التقنية."
+      "title": "الوحدة 2: الإعداد والبيانات والتدريب بـ QLoRA",
+      "content": "# الإعداد والبيانات والتدريب بـ QLoRA\n\n## تحميل نموذج مكمّم 4-bit\n\n```python\nimport torch\nfrom transformers import AutoModelForCausalLM, BitsAndBytesConfig\n\nbnb = BitsAndBytesConfig(\n    load_in_4bit=True, bnb_4bit_quant_type=\"nf4\",\n    bnb_4bit_compute_dtype=torch.bfloat16,\n    bnb_4bit_use_double_quant=True)\n\nmodel = AutoModelForCausalLM.from_pretrained(\n    \"mistralai/Mistral-7B-v0.3\", quantization_config=bnb,\n    device_map=\"auto\")\n```\n\n## تجهيز البيانات\nاستخدم تنسيق المحادثة (chat template) وحوّله إلى tensors. جودة البيانات أهم من كميتها — آلاف الأمثلة النظيفة تتفوّق على ملايين الملوّثة.\n\n```python\nfrom datasets import load_dataset\nds = load_dataset(\"json\", data_files=\"train.jsonl\")[\"train\"]\nds = ds.map(lambda x: tok(x[\"text\"], truncation=True, max_length=2048))\n```\n\n## حلقة التدريب (مع Unsloth لتسريع ~2×)\n\n```python\nfrom trl import SFTTrainer, SFTConfig\n\ntrainer = SFTTrainer(\n    model=model, train_dataset=ds,\n    args=SFTConfig(per_device_train_batch_size=4, gradient_accumulation_steps=4,\n                    max_seq_length=2048, logging_steps=10, output_dir=\"./lora-out\"))\ntrainer.train()\ntrainer.save_model(\"./lora-out\")\n```\n\n## نصائح 2025–2026\n- استخدم Unsloth أو axolotl لتقليل الذاكرة وتسريع التدريب.\n- `lora_alpha=2*r` قيمة شائعة جيدة.\n- راقب فقدان التحقق لمنع الفجوع (overfitting) على بيانات ضئيلة."
     },
     {
-      "title": "الوحدة 3: التحديات والمشاكل وحلولها",
-      "content": "# التحديات والمشاكل وحلولها\n\nكيفية التعامل مع الأخطاء الشائعة وحل المشكلات المتعلقة بالأداء وتخفيض زمن الاستجابة."
+      "title": "الوحدة 3: دمج المحولات وقياس الجودة",
+      "content": "# دمج المحولات وقياس الجودة\n\n## دمج الـ adapter مع النموذج\nبعد التدريب يمكن دمج LoRA في الأوزان للنشر المستقل، أو الاحتفاظ به منفصلاً للتبديل.\n\n```python\n# دمج وإنشاء نموذج قابل للنشر\nmerged = model.merge_and_unload()\nmerged.save_pretrained(\"./merged-7b\", safe_serialization=True)\nmerged.push_to_hub(\"my-org/arabic-7b-lora\")\n\n# أو التحميل المنفصل (أخف للنشر)\nfrom peft import PeftModel\nbase = AutoModelForCausalLM.from_pretrained(\"mistralai/Mistral-7B-v0.3\")\nmodel = PeftModel.from_pretrained(base, \"./lora-out\")\n```\n\n## القياس الكمّي بعد الضبط\nللنشر الاقتصادي استخدم GGUF (llama.cpp) أو GPTQ/AWQ للضغط إلى 4–8 bit مع أقل خسارة جودة.\n\n```bash\npython -m llama_cpp.convert ./merged-7b --outtype q4_k_m --outfile model.q4.gguf\n```\n\n## تقييم الجودة\nلا تعتمد على الفقدان وحده. استخدم:\n- **lm-evaluation-harness** لمقاييس قياسية.\n- تقييم بشري/LLM-as-Judge على عينة من المخرجات العربية.\n- مقارنة قبل/بعد على مهام مستهدفة (مثلاً دقة الإجابة على أسئلة عربية).\n\nالمقاييس الصحيحة: لا انجراف عن الأسلوب، تماسك عربي، وخلو من الهلوسة في النطاق المتخصص."
     },
     {
-      "title": "الوحدة 4: مشروع عملي تطبيقي متكامل",
-      "content": "# مشروع عملي تطبيقي متكامل لـ LLM Fine-tuning with LoRA and QLoRA\n\nخطوات بناء مشروع كامل مع الكود البرمجي وشرح مفصل لربط الأجزاء ببعضها."
+      "title": "الوحدة 4: مشروع عملي — ضبط نموذج عربي مساعد",
+      "content": "# مشروع عملي — ضبط نموذج عربي مساعد\n\nنبني مساعداً عربياً متخصصاً على Mistral-7B بـ QLoRA بأقل موارد. الملف قابل للتشغيل على GPU واحدة 24GB.\n\n```python\nfrom transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig\nfrom peft import LoraConfig, get_peft_model\nfrom trl import SFTTrainer, SFTConfig\n\nmodel_id = \"mistralai/Mistral-7B-v0.3\"\ntok = AutoTokenizer.from_pretrained(model_id)\n\nbnb = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type=\"nf4\",\n                         bnb_4bit_compute_dtype=__import__('torch').bfloat16)\nmodel = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb, device_map=\"auto\")\n\nlora = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05,\n                  target_modules=[\"q_proj\",\"k_proj\",\"v_proj\",\"o_proj\"], task_type=\"CAUSAL_LM\")\nmodel = get_peft_model(model, lora)\n\n# بيانات بتنسيق المحادثة\n# [{\"messages\":[{\"role\":\"user\",\"content\":\"...\"},{\"role\":\"assistant\",\"content\":\"...\"}]}]\ntrainer = SFTTrainer(model=model, train_dataset=data,\n    args=SFTConfig(max_seq_length=2048, per_device_train_batch_size=2,\n                   gradient_accumulation_steps=8, output_dir=\"./arabic-assistant\"))\ntrainer.train()\nmodel.merge_and_unload().save_pretrained(\"./arabic-assistant-merged\")\n```\n\n## نقاط حاسمة\n- `target_modules` يجب أن يطابق بنية النموذج (انتباه Mistral يختلف عن LLaMA).\n- `gradient_accumulation` يعوّض صغر batch size.\n- اختبر على أسئلة عربية حقيقية قبل النشر، وتحقق من عدم تدهور القدرات العامة."
     },
     {
-      "title": "الوحدة 5: النشر والتشغيل والمراقبة في الإنتاج",
-      "content": "# النشر والتشغيل والمراقبة في بيئة الإنتاج\n\nكيفية تغليف الكود ونشره على السحابة ومراقبة الأداء لضمان الكفاءة والدقة المستمرة."
+      "title": "الوحدة 5: النشر والمراقبة والقيود",
+      "content": "# النشر والمراقبة والقيود\n\n## خيارات النشر\n- **vLLM / TGI**: استنتاج عالي الإنتاجية مع تجميع دفعات مستمر.\n- **llama.cpp (GGUF)**: تشغيل محلي على أجهزة متواضعة.\n- **نقاط نهاية سحابية**: SageMaker / Vertex AI مع النموذج المدمج.\n\n```python\n# استنتاج سريع بـ vLLM\nfrom vllm import LLM, SamplingParams\nllm = LLM(model=\"./arabic-assistant-merged\", tensor_parallel_size=1)\nout = llm.generate(\"اشرح LoRA باختصار\", SamplingParams(max_tokens=128, temperature=0.7))\nprint(out[0].outputs[0].text)\n```\n\n## المراقبة\nراقب: زمن الاستجابة (p95)، معدل الخطأ، وجودة المخرجات العربية (عيّنات + LLM-as-Judge). تتبّع «التدهور السلوكي» بعد تحديث البيانات.\n\n## القيود والأخطار\n- QLoRA قد يفقد بعض الدقة مقابل الضبط الكامل — قيّم المقايضة.\n- النماذج المفتوحة تتطلب فلترة محتوى واعتبارات امتثال (راجع دورة الحوكمة).\n- بيانات التدريب يجب أن تكون نظيفة وقانونية (حقوق، خصوصية).\n- تجنّب «الفجوع» بـ early stopping و validation split.\n\n## ختام\nLoRA/QLoRA يجعلان ضبط نماذج كبيرة متاحاً على أجهزة متواضعة. الأساس: بيانات نظيفة، إعداد رتبة مناسب، دمج/نشر خفيف، وتقييم حقيقي لا مجرد فقدان."
     }
   ]
 }
