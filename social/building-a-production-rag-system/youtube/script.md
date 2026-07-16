@@ -12,4 +12,4 @@
 
 # Description
 
-فيديو تطبيقي لبناء نظام RAG حقيقي للشركات مع البحث الهجين وإعادة الترتيب. تفضل بزيارة الدورة كاملة: https://airankone.com/courses/building-a-production-rag-system
+فيديو تطبيقي لبناء نظام RAG حقيقي للشركات مع البحث الهجين وإعادة الترتيب. تفضل بزيارة الدورة كاملة: https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/building-a-production-rag-system

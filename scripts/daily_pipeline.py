@@ -19,7 +19,7 @@ def run_script(script_name, *args):
     return True
 
 def main():
-    print("🌅 Starting Daily Antigravity Platform Pipeline...")
+    print("🌅 Starting Daily AI Rank One Pipeline...")
     
     # 1. Run generation script
     # It reads content-queue.csv and processes any pending course.

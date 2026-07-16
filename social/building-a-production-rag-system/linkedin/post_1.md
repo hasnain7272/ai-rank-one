@@ -7,6 +7,6 @@
 - دمج محركات البحث النصية والمتجهية.
 - تحسين النتائج وتقليل التكلفة بنماذج Rerankers.
 
-🔗 جرب الوحدة الأولى مجاناً: https://airankone.com/courses/building-a-production-rag-system
+🔗 جرب الوحدة الأولى مجاناً: https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/building-a-production-rag-system
 
 #الذكاء_الاصطناعي #تعلم_الآلة #RAG #بايثون #مهندسين

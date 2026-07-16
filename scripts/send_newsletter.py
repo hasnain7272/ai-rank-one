@@ -9,6 +9,7 @@ load_dotenv()
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
+EMAIL_FROM = os.getenv("EMAIL_FROM", "AI Rank One <onboarding@resend.dev>")
 
 def send_weekly_newsletter():
     if not RESEND_API_KEY:
@@ -61,7 +62,7 @@ def send_weekly_newsletter():
         
         for email in emails:
             data = {
-                "from": "AI Rank One <noreply@airankone.com>",
+                "from": EMAIL_FROM,
                 "to": email,
                 "subject": "نشرة الذكاء الاصطناعي الأسبوعية 🚀",
                 "html": html_content

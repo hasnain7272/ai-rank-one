@@ -112,6 +112,15 @@
                 </div>
                 <p class="text-sm text-surface-200 mt-2">لم نتمكن من العثور على شهادة بهذا الرمز. تأكد من الرمز وحاول مرة أخرى.</p>
             </div>
+
+            <!-- Result: Error (e.g. service unavailable) -->
+            <div x-show="result === 'error'" x-transition class="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                <div class="flex items-center gap-3">
+                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5 19h14a2 2 0 001.84-2.75L13.74 4a2 2 0 00-3.48 0L3.16 16.25A2 2 0 005 19z"/></svg>
+                    <h3 class="text-lg font-bold text-amber-400">تعذر التحقق</h3>
+                </div>
+                <p class="text-sm text-surface-200 mt-2" x-text="errorMsg"></p>
+            </div>
         </div>
     </main>
 
@@ -130,6 +139,7 @@
                 result: null,
                 loading: false,
                 certData: {},
+                errorMsg: '',
 
                 init() {
                     // Check URL params for direct verification links
@@ -148,14 +158,9 @@
 
                     try {
                         if (!supabase) {
-                            // Demo mode — show sample valid cert
-                            this.certData = {
-                                name: 'أحمد محمد',
-                                course: 'بناء أنظمة الوكلاء المتعددة باستخدام LangGraph',
-                                date: '2026-07-16',
-                                score: '85/100',
-                            };
-                            this.result = 'valid';
+                            // Supabase unavailable — show error, never a fake cert
+                            this.errorMsg = 'تعذر الاتصال بخدمة التحقق. تأكد من اتصال الإنترنت وحاول مرة أخرى.';
+                            this.result = 'error';
                             this.loading = false;
                             return;
                         }

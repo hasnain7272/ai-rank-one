@@ -43,4 +43,4 @@ class State(TypedDict):
 
 4/5 جرب الوحدة الأولى بالكامل مجاناً الآن على موقعنا! تعلم كيف تبني وتدير بيئة عمل الوكلاء بنفسك مع مشاريع عملية كاملة.
 
-🔗 تفضل بالزيارة: https://airankone.com/courses/langgraph-multi-agents
+🔗 تفضل بالزيارة: https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/langgraph-multi-agents

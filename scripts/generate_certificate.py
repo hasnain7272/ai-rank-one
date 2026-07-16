@@ -1,6 +1,11 @@
 import os
 import sys
 import qrcode
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SITE_URL = os.getenv("SITE_URL", "https://ai-rank-one.hasnainrazalakhani7272.workers.dev").rstrip("/")
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfbase import pdfmetrics
@@ -21,7 +26,7 @@ def generate_pdf_certificate(code, student_name, course_title, date_str, score):
 
     # 1. Generate QR Code
     qr = qrcode.QRCode(version=1, box_size=4, border=1)
-    qr.add_data(f"https://airankone.com/verify.html?code={code}")
+    qr.add_data(f"{SITE_URL}/verify.html?code={code}")
     qr.make(fit=True)
     qr_img = qr.make_image(fill_color="#0f172a", back_color="white")
     qr_img.save(qr_path)

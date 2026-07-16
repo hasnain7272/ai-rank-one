@@ -1,5 +1,15 @@
 import os
 import json
+import sys
+from dotenv import load_dotenv
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+
+load_dotenv()
+
+SITE_URL = os.getenv("SITE_URL", "https://ai-rank-one.hasnainrazalakhani7272.workers.dev").rstrip("/")
+DEAD_DOMAIN = "https://airankone.com"
 
 COURSES_SOCIAL = {
     "langgraph-multi-agents": {
@@ -44,21 +54,24 @@ def generate_all_social():
         os.makedirs(f"{output_dir}/twitter", exist_ok=True)
         os.makedirs(f"{output_dir}/linkedin", exist_ok=True)
         os.makedirs(f"{output_dir}/youtube", exist_ok=True)
-        
+
+        def fix(text):
+            return text.replace(DEAD_DOMAIN, SITE_URL)
+
         # Save Twitter Thread
         with open(f"{output_dir}/twitter/thread_1.md", "w", encoding="utf-8") as f:
-            f.write("\n\n---\n\n".join(data["twitter"]))
-            
+            f.write("\n\n---\n\n".join(fix(t) for t in data["twitter"]))
+
         # Save LinkedIn Post
         with open(f"{output_dir}/linkedin/post_1.md", "w", encoding="utf-8") as f:
-            f.write(data["linkedin"][0])
-            
+            f.write(fix(data["linkedin"][0]))
+
         # Save YouTube script
         yt = data["youtube"]
         with open(f"{output_dir}/youtube/script.md", "w", encoding="utf-8") as f:
-            f.write(f"# Script\n\n{yt['script']}\n\n# Description\n\n{yt['description']}")
+            f.write(f"# Script\n\n{fix(yt['script'])}\n\n# Description\n\n{fix(yt['description'])}")
         with open(f"{output_dir}/youtube/thumbnail_prompt.txt", "w", encoding="utf-8") as f:
-            f.write(yt["thumbnail_prompt"])
+            f.write(fix(yt["thumbnail_prompt"]))
             
         # Save schedule file
         schedule = {

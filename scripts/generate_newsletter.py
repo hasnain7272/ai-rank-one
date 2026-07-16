@@ -1,5 +1,14 @@
 import os
 import datetime
+import sys
+from dotenv import load_dotenv
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+
+load_dotenv()
+
+SITE_URL = os.getenv("SITE_URL", "https://ai-rank-one.hasnainrazalakhani7272.workers.dev").rstrip("/")
 
 NEWSLETTER_TEMPLATE = """<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -28,7 +37,7 @@ NEWSLETTER_TEMPLATE = """<!DOCTYPE html>
             <p style="color: #cbd5e1; font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
                 تعلم كيفية بناء أنظمة وكلاء ذكية متعددة تتعاون وتنسق مع بعضها لحل المهام المعقدة باستخدام LangGraph.
             </p>
-            <a href="https://airankone.com/courses/langgraph-multi-agents/" style="display: inline-block; padding: 10px 20px; background-color: #1b6ff5; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">ابدأ الوحدة الأولى مجاناً</a>
+            <a href="{site_url}/courses/langgraph-multi-agents/" style="display: inline-block; padding: 10px 20px; background-color: #1b6ff5; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">ابدأ الوحدة الأولى مجاناً</a>
         </div>
 
         <p style="color: #64748b; font-size: 12px; text-align: center; margin-top: 40px; border-top: 1px solid #1e293b; padding-top: 20px;">
@@ -48,7 +57,7 @@ def generate_weekly_newsletter():
         os.makedirs("newsletter/issues", exist_ok=True)
         filename = f"newsletter/issues/{date_str}.html"
         with open(filename, "w", encoding="utf-8") as f:
-            f.write(NEWSLETTER_TEMPLATE)
+            f.write(NEWSLETTER_TEMPLATE.format(site_url=SITE_URL))
             
         print(f"✅ Generated weekly newsletter issue saved to: {filename}")
         return filename

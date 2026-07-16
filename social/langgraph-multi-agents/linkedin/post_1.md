@@ -9,6 +9,6 @@
 
 الوحدة الأولى متاحة مجاناً بالكامل للتجربة مع الكود البرمجي.
 
-🔗 ابدأ التعلم الآن: https://airankone.com/courses/langgraph-multi-agents
+🔗 ابدأ التعلم الآن: https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/langgraph-multi-agents
 
 #الذكاء_الاصطناعي #برمجة #بايثون #تعلم_الآلة #مطورين

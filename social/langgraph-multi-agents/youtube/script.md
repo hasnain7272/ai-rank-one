@@ -12,4 +12,4 @@
 
 # Description
 
-فيديو توضيحي لبناء وكلاء الذكاء الاصطناعي المتعددة باستخدام بايثون ومكتبة LangGraph. ابدأ الدورة الكاملة مجاناً من هنا: https://airankone.com/courses/langgraph-multi-agents
+فيديو توضيحي لبناء وكلاء الذكاء الاصطناعي المتعددة باستخدام بايثون ومكتبة LangGraph. ابدأ الدورة الكاملة مجاناً من هنا: https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/langgraph-multi-agents

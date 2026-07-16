@@ -28,4 +28,4 @@ def rrf(dense_results, sparse_results, k=60):
 
 3/4 افتح الوحدة الأولى مجاناً الآن وتعلم تقنيات تقسيم المستندات وتطبيق إعادة الترتيب (Reranking) لتقليل زمن الاستجابة والهلوسة.
 
-🔗 ابدأ الآن: https://airankone.com/courses/building-a-production-rag-system
+🔗 ابدأ الآن: https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/building-a-production-rag-system

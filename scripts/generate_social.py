@@ -4,9 +4,13 @@ import sys
 from dotenv import load_dotenv
 from litellm import completion
 
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+
 load_dotenv()
 
 MODEL = os.getenv("GENERATION_MODEL", "gemini/gemini-2.5-flash")
+SITE_URL = os.getenv("SITE_URL", "https://ai-rank-one.hasnainrazalakhani7272.workers.dev").rstrip("/")
 
 SOCIAL_PROMPT = """You are a master technical content marketer who writes viral tech posts in Arabic.
 Read the following course details and generate a complete suite of marketing copy in Fusha Arabic.
@@ -91,12 +95,12 @@ def generate_social(course_filepath):
                 ],
                 "linkedin": [
                     {
-                        "content": f"🚀 يسرنا إطلاق الدورة التقنية المتقدمة الجديدة: '{title}' باللغة العربية الفصحى.\n\nتهدف الدورة لمساعدة مهندسي البرمجيات والذكاء الاصطناعي على فهم وتطبيق أحدث التقنيات البرمجية من خلال مشاريع حقيقية وكود كامل.\n\nماذا ستتعلم؟\n- فهم شامل ومفصل للتقنيات والركائز.\n- تطبيق كود عملي ومشاريع برمجية.\n- شهادة إتمام بترميز QR قابلة للمشاركة والتحقق.\n\n🔗 جرب الوحدة الأولى مجاناً الآن: https://airankone.com/courses/{slug}\n\n#الذكاء_الاصطناعي #مطورين #تعلم_الآلة #بايثون"
+                        "content": f"🚀 يسرنا إطلاق الدورة التقنية المتقدمة الجديدة: '{title}' باللغة العربية الفصحى.\n\nتهدف الدورة لمساعدة مهندسي البرمجيات والذكاء الاصطناعي على فهم وتطبيق أحدث التقنيات البرمجية من خلال مشاريع حقيقية وكود كامل.\n\nماذا ستتعلم؟\n- فهم شامل ومفصل للتقنيات والركائز.\n- تطبيق كود عملي ومشاريع برمجية.\n- شهادة إتمام بترميز QR قابلة للمشاركة والتحقق.\n\n🔗 جرب الوحدة الأولى مجاناً الآن: {SITE_URL}/courses/{slug}/\n\n#الذكاء_الاصطناعي #مطورين #تعلم_الآلة #بايثون"
                     }
                 ],
                 "youtube": {
                     "script": f"مرحباً بكم في شرح مبسط لدورة {title}.\n\nسنتناول في هذا العرض السريع أهم الأفكار والتقنيات البرمجية المعتمدة.\n\nشاهد كيف يمكنك بدء البرمجة محلياً.\n\nالدورة كاملة متوفرة في موقعنا.",
-                    "description": f"شرح دورة {title}. تفضل بزيارة موقعنا للمزيد: https://airankone.com/courses/{slug}",
+                    "description": f"شرح دورة {title}. تفضل بزيارة موقعنا للمزيد: {SITE_URL}/courses/{slug}/",
                     "thumbnail_prompt": f"Professional design for course {title}, dark mode, elegant layout, tech illustration"
                 }
             }
