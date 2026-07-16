@@ -61,18 +61,17 @@
   },
   {
     "slug": "llm-fine-tuning-with-lora-and-qlora",
-    "title": "ضبط النماذج اللغوية الكبيرة (Fine-Tuning) باستخدام LoRA وQLoRA",
-    "description": "دورة عملية لضبط نماذج لغوية مفتوحة المصدر على مهام مخصصة باستخدام تقنيتي LoRA وQLoRA بتكلفة وحجم ذاكرة منخفضين.",
+    "title": "دورة متقدمة في LLM Fine-tuning with LoRA and QLoRA",
+    "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات LLM Fine-tuning with LoRA and QLoRA في بيئات العمل الفعلية.",
     "tags": [
-      "Fine-Tuning",
-      "LoRA",
-      "QLoRA",
-      "PEFT"
+      "LLM",
+      "Python",
+      "Mute"
     ],
     "modules": 5,
-    "duration": "5 ساعات",
+    "duration": "4 ساعات",
     "price": 29,
-    "gradient": "from-purple-500 to-pink-500"
+    "gradient": "from-brand-500 to-indigo-500"
   },
   {
     "slug": "mlops-from-experiment-to-production",
