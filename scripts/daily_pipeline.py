@@ -11,7 +11,7 @@ PYTHON_BIN = os.path.join(".venv", "Scripts", "python") if os.name == "nt" else 
 def run_script(script_name, *args):
     cmd = [PYTHON_BIN, os.path.join("scripts", script_name)] + list(args)
     print(f"🏃 Running: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
     if result.returncode != 0:
         print(f"❌ Error running {script_name}:\n{result.stderr}")
         return False
