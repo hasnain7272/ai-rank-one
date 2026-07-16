@@ -12,7 +12,7 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <!-- PWA -->
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -146,9 +146,9 @@
                 <div class="hidden md:flex items-center gap-8">
                     <a href="#courses" class="text-sm text-surface-200 hover:text-white transition-colors">الدورات</a>
                     <a href="#pricing" class="text-sm text-surface-200 hover:text-white transition-colors">الأسعار</a>
-                    <a href="/about.html" class="text-sm text-surface-200 hover:text-white transition-colors">المدرب</a>
-                    <a href="/glossary.html" class="text-sm text-surface-200 hover:text-white transition-colors">القاموس التقني</a>
-                    <a href="/verify.html" class="text-sm text-surface-200 hover:text-white transition-colors">تحقق من الشهادة</a>
+                    <a href="about.html" class="text-sm text-surface-200 hover:text-white transition-colors">المدرب</a>
+                    <a href="glossary.html" class="text-sm text-surface-200 hover:text-white transition-colors">القاموس التقني</a>
+                    <a href="verify.html" class="text-sm text-surface-200 hover:text-white transition-colors">تحقق من الشهادة</a>
                 </div>
 
                 <!-- Auth Buttons -->
@@ -186,9 +186,9 @@
             <div x-show="mobileMenu" x-transition class="md:hidden pb-4 border-t border-white/5 mt-2 pt-4">
                 <a href="#courses" class="block py-2 text-surface-200 hover:text-white">الدورات</a>
                 <a href="#pricing" class="block py-2 text-surface-200 hover:text-white">الأسعار</a>
-                <a href="/about.html" class="block py-2 text-surface-200 hover:text-white">المدرب</a>
-                <a href="/glossary.html" class="block py-2 text-surface-200 hover:text-white">القاموس التقني</a>
-                <a href="/verify.html" class="block py-2 text-surface-200 hover:text-white">تحقق من الشهادة</a>
+                <a href="about.html" class="block py-2 text-surface-200 hover:text-white">المدرب</a>
+                <a href="glossary.html" class="block py-2 text-surface-200 hover:text-white">القاموس التقني</a>
+                <a href="verify.html" class="block py-2 text-surface-200 hover:text-white">تحقق من الشهادة</a>
             </div>
         </div>
     </nav>
@@ -564,9 +564,9 @@
                 </div>
 
                 <div class="flex items-center gap-6 text-sm text-surface-200">
-                    <a href="/about.html" class="hover:text-white transition-colors">عن المنصة</a>
-                    <a href="/verify.html" class="hover:text-white transition-colors">تحقق من الشهادة</a>
-                    <a href="/#pricing" class="hover:text-white transition-colors">الأسعار</a>
+                    <a href="about.html" class="hover:text-white transition-colors">عن المنصة</a>
+                    <a href="verify.html" class="hover:text-white transition-colors">تحقق من الشهادة</a>
+                    <a href="#pricing" class="hover:text-white transition-colors">الأسعار</a>
                 </div>
 
                 <p class="text-xs text-surface-700">© 2026 AI Rank One — جميع الحقوق محفوظة</p>
@@ -752,14 +752,21 @@
                         return;
                     }
                     try {
-                        await supabase.from('subscribers').insert({
+                        const { error } = await supabase.from('subscribers').insert({
                             email: this.newsletterEmail,
                             subscribed_at: new Date().toISOString(),
                         });
+                        if (error) throw error;
                         alert('شكراً! تم تسجيلك في النشرة الأسبوعية. 🎉');
                         this.newsletterEmail = '';
                     } catch (e) {
-                        alert('تم تسجيلك سابقاً أو حدث خطأ.');
+                        console.error('Newsletter subscribe failed:', e);
+                        const msg = e?.message || '';
+                        if (msg.includes('Invalid API key') || msg.includes('JWT')) {
+                            alert('خطأ في إعداد قاعدة البيانات — يرجى مراجعة مفتاح Supabase.');
+                        } else {
+                            alert('تم تسجيلك مسبقاً أو حدث خطأ مؤقت.');
+                        }
                     }
                 },
             }

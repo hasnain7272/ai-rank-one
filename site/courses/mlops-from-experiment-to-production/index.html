@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج | منصة الذكاء الاصطناعي العربية</title>
     <meta name="description" content="دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="../../manifest.json">
     <meta name="theme-color" content="#0f172a">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,18 +96,23 @@
             <div x-show="activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
                 <svg class="w-12 h-12 text-brand-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">اشترك الآن لفتح جميع الوحدات التقنية الأربعة الإضافية والحصول على الكود المصدري وشهادة الإتمام.</p>
-                <a x-show="window.PUBLIC_CONFIG?.LEMON_VARIANT_ID && window.PUBLIC_CONFIG.LEMON_VARIANT_ID !== 'VARIANT_ID'"
-                   :href="'https://checkout.lemonsqueezy.com/checkout/buy/' + window.PUBLIC_CONFIG.LEMON_VARIANT_ID + '?checkout[custom][course_slug]=' + course.slug"
-                   id="checkout-btn"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    اشترك الآن مقابل 29$ فقط
-                </a>
-                <a x-show="!window.PUBLIC_CONFIG?.LEMON_VARIANT_ID || window.PUBLIC_CONFIG.LEMON_VARIANT_ID === 'VARIANT_ID'"
-                   href="#pricing"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    متاح قريباً — شاهد الخطط
-                </a>
+                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">أدخل بريدك الإلكتروني للاشتراك مجاناً وفتح كامل الدورة وكود المصدر فوراً!</p>
+                
+                <form @submit.prevent="subscribeFree()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input
+                        type="email"
+                        x-model="subscribeEmail"
+                        required
+                        placeholder="بريدك الإلكتروني"
+                        class="flex-1 px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
+                        dir="ltr"
+                    >
+                    <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all shrink-0" :disabled="loading">
+                        <span x-show="!loading">اشترك وتابع مجاناً</span>
+                        <span x-show="loading">جاري الإرسال...</span>
+                    </button>
+                </form>
+                <p x-show="message" x-text="message" class="mt-3 text-xs text-brand-300"></p>
             </div>
         </div>
     </main>
@@ -117,8 +122,8 @@
     {"title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "price": 29, "duration": "5 ساعات", "gradient": "from-rose-500 to-orange-500", "modules": [{"title": "الوحدة 1: الفجوة بين النموذج والإنتاج", "content": "# الفجوة بين النموذج والإنتاج\n\nنموذج يعمل في دفتر Jupyter ليس نظاماً إنتاجياً. التحدي الحقيقي: **البيانات، التشغيل، والمراقبة**.\n\n## ركائز MLOps\n- **التحكم بالإصدارات** (الكود + البيانات + النموذج).\n- **خطوط أنابيب قابلة لإعادة الإنتاج**.\n- **المراقبة المستمرة** لأداء النموذج.\n\n## أول خطوة: إخراج التدريب من الدفتر\n\n```python\n# train.py — سكربت مستقل قابل للتشغيل عبر CI\ndef main():\n    data = load_dataset(\"train.csv\")\n    model = train(data)\n    evaluate_and_save(model, \"models/v1\")\n\nif __name__ == \"__main__\":\n    main()\n```"}, {"title": "الوحدة 2: تتبّع التجارب وسجل النماذج", "content": "# تتبّع التجارب وسجل النماذج (Registry)\n\nبدون تتبّع تضيع التجارب. نستخدم MLflow.\n\n```python\nimport mlflow\n\nmlflow.set_experiment(\"churn-prediction\")\nwith mlflow.start_run():\n    mlflow.log_param(\"learning_rate\", 0.01)\n    mlflow.log_metric(\"accuracy\", 0.92)\n    mlflow.sklearn.log_model(model, \"model\")\n```\n\n## فوائد السجل\n- مقارنة عشرات التجارب بصرياً.\n- استرجاع أي إصدار بالضبط (المعاملات + البيانات + الكود).\n- نشر إصدار محدد عبر `model_version`."}, {"title": "الوحدة 3: أتمتة التدريب بـ CI/CD", "content": "# أتمتة التدريب بـ CI/CD\n\nكل تغيير في البيانات أو الكود يطلق خط أنابيب.\n\n```yaml\n# .github/workflows/train.yml\nname: train\non:\n  push:\n    paths: ['data/**', 'src/**']\njobs:\n  train:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: pip install -r requirements.txt\n      - run: python train.py\n      - run: python evaluate.py  # يفشل البناء إن انخفض الأداء\n```\n\n## قاعدة ذهبية\nالنشر للإنتاج مشروط بتجاوز مقاييس الجودة في الاختبار."}, {"title": "الوحدة 4: نشر النموذج كخدمة (Model Serving)", "content": "# نشر النموذج كخدمة (Model Serving)\n\nنغلّف النموذج بواجهة HTTP عبر FastAPI.\n\n```python\nfrom fastapi import FastAPI\nimport mlflow.pyfunc\n\napp = FastAPI()\nmodel = mlflow.pyfunc.load_model(\"models:/churn/Production\")\n\n@app.post(\"/predict\")\nasync def predict(sample: dict):\n    pred = model.predict(sample[\"features\"])\n    return {\"prediction\": int(pred[0])}\n```\n\n## خيارات النشر\n- **حاوية (Docker)** للأنظمة المستقلة.\n- **دالة سحابية (Serverless)** للأحمال المتقطعة.\n- **دفعة (Batch)** للمعالجة الجماعية الدورية."}, {"title": "الوحدة 5: المراقبة وانجراف البيانات", "content": "# المراقبة وانجراف البيانات (Drift)\n\nأداء النموذج يتدهور بعد النشر. يجب مراقبة:\n- **انجراف البيانات**: تغيّر توزيع المدخلات.\n- **انجراف التنبؤ**: تغيّر مخرجات النموذج.\n- **جودة العمل**: مقاييس العمل الحقيقية.\n\n```python\nfrom scipy.stats import ks_2samp\n\ndef detect_drift(reference, current, threshold=0.1):\n    stat, p = ks_2samp(reference, current)\n    return p < threshold  # فرق دال إحصائياً\n\nif detect_drift(baseline_inputs, live_inputs):\n    trigger_retraining()  # أعد التدريب تلقائياً\n```\n\nالمراقبة الجيدة تحوّل MLOps من تفاعل لاحق إلى استجابة استباقية."}], "slug": "mlops-from-experiment-to-production"}
     </script>
 
-    <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/paywall.js"></script>
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/paywall.js"></script>
     <script>
         // Supabase Init loaded from config.js
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
@@ -132,23 +137,56 @@
                 activeModule: 0,
                 hasAccess: false,
                 user: null,
+                subscribeEmail: '',
+                loading: false,
+                message: '',
 
                 async init() {
                     this.course = JSON.parse(document.getElementById('course-data').textContent);
-                    if (!supabase) return;
+                    if (!supabase) {
+                        // Offline/demo fallback
+                        this.hasAccess = true;
+                        return;
+                    }
                     
                     const { data: { session } } = await supabase.auth.getSession();
                     if (session) {
                         this.user = session.user;
-                        const { data, error } = await supabase
-                            .from('user_course_access')
-                            .select('*')
-                            .eq('course_slug', this.course.slug)
-                            .maybeSingle();
-                        if (data && !error) {
+                        this.hasAccess = true;
+                    }
+
+                    // Listen for auth changes
+                    supabase.auth.onAuthStateChange((event, session) => {
+                        this.user = session?.user || null;
+                        if (session) {
                             this.hasAccess = true;
                         }
+                    });
+                },
+
+                async subscribeFree() {
+                    if (!this.subscribeEmail) return;
+                    this.loading = true;
+                    this.message = '';
+
+                    try {
+                        // 1. Add to subscribers database
+                        await supabase.from('subscribers').upsert({
+                            email: this.subscribeEmail,
+                            subscribed_at: new Date().toISOString()
+                        });
+
+                        // 2. Send Magic Link
+                        const { error } = await supabase.auth.signInWithOtp({
+                            email: this.subscribeEmail
+                        });
+
+                        if (error) throw error;
+                        this.message = 'تم إرسال رابط التفعيل لبريدك الإلكتروني! اضغط على الرابط لتسجيل الدخول فوراً.';
+                    } catch (e) {
+                        this.message = 'حدث خطأ أثناء الإرسال: ' + (e.message || e);
                     }
+                    this.loading = false;
                 },
 
                 renderMarkdown(md) {

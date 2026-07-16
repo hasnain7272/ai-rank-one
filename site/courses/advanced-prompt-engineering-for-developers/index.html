@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>هندسة التلقين المتقدمة للمطورين (Prompt Engineering) | منصة الذكاء الاصطناعي العربية</title>
     <meta name="description" content="دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="../../manifest.json">
     <meta name="theme-color" content="#0f172a">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,18 +96,23 @@
             <div x-show="activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
                 <svg class="w-12 h-12 text-brand-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">اشترك الآن لفتح جميع الوحدات التقنية الأربعة الإضافية والحصول على الكود المصدري وشهادة الإتمام.</p>
-                <a x-show="window.PUBLIC_CONFIG?.LEMON_VARIANT_ID && window.PUBLIC_CONFIG.LEMON_VARIANT_ID !== 'VARIANT_ID'"
-                   :href="'https://checkout.lemonsqueezy.com/checkout/buy/' + window.PUBLIC_CONFIG.LEMON_VARIANT_ID + '?checkout[custom][course_slug]=' + course.slug"
-                   id="checkout-btn"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    اشترك الآن مقابل 29$ فقط
-                </a>
-                <a x-show="!window.PUBLIC_CONFIG?.LEMON_VARIANT_ID || window.PUBLIC_CONFIG.LEMON_VARIANT_ID === 'VARIANT_ID'"
-                   href="#pricing"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    متاح قريباً — شاهد الخطط
-                </a>
+                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">أدخل بريدك الإلكتروني للاشتراك مجاناً وفتح كامل الدورة وكود المصدر فوراً!</p>
+                
+                <form @submit.prevent="subscribeFree()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input
+                        type="email"
+                        x-model="subscribeEmail"
+                        required
+                        placeholder="بريدك الإلكتروني"
+                        class="flex-1 px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
+                        dir="ltr"
+                    >
+                    <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all shrink-0" :disabled="loading">
+                        <span x-show="!loading">اشترك وتابع مجاناً</span>
+                        <span x-show="loading">جاري الإرسال...</span>
+                    </button>
+                </form>
+                <p x-show="message" x-text="message" class="mt-3 text-xs text-brand-300"></p>
             </div>
         </div>
     </main>
@@ -117,8 +122,8 @@
     {"title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "price": 29, "duration": "4 ساعات", "gradient": "from-orange-500 to-red-500", "modules": [{"title": "الوحدة 1: تركيب تلقين فعّال", "content": "# تركيب تلقين فعّال\n\nتلقين جيد = **دور + تعليمات + سياق + قيود + صيغة المخرج**.\n\n```text\nأنت خبير أمان برمجي. راجع كود بايثون التالي وأعد تقريراً\nبصيغة JSON يحتوي على: الثغرات، الخطورة (low/medium/high)، والإصلاح المقترح.\nلا تكتب أي نص خارج كائن JSON.\n\nالكود:\n```python\n... \n```\n```\n\n## مبادئ\n- كن صريحاً بصيغة المخرج المطلوبة.\n- قيّد السلوك (\"لا تكتب نصاً خارجيًا\").\n- افصل التعليمات عن البيانات بوضوح."}, {"title": "الوحدة 2: القليل من الأمثلة (Few-Shot) والسلسلة الفكرية", "content": "# القليل من الأمثلة (Few-Shot) والسلسلة الفكرية\n\n## Few-Shot\nتقديم أمثلة يوجّه النموذج لأسلوب المخرج:\n\n```text\nصنّف النية: \"احذف حسابي\" -> delete_account\nصنّف النية: \"غير بريدي\" -> change_email\nصنّف النية: \"أبي ألغي الاشتراك\" -> ?\n```\n\n## السلسلة الفكرية (Chain-of-Thought)\nاطلب من النموذج **التفكير خطوة بخطوة** قبل الإجابة لرفع الدقة في المسائل المنطقية.\n\n```python\nprompt = \"\"\"حلّ المسألة خطوة بخطوة:\nمستودع بـ 120 عنصراً، نقلنا 30٪ ثم أضفنا 15.\nكم المتبقي؟\nفكّر بصوت عالٍ ثم اكتب 'الإجابة: X'.\"\"\"\n```\n\nللمهام المنظمة استخدم CoT داخلياً ثم استخرج الإجابة النهائية فقط."}, {"title": "الوحدة 3: التلقين المنظّم والمخرجات الموثوقة", "content": "# التلقين المنظّم والمخرجات الموثوقة\n\nلتطبيقات إنتاجية، اطلب JSON صارماً عبر دوال الاستدعاء (function calling) أو المخطط.\n\n```python\nfrom pydantic import BaseModel\nfrom openai import OpenAI\n\nclass Ticket(BaseModel):\n    category: str\n    priority: int\n    summary: str\n\nclient = OpenAI()\nresp = client.responses.parse(\n    model=\"gpt-4o-mini\",\n    input=\"رسالة عميل: الخادم يعطي خطأ 500 منذ الصباح\",\n    text_format=Ticket,\n)\nticket = resp.output_parsed  # كائن مُتحقَّق منه\n```\n\nهكذا تتجنّب أخطاء التحليل (parse errors) وتحصل على بيانات نظيفة."}, {"title": "الوحدة 4: ربط الأدوات (Tool Use) ووكلاء التلقين", "content": "# ربط الأدوات (Tool Use) ووكلاء التلقين\n\nدع النموذج يختار متى يستدعي دالة خارجية:\n\n```python\nfrom openai import OpenAI\nclient = OpenAI()\n\ntools = [{\n  \"type\": \"function\",\n  \"function\": {\n    \"name\": \"get_weather\",\n    \"parameters\": {\"type\": \"object\", \"properties\": {\"city\": {\"type\": \"string\"}}}\n  }\n}]\nresp = client.chat.completions.create(\n    model=\"gpt-4o\",\n    messages=[{\"role\": \"user\", \"content\": \"الطقس في الرياض؟\"}],\n    tools=tools,\n)\nif resp.choices[0].message.tool_calls:\n    fn = resp.choices[0].message.tool_calls[0].function\n    print(fn.name, fn.arguments)  # استدعِ الدالة ثم أعد النتيجة\n```\n\n## نمط الوكيل\nكرّر: استدعاء أداة ← تنفيذ ← إعادة النتيجة للنموذج ← حتى ينتهي."}, {"title": "الوحدة 5: التقييم والحماية (Guardrails)", "content": "# التقييم والحماية (Guardrails)\n\n## التقييم المستمر\n- حافظ على **مجموعة اختبار** (golden set) ثابتة وقارن المخرجات عبر تغييرات التلقين.\n- استخدم مقاييس: الدقة، الانحراف عن الصيغة، معدل الفشل.\n\n## الحماية\n```python\nimport re\nBLOCKED = re.compile(r\"(?i)ignore previous|system prompt\")\n\ndef guard(user_msg: str) -> str | None:\n    if BLOCKED.search(user_msg):\n        return None  # رفض محاولات حقن التلقين (prompt injection)\n    return user_msg\n```\n\n## نصائح أمنية\n- لا تثق بمخرج النموذج مباشرة في عمليات حساسة؛ تحقق دائماً.\n- اعزل البيانات الحساسة قبل إرسالها لـ API."}], "slug": "advanced-prompt-engineering-for-developers"}
     </script>
 
-    <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/paywall.js"></script>
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/paywall.js"></script>
     <script>
         // Supabase Init loaded from config.js
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
@@ -132,23 +137,56 @@
                 activeModule: 0,
                 hasAccess: false,
                 user: null,
+                subscribeEmail: '',
+                loading: false,
+                message: '',
 
                 async init() {
                     this.course = JSON.parse(document.getElementById('course-data').textContent);
-                    if (!supabase) return;
+                    if (!supabase) {
+                        // Offline/demo fallback
+                        this.hasAccess = true;
+                        return;
+                    }
                     
                     const { data: { session } } = await supabase.auth.getSession();
                     if (session) {
                         this.user = session.user;
-                        const { data, error } = await supabase
-                            .from('user_course_access')
-                            .select('*')
-                            .eq('course_slug', this.course.slug)
-                            .maybeSingle();
-                        if (data && !error) {
+                        this.hasAccess = true;
+                    }
+
+                    // Listen for auth changes
+                    supabase.auth.onAuthStateChange((event, session) => {
+                        this.user = session?.user || null;
+                        if (session) {
                             this.hasAccess = true;
                         }
+                    });
+                },
+
+                async subscribeFree() {
+                    if (!this.subscribeEmail) return;
+                    this.loading = true;
+                    this.message = '';
+
+                    try {
+                        // 1. Add to subscribers database
+                        await supabase.from('subscribers').upsert({
+                            email: this.subscribeEmail,
+                            subscribed_at: new Date().toISOString()
+                        });
+
+                        // 2. Send Magic Link
+                        const { error } = await supabase.auth.signInWithOtp({
+                            email: this.subscribeEmail
+                        });
+
+                        if (error) throw error;
+                        this.message = 'تم إرسال رابط التفعيل لبريدك الإلكتروني! اضغط على الرابط لتسجيل الدخول فوراً.';
+                    } catch (e) {
+                        this.message = 'حدث خطأ أثناء الإرسال: ' + (e.message || e);
                     }
+                    this.loading = false;
                 },
 
                 renderMarkdown(md) {

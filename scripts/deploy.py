@@ -19,7 +19,7 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | منصة الذكاء الاصطناعي العربية</title>
     <meta name="description" content="{description}">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="../../manifest.json">
     <meta name="theme-color" content="#0f172a">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,18 +110,23 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
             <div x-show="activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
                 <svg class="w-12 h-12 text-brand-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">اشترك الآن لفتح جميع الوحدات التقنية الأربعة الإضافية والحصول على الكود المصدري وشهادة الإتمام.</p>
-                <a x-show="window.PUBLIC_CONFIG?.LEMON_VARIANT_ID && window.PUBLIC_CONFIG.LEMON_VARIANT_ID !== 'VARIANT_ID'"
-                   :href="'https://checkout.lemonsqueezy.com/checkout/buy/' + window.PUBLIC_CONFIG.LEMON_VARIANT_ID + '?checkout[custom][course_slug]=' + course.slug"
-                   id="checkout-btn"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    اشترك الآن مقابل {price}$ فقط
-                </a>
-                <a x-show="!window.PUBLIC_CONFIG?.LEMON_VARIANT_ID || window.PUBLIC_CONFIG.LEMON_VARIANT_ID === 'VARIANT_ID'"
-                   href="#pricing"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    متاح قريباً — شاهد الخطط
-                </a>
+                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">أدخل بريدك الإلكتروني للاشتراك مجاناً وفتح كامل الدورة وكود المصدر فوراً!</p>
+                
+                <form @submit.prevent="subscribeFree()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input
+                        type="email"
+                        x-model="subscribeEmail"
+                        required
+                        placeholder="بريدك الإلكتروني"
+                        class="flex-1 px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
+                        dir="ltr"
+                    >
+                    <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all shrink-0" :disabled="loading">
+                        <span x-show="!loading">اشترك وتابع مجاناً</span>
+                        <span x-show="loading">جاري الإرسال...</span>
+                    </button>
+                </form>
+                <p x-show="message" x-text="message" class="mt-3 text-xs text-brand-300"></p>
             </div>
         </div>
     </main>
@@ -131,8 +136,8 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
     {course_json}
     </script>
 
-    <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/paywall.js"></script>
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/paywall.js"></script>
     <script>
         // Supabase Init loaded from config.js
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
@@ -146,23 +151,56 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
                 activeModule: 0,
                 hasAccess: false,
                 user: null,
+                subscribeEmail: '',
+                loading: false,
+                message: '',
 
                 async init() {{
                     this.course = JSON.parse(document.getElementById('course-data').textContent);
-                    if (!supabase) return;
+                    if (!supabase) {{
+                        // Offline/demo fallback
+                        this.hasAccess = true;
+                        return;
+                    }}
                     
                     const {{ data: {{ session }} }} = await supabase.auth.getSession();
                     if (session) {{
                         this.user = session.user;
-                        const {{ data, error }} = await supabase
-                            .from('user_course_access')
-                            .select('*')
-                            .eq('course_slug', this.course.slug)
-                            .maybeSingle();
-                        if (data && !error) {{
+                        this.hasAccess = true;
+                    }}
+
+                    // Listen for auth changes
+                    supabase.auth.onAuthStateChange((event, session) => {{
+                        this.user = session?.user || null;
+                        if (session) {{
                             this.hasAccess = true;
                         }}
+                    }});
+                }},
+
+                async subscribeFree() {{
+                    if (!this.subscribeEmail) return;
+                    this.loading = true;
+                    this.message = '';
+
+                    try {{
+                        // 1. Add to subscribers database
+                        await supabase.from('subscribers').upsert({{
+                            email: this.subscribeEmail,
+                            subscribed_at: new Date().toISOString()
+                        }});
+
+                        // 2. Send Magic Link
+                        const {{ error }} = await supabase.auth.signInWithOtp({{
+                            email: this.subscribeEmail
+                        }});
+
+                        if (error) throw error;
+                        this.message = 'تم إرسال رابط التفعيل لبريدك الإلكتروني! اضغط على الرابط لتسجيل الدخول فوراً.';
+                    }} catch (e) {{
+                        this.message = 'حدث خطأ أثناء الإرسال: ' + (e.message || e);
                     }}
+                    this.loading = false;
                 }},
 
                 renderMarkdown(md) {{

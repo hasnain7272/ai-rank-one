@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph | منصة الذكاء الاصطناعي العربية</title>
     <meta name="description" content="دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="../../manifest.json">
     <meta name="theme-color" content="#0f172a">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,18 +96,23 @@
             <div x-show="activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
                 <svg class="w-12 h-12 text-brand-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">اشترك الآن لفتح جميع الوحدات التقنية الأربعة الإضافية والحصول على الكود المصدري وشهادة الإتمام.</p>
-                <a x-show="window.PUBLIC_CONFIG?.LEMON_VARIANT_ID && window.PUBLIC_CONFIG.LEMON_VARIANT_ID !== 'VARIANT_ID'"
-                   :href="'https://checkout.lemonsqueezy.com/checkout/buy/' + window.PUBLIC_CONFIG.LEMON_VARIANT_ID + '?checkout[custom][course_slug]=' + course.slug"
-                   id="checkout-btn"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    اشترك الآن مقابل 29$ فقط
-                </a>
-                <a x-show="!window.PUBLIC_CONFIG?.LEMON_VARIANT_ID || window.PUBLIC_CONFIG.LEMON_VARIANT_ID === 'VARIANT_ID'"
-                   href="#pricing"
-                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
-                    متاح قريباً — شاهد الخطط
-                </a>
+                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">أدخل بريدك الإلكتروني للاشتراك مجاناً وفتح كامل الدورة وكود المصدر فوراً!</p>
+                
+                <form @submit.prevent="subscribeFree()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input
+                        type="email"
+                        x-model="subscribeEmail"
+                        required
+                        placeholder="بريدك الإلكتروني"
+                        class="flex-1 px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
+                        dir="ltr"
+                    >
+                    <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all shrink-0" :disabled="loading">
+                        <span x-show="!loading">اشترك وتابع مجاناً</span>
+                        <span x-show="loading">جاري الإرسال...</span>
+                    </button>
+                </form>
+                <p x-show="message" x-text="message" class="mt-3 text-xs text-brand-300"></p>
             </div>
         </div>
     </main>
@@ -117,8 +122,8 @@
     {"title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "price": 29, "duration": "4 ساعات", "gradient": "from-brand-500 to-indigo-500", "modules": [{"title": "الوحدة 1: المفاهيم الأساسية وهندسة الوكلاء", "content": "# المفاهيم الأساسية وهندسة الوكلاء\n\nفي بيئات العمل الحقيقية لا يمكن الاعتماد على نموذج لغوي كبير (LLM) واحد لأداء مهام متنوعة ومعقدة. الحل هو تصميم **عدة وكلاء متخصصين** يعملون كفريق منسّق.\n\n## لماذا الأنظمة متعددة الوكلاء؟\n- **التخصص**: كل وكيل يتقن مهمة واحدة (بحث، كتابة كود، مراجعة).\n- **قابلية الصيانة**: تعديل وكيل لا يكسر بقية النظام.\n- **الشفافية**: كل خطوة قابلة للتتبع والتصحيح.\n\n## ما هو LangGraph؟\nإطار عمل يمثّل تدفق العمل كـ **رسم بياني (Graph)** حيث:\n- **العقد (Nodes)**: دوال تمثّل الوكلاء أو المعالجات.\n- **الحواف (Edges)**: تدفق البيانات والشروط الانتقالية بين العقد.\n\n## إعداد البيئة\n\n```bash\npip install langgraph langchain-openai\n```\n\n```python\nfrom typing import Annotated, TypedDict\nfrom langgraph.graph.message import add_messages\n\nclass AgentState(TypedDict):\n    messages: Annotated[list, add_messages]\n```\n\nهذه الحالة المشتركة (`AgentState`) تحفظ كامل سجل الحوار وتنسّقه تلقائياً بين الوكلاء."}, {"title": "الوحدة 2: بناء الرسم البياني وهيكلة العقد", "content": "# بناء الرسم البياني وهيكلة العقد\n\nنبني رسماً بيانياً بسيطاً: وكيل بحث ← وكيل كود ← قرار تجميع.\n\n```python\nfrom langgraph.graph import StateGraph, START, END\nfrom langgraph.prebuilt import ToolNode\n\ndef research_agent(state: AgentState):\n    # وكيل يجمع المعلومات من الأدوات المتاحة\n    return {\"messages\": [\"تم جمع المعلومات ذات الصلة\"]}\n\ndef code_agent(state: AgentState):\n    # وكيل يكتب الكود بناءً على ما جمعه الباحث\n    return {\"messages\": [\"تمت كتابة دالة المعالجة\"]}\n\ndef should_continue(state: AgentState):\n    # شرط انتقال: هل نتوقف أم نعيد للباحث؟\n    return \"end\" if len(state[\"messages\"]) > 6 else \"continue\"\n\ngraph = StateGraph(AgentState)\ngraph.add_node(\"researcher\", research_agent)\ngraph.add_node(\"coder\", code_agent)\ngraph.add_edge(START, \"researcher\")\ngraph.add_edge(\"researcher\", \"coder\")\ngraph.add_conditional_edges(\"coder\", should_continue, {\"continue\": \"researcher\", \"end\": END})\n```\n\nالحافة الشرطية `should_continue` تمنحك تحكماً كاملاً في حلقة التكرار بعكس الأطر الخطية البسيطة."}, {"title": "الوحدة 3: الذاكرة المستمرة وتبادل الرسائل", "content": "# الذاكرة المستمرة وتبادل الرسائل\n\nالمشكلة الشائعة: كل استدعاء للرسم البياني يبدأ من الصفر. الحل هو **الذاكرة (Checkpointer)**.\n\n```python\nfrom langgraph.checkpoint.memory import MemorySaver\n\nmemory = MemorySaver()\napp = graph.compile(checkpointer=memory)\n\nconfig = {\"configurable\": {\"thread_id\": \"user-session-42\"}}\napp.invoke({\"messages\": [\"اكتب خادم HTTP بسيط\"]}, config)\n# المكالمة التالية تتذكر سياق المحادثة السابقة\napp.invoke({\"messages\": [\"أضف معالجة للأخطاء\"]}, config)\n```\n\nكل `thread_id` يحتفظ بحالته المستقلة، مما يتيح محادثات متعددة متزامنة دون تداخل."}, {"title": "الوحدة 4: دمج الأدوات الخارجية (Tools) وحلقات التكرار", "content": "# دمج الأدوات الخارجية (Tools) وحلقات التكرار\n\nالوكيل أقوى عندما يستدعي أدوات حقيقية (بحث ويب، تنفيذ كود، قواعد بيانات).\n\n```python\nfrom langchain_core.tools import tool\n\n@tool\ndef run_python(code: str) -> str:\n    \"\"\"ينفّذ كود بايثون ويعيد المخرجات.\"\"\"\n    import subprocess\n    result = subprocess.run([\"python\", \"-c\", code], capture_output=True, text=True)\n    return result.stdout or result.stderr\n\ntools = [run_python]\ntool_node = ToolNode(tools)\n\ngraph.add_node(\"tools\", tool_node)\ngraph.add_edge(\"tools\", \"coder\")  # النتيجة ترجع للوكيل\n```\n\nهكذا يبني الوكيل حلقة: يكتب كوداً ← ينفّذه ← يراجع المخرج ← يصحح الخطأ."}, {"title": "الوحدة 5: النشر والمراقبة في الإنتاج", "content": "# النشر والمراقبة في الإنتاج\n\nلنشر النظام بأمان:\n\n## 1. العزل\nشغّل الرسم البياني داخل دالة خدمة (FastAPI) مع `thread_id` لكل مستخدم.\n\n```python\nfrom fastapi import FastAPI\napp_api = FastAPI()\n\n@app_api.post(\"/agent\")\nasync def chat(payload: dict):\n    cfg = {\"configurable\": {\"thread_id\": payload[\"session\"]}}\n    return app.invoke({\"messages\": [payload[\"msg\"]]}, cfg)\n```\n\n## 2. المراقبة\n- سجّل عدد العقد المنفّذة ووقت كل خطوة.\n- حدّد عدد حلقات التكرار بـ `should_continue` لتفادي الحلقات اللانهائية.\n- استخدم `MemorySaver` للاختبار وPostgres checkpointer في الإنتاج.\n\n## 3. الأمان\nلا تمرّر مفاتيح API مباشرة للنموذج؛ استخدم متغيرات بيئة وخادم وكلاء (proxy)."}], "slug": "langgraph-multi-agents"}
     </script>
 
-    <script src="/assets/js/config.js"></script>
-    <script src="/assets/js/paywall.js"></script>
+    <script src="../../assets/js/config.js"></script>
+    <script src="../../assets/js/paywall.js"></script>
     <script>
         // Supabase Init loaded from config.js
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
@@ -132,23 +137,56 @@
                 activeModule: 0,
                 hasAccess: false,
                 user: null,
+                subscribeEmail: '',
+                loading: false,
+                message: '',
 
                 async init() {
                     this.course = JSON.parse(document.getElementById('course-data').textContent);
-                    if (!supabase) return;
+                    if (!supabase) {
+                        // Offline/demo fallback
+                        this.hasAccess = true;
+                        return;
+                    }
                     
                     const { data: { session } } = await supabase.auth.getSession();
                     if (session) {
                         this.user = session.user;
-                        const { data, error } = await supabase
-                            .from('user_course_access')
-                            .select('*')
-                            .eq('course_slug', this.course.slug)
-                            .maybeSingle();
-                        if (data && !error) {
+                        this.hasAccess = true;
+                    }
+
+                    // Listen for auth changes
+                    supabase.auth.onAuthStateChange((event, session) => {
+                        this.user = session?.user || null;
+                        if (session) {
                             this.hasAccess = true;
                         }
+                    });
+                },
+
+                async subscribeFree() {
+                    if (!this.subscribeEmail) return;
+                    this.loading = true;
+                    this.message = '';
+
+                    try {
+                        // 1. Add to subscribers database
+                        await supabase.from('subscribers').upsert({
+                            email: this.subscribeEmail,
+                            subscribed_at: new Date().toISOString()
+                        });
+
+                        // 2. Send Magic Link
+                        const { error } = await supabase.auth.signInWithOtp({
+                            email: this.subscribeEmail
+                        });
+
+                        if (error) throw error;
+                        this.message = 'تم إرسال رابط التفعيل لبريدك الإلكتروني! اضغط على الرابط لتسجيل الدخول فوراً.';
+                    } catch (e) {
+                        this.message = 'حدث خطأ أثناء الإرسال: ' + (e.message || e);
                     }
+                    this.loading = false;
                 },
 
                 renderMarkdown(md) {
