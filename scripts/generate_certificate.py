@@ -10,6 +10,17 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+import arabic_reshaper
+from bidi.algorithm import get_display
+
+def reshape_arabic(text):
+    """Shape and reorient Arabic text for proper ReportLab rendering."""
+    try:
+        reshaped = arabic_reshaper.reshape(text)
+        return get_display(reshaped)
+    except Exception as e:
+        print(f"Error reshaping text '{text}': {e}")
+        return text
 
 # Register a standard system font that supports Arabic
 FONT_PATH = "C:\\Windows\\Fonts\\arial.ttf"
@@ -52,7 +63,7 @@ def generate_pdf_certificate(code, student_name, course_title, date_str, score):
     # Header / Title
     c.setFillColorRGB(1.0, 1.0, 1.0)
     c.setFont(FONT_NAME, 28)
-    c.drawCentredString(width / 2, height - 100, "شهادة إتمام الدورة")
+    c.drawCentredString(width / 2, height - 100, reshape_arabic("شهادة إتمام الدورة"))
     
     c.setFont(FONT_NAME, 16)
     c.setFillColorRGB(0.7, 0.7, 0.7)
@@ -61,38 +72,38 @@ def generate_pdf_certificate(code, student_name, course_title, date_str, score):
     # Body text
     c.setFillColorRGB(0.9, 0.9, 0.9)
     c.setFont(FONT_NAME, 18)
-    c.drawCentredString(width / 2, height - 200, "تُمنح هذه الشهادة لـ / This is to certify that")
+    c.drawCentredString(width / 2, height - 200, reshape_arabic("تُمنح هذه الشهادة لـ / This is to certify that"))
     
     c.setFillColorRGB(0.2, 0.55, 1.0) # Brand blue
     c.setFont(FONT_NAME, 26)
-    c.drawCentredString(width / 2, height - 240, student_name)
+    c.drawCentredString(width / 2, height - 240, reshape_arabic(student_name))
 
     c.setFillColorRGB(0.9, 0.9, 0.9)
     c.setFont(FONT_NAME, 18)
-    c.drawCentredString(width / 2, height - 290, "لاجتيازه بنجاح دورة / for successfully completing the course")
+    c.drawCentredString(width / 2, height - 290, reshape_arabic("لاجتيازه بنجاح دورة / for successfully completing the course"))
 
     c.setFillColorRGB(0.66, 0.33, 0.97) # Purple
     c.setFont(FONT_NAME, 22)
-    c.drawCentredString(width / 2, height - 330, course_title)
+    c.drawCentredString(width / 2, height - 330, reshape_arabic(course_title))
 
     # Date and Score info
     c.setFillColorRGB(0.7, 0.7, 0.7)
     c.setFont(FONT_NAME, 14)
-    c.drawString(60, 120, f"التاريخ / Date: {date_str}")
-    c.drawString(60, 90, f"الدرجة / Score: {score}")
-    c.drawString(60, 60, f"الرمز / Code: {code}")
+    c.drawString(60, 120, reshape_arabic(f"التاريخ / Date: {date_str}"))
+    c.drawString(60, 90, reshape_arabic(f"الدرجة / Score: {score}"))
+    c.drawString(60, 60, reshape_arabic(f"الرمز / Code: {code}"))
 
     # Draw QR code
     c.drawImage(qr_path, width - 180, 60, width=120, height=120)
     
     # Signature placeholder
     c.setFont(FONT_NAME, 14)
-    c.drawString(width / 2 - 50, 90, "د. خالد الراشدي")
+    c.drawString(width / 2 - 50, 90, reshape_arabic("د. خالد الراشدي"))
     c.setStrokeColorRGB(0.5, 0.5, 0.5)
     c.setLineWidth(1)
     c.line(width / 2 - 70, 110, width / 2 + 70, 110)
     c.setFont(FONT_NAME, 10)
-    c.drawString(width / 2 - 40, 70, "توقيع المنسق الأكاديمي")
+    c.drawString(width / 2 - 40, 70, reshape_arabic("توقيع المنسق الأكاديمي"))
 
     c.showPage()
     c.save()

@@ -18,9 +18,19 @@ serve(async (req) => {
         { name: "HMAC", hash: "SHA-256" }, false, ["verify"]
       )
       const signature = req.headers.get("x-signature") || ""
+      
+      // Parse hex signature to byte array
+      const hexToBytes = (hex: string) => {
+        const bytes = new Uint8Array(hex.length / 2)
+        for (let i = 0; i < hex.length; i += 2) {
+          bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16)
+        }
+        return bytes
+      }
+
       const isVerified = await crypto.subtle.verify(
         "HMAC", cryptoKey,
-        new Uint8Array(Array.from(signature, c => c.charCodeAt(0))),
+        hexToBytes(signature),
         new TextEncoder().encode(bodyText)
       )
       if (!isVerified) return new Response("Unauthorized signature", { status: 401 })

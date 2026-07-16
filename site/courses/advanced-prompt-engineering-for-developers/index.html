@@ -60,6 +60,8 @@
             <div class="flex items-center gap-6">
                 <a href="../../index.html" class="text-sm text-surface-200 hover:text-white transition-colors">الرئيسية</a>
                 <span x-show="user" class="text-sm text-surface-200" x-text="user.email"></span>
+                <button x-show="user" @click="signOut()" class="text-sm text-red-400 hover:text-red-300 transition-colors">تسجيل الخروج</button>
+                <button x-show="!user" @click="showAuth = true" class="text-sm text-brand-400 hover:text-brand-300 transition-colors">تسجيل الدخول</button>
             </div>
         </div>
     </nav>
@@ -87,43 +89,95 @@
             <h2 class="text-xl font-bold mb-4" x-show="course.modules && course.modules[activeModule]" x-text="course.modules[activeModule]?.title"></h2>
             <h2 class="text-xl font-bold mb-4" x-show="!course.modules || !course.modules[activeModule]">جارٍ التحميل...</h2>
 
+            <!-- Loading Spinner -->
+            <div x-show="loading" class="flex justify-center my-12">
+                <svg class="w-8 h-8 animate-spin text-brand-500" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+            </div>
+
             <!-- Module Body -->
-            <div x-show="(activeModule === 0 || hasAccess) && course.modules && course.modules[activeModule]">
+            <div x-show="!loading && (activeModule === 0 || hasAccess) && course.modules && course.modules[activeModule]">
                 <div x-html="renderMarkdown(course.modules[activeModule]?.content)"></div>
             </div>
 
             <!-- Paywall Overlay for Modules 2-5 -->
-            <div x-show="activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
+            <div x-show="!loading && activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
                 <svg class="w-12 h-12 text-brand-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">أدخل بريدك الإلكتروني للاشتراك مجاناً وفتح كامل الدورة وكود المصدر فوراً!</p>
+                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. يرجى الاشتراك في الدورة لفتح كامل المحتوى وكود المصدر والشهادة فوراً!</p>
                 
-                <form @submit.prevent="subscribeFree()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                    <input
-                        type="email"
-                        x-model="subscribeEmail"
-                        required
-                        placeholder="بريدك الإلكتروني"
-                        class="flex-1 px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
-                        dir="ltr"
-                    >
-                    <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all shrink-0" :disabled="loading">
-                        <span x-show="!loading">اشترك وتابع مجاناً</span>
-                        <span x-show="loading">جاري الإرسال...</span>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
+                    <a href="../../index.html#pricing" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
+                        اشترك في الدورة
+                    </a>
+                    <button @click="showAuth = true" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-surface-200 hover:text-white transition-all">
+                        تسجيل الدخول للمشتركين
                     </button>
-                </form>
-                <p x-show="message" x-text="message" class="mt-3 text-xs text-brand-300"></p>
+                </div>
             </div>
         </div>
     </main>
 
+    <!-- AUTH MODAL -->
+    <div x-show="showAuth" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" @click.self="showAuth = false" style="display: none;">
+        <div class="w-full max-w-sm bg-surface-900 rounded-2xl border border-white/10 p-6 shadow-2xl" @click.stop>
+            <div class="text-center mb-6">
+                <h3 class="text-xl font-bold mb-1">تسجيل الدخول</h3>
+                <p class="text-sm text-surface-200">سنرسل لك رمز تحقق على بريدك الإلكتروني</p>
+            </div>
+
+            <!-- Step 1: Email -->
+            <form x-show="authStep === 'email'" @submit.prevent="sendOTP()">
+                <input
+                    type="email"
+                    x-model="authEmail"
+                    required
+                    placeholder="بريدك الإلكتروني"
+                    class="w-full px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm mb-3"
+                    dir="ltr"
+                >
+                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all" :disabled="authLoading">
+                    <span x-show="!authLoading">إرسال رمز التحقق</span>
+                    <span x-show="authLoading" class="flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                        جاري الإرسال...
+                    </span>
+                </button>
+            </form>
+
+            <!-- Step 2: OTP -->
+            <form x-show="authStep === 'otp'" @submit.prevent="verifyOTP()">
+                <p class="text-xs text-surface-200 mb-3 text-center">أدخل الرمز المرسل إلى <span class="text-white" x-text="authEmail" dir="ltr"></span></p>
+                <input
+                    type="text"
+                    x-model="authOTP"
+                    required
+                    placeholder="رمز التحقق (6 أرقام)"
+                    maxlength="6"
+                    class="w-full px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 text-sm mb-3 text-center tracking-[0.3em]"
+                    dir="ltr"
+                >
+                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all" :disabled="authLoading">
+                    تأكيد الدخول
+                </button>
+                <button type="button" @click="authStep = 'email'" class="w-full mt-2 py-2 text-xs text-surface-200 hover:text-white transition-colors">
+                    إرسال رمز جديد
+                </button>
+            </form>
+
+            <!-- Error -->
+            <p x-show="authError" x-text="authError" class="mt-3 text-xs text-red-400 text-center"></p>
+        </div>
+    </div>
+
     <!-- Script Data Injected by Compiler -->
     <script id="course-data" type="application/json">
-    {"title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "price": 29, "duration": "4 ساعات", "gradient": "from-orange-500 to-red-500", "modules": [{"title": "الوحدة 1: تركيب تلقين فعّال", "content": "# تركيب تلقين فعّال\n\nتلقين جيد = **دور + تعليمات + سياق + قيود + صيغة المخرج**.\n\n```text\nأنت خبير أمان برمجي. راجع كود بايثون التالي وأعد تقريراً\nبصيغة JSON يحتوي على: الثغرات، الخطورة (low/medium/high)، والإصلاح المقترح.\nلا تكتب أي نص خارج كائن JSON.\n\nالكود:\n```python\n... \n```\n```\n\n## مبادئ\n- كن صريحاً بصيغة المخرج المطلوبة.\n- قيّد السلوك (\"لا تكتب نصاً خارجيًا\").\n- افصل التعليمات عن البيانات بوضوح."}, {"title": "الوحدة 2: القليل من الأمثلة (Few-Shot) والسلسلة الفكرية", "content": "# القليل من الأمثلة (Few-Shot) والسلسلة الفكرية\n\n## Few-Shot\nتقديم أمثلة يوجّه النموذج لأسلوب المخرج:\n\n```text\nصنّف النية: \"احذف حسابي\" -> delete_account\nصنّف النية: \"غير بريدي\" -> change_email\nصنّف النية: \"أبي ألغي الاشتراك\" -> ?\n```\n\n## السلسلة الفكرية (Chain-of-Thought)\nاطلب من النموذج **التفكير خطوة بخطوة** قبل الإجابة لرفع الدقة في المسائل المنطقية.\n\n```python\nprompt = \"\"\"حلّ المسألة خطوة بخطوة:\nمستودع بـ 120 عنصراً، نقلنا 30٪ ثم أضفنا 15.\nكم المتبقي؟\nفكّر بصوت عالٍ ثم اكتب 'الإجابة: X'.\"\"\"\n```\n\nللمهام المنظمة استخدم CoT داخلياً ثم استخرج الإجابة النهائية فقط."}, {"title": "الوحدة 3: التلقين المنظّم والمخرجات الموثوقة", "content": "# التلقين المنظّم والمخرجات الموثوقة\n\nلتطبيقات إنتاجية، اطلب JSON صارماً عبر دوال الاستدعاء (function calling) أو المخطط.\n\n```python\nfrom pydantic import BaseModel\nfrom openai import OpenAI\n\nclass Ticket(BaseModel):\n    category: str\n    priority: int\n    summary: str\n\nclient = OpenAI()\nresp = client.responses.parse(\n    model=\"gpt-4o-mini\",\n    input=\"رسالة عميل: الخادم يعطي خطأ 500 منذ الصباح\",\n    text_format=Ticket,\n)\nticket = resp.output_parsed  # كائن مُتحقَّق منه\n```\n\nهكذا تتجنّب أخطاء التحليل (parse errors) وتحصل على بيانات نظيفة."}, {"title": "الوحدة 4: ربط الأدوات (Tool Use) ووكلاء التلقين", "content": "# ربط الأدوات (Tool Use) ووكلاء التلقين\n\nدع النموذج يختار متى يستدعي دالة خارجية:\n\n```python\nfrom openai import OpenAI\nclient = OpenAI()\n\ntools = [{\n  \"type\": \"function\",\n  \"function\": {\n    \"name\": \"get_weather\",\n    \"parameters\": {\"type\": \"object\", \"properties\": {\"city\": {\"type\": \"string\"}}}\n  }\n}]\nresp = client.chat.completions.create(\n    model=\"gpt-4o\",\n    messages=[{\"role\": \"user\", \"content\": \"الطقس في الرياض؟\"}],\n    tools=tools,\n)\nif resp.choices[0].message.tool_calls:\n    fn = resp.choices[0].message.tool_calls[0].function\n    print(fn.name, fn.arguments)  # استدعِ الدالة ثم أعد النتيجة\n```\n\n## نمط الوكيل\nكرّر: استدعاء أداة ← تنفيذ ← إعادة النتيجة للنموذج ← حتى ينتهي."}, {"title": "الوحدة 5: التقييم والحماية (Guardrails)", "content": "# التقييم والحماية (Guardrails)\n\n## التقييم المستمر\n- حافظ على **مجموعة اختبار** (golden set) ثابتة وقارن المخرجات عبر تغييرات التلقين.\n- استخدم مقاييس: الدقة، الانحراف عن الصيغة، معدل الفشل.\n\n## الحماية\n```python\nimport re\nBLOCKED = re.compile(r\"(?i)ignore previous|system prompt\")\n\ndef guard(user_msg: str) -> str | None:\n    if BLOCKED.search(user_msg):\n        return None  # رفض محاولات حقن التلقين (prompt injection)\n    return user_msg\n```\n\n## نصائح أمنية\n- لا تثق بمخرج النموذج مباشرة في عمليات حساسة؛ تحقق دائماً.\n- اعزل البيانات الحساسة قبل إرسالها لـ API."}], "slug": "advanced-prompt-engineering-for-developers"}
+    {"title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "price": 29, "duration": "4 ساعات", "gradient": "from-orange-500 to-red-500", "modules": [{"title": "الوحدة 1: تركيب تلقين فعّال", "content": "# تركيب تلقين فعّال\n\nتلقين جيد = **دور + تعليمات + سياق + قيود + صيغة المخرج**.\n\n```text\nأنت خبير أمان برمجي. راجع كود بايثون التالي وأعد تقريراً\nبصيغة JSON يحتوي على: الثغرات، الخطورة (low/medium/high)، والإصلاح المقترح.\nلا تكتب أي نص خارج كائن JSON.\n\nالكود:\n```python\n... \n```\n```\n\n## مبادئ\n- كن صريحاً بصيغة المخرج المطلوبة.\n- قيّد السلوك (\"لا تكتب نصاً خارجيًا\").\n- افصل التعليمات عن البيانات بوضوح."}, {"title": "الوحدة 2: القليل من الأمثلة (Few-Shot) والسلسلة الفكرية", "content": ""}, {"title": "الوحدة 3: التلقين المنظّم والمخرجات الموثوقة", "content": ""}, {"title": "الوحدة 4: ربط الأدوات (Tool Use) ووكلاء التلقين", "content": ""}, {"title": "الوحدة 5: التقييم والحماية (Guardrails)", "content": ""}], "slug": "advanced-prompt-engineering-for-developers"}
     </script>
 
     <script src="../../assets/js/config.js"></script>
-    <script src="../../assets/js/paywall.js"></script>
     <script>
         // Supabase Init loaded from config.js
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
@@ -137,12 +191,25 @@
                 activeModule: 0,
                 hasAccess: false,
                 user: null,
-                subscribeEmail: '',
                 loading: false,
                 message: '',
+                
+                // Auth modal state
+                showAuth: false,
+                authStep: 'email',
+                authEmail: '',
+                authOTP: '',
+                authLoading: false,
+                authError: '',
 
                 async init() {
                     this.course = JSON.parse(document.getElementById('course-data').textContent);
+                    
+                    // Watch for activeModule changes to fetch gated content
+                    this.$watch('activeModule', async (value) => {
+                        await this.loadActiveModule();
+                    });
+
                     if (!supabase) {
                         // Offline/demo fallback
                         this.hasAccess = true;
@@ -150,43 +217,110 @@
                     }
                     
                     const { data: { session } } = await supabase.auth.getSession();
-                    if (session) {
-                        this.user = session.user;
-                        this.hasAccess = true;
-                    }
+                    this.user = session?.user || null;
+                    await this.checkAccess();
 
                     // Listen for auth changes
-                    supabase.auth.onAuthStateChange((event, session) => {
+                    supabase.auth.onAuthStateChange(async (event, session) => {
                         this.user = session?.user || null;
-                        if (session) {
-                            this.hasAccess = true;
+                        if (event === 'SIGNED_IN') {
+                            this.showAuth = false;
                         }
+                        await this.checkAccess();
                     });
                 },
 
-                async subscribeFree() {
-                    if (!this.subscribeEmail) return;
-                    this.loading = true;
-                    this.message = '';
-
-                    try {
-                        // 1. Add to subscribers database
-                        await supabase.from('subscribers').upsert({
-                            email: this.subscribeEmail,
-                            subscribed_at: new Date().toISOString()
-                        });
-
-                        // 2. Send Magic Link
-                        const { error } = await supabase.auth.signInWithOtp({
-                            email: this.subscribeEmail
-                        });
-
-                        if (error) throw error;
-                        this.message = 'تم إرسال رابط التفعيل لبريدك الإلكتروني! اضغط على الرابط لتسجيل الدخول فوراً.';
-                    } catch (e) {
-                        this.message = 'حدث خطأ أثناء الإرسال: ' + (e.message || e);
+                async checkAccess() {
+                    if (!supabase) return;
+                    if (!this.user) {
+                        this.hasAccess = false;
+                        return;
                     }
-                    this.loading = false;
+                    
+                    try {
+                        const { data, error } = await supabase
+                            .from('user_course_access')
+                            .select('*')
+                            .eq('course_slug', this.course.slug)
+                            .maybeSingle();
+                        
+                        if (error) throw error;
+                        this.hasAccess = !!data;
+                    } catch (e) {
+                        console.error('Error checking course access:', e);
+                        this.hasAccess = false;
+                    }
+                    
+                    await this.loadActiveModule();
+                },
+
+                async loadActiveModule() {
+                    const idx = this.activeModule;
+                    if (idx === 0) return; // Module 1 is always embedded statically
+                    
+                    if (this.hasAccess && this.course.modules && this.course.modules[idx] && !this.course.modules[idx].content) {
+                        this.loading = true;
+                        this.message = '';
+                        try {
+                            const { data, error } = await supabase
+                                .from('course_modules')
+                                .select('content')
+                                .eq('course_slug', this.course.slug)
+                                .eq('module_index', idx)
+                                .single();
+                            
+                            if (error) throw error;
+                            if (data) {
+                                this.course.modules[idx].content = data.content;
+                            }
+                        } catch (e) {
+                            console.error('Error loading module content:', e);
+                            this.message = 'حدث خطأ أثناء تحميل محتوى الوحدة: ' + (e.message || e);
+                        }
+                        this.loading = false;
+                    }
+                },
+
+                // Auth methods
+                async sendOTP() {
+                    if (!supabase) { this.authError = 'Auth not configured'; return; }
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {
+                        const { error } = await supabase.auth.signInWithOtp({
+                            email: this.authEmail,
+                        });
+                        if (error) throw error;
+                        this.authStep = 'otp';
+                    } catch (e) {
+                        this.authError = e.message || 'حدث خطأ — حاول مرة أخرى';
+                    }
+                    this.authLoading = false;
+                },
+
+                async verifyOTP() {
+                    if (!supabase) return;
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {
+                        const { error } = await supabase.auth.verifyOtp({
+                            email: this.authEmail,
+                            token: this.authOTP,
+                            type: 'email',
+                        });
+                        if (error) throw error;
+                        this.showAuth = false;
+                    } catch (e) {
+                        this.authError = e.message || 'رمز غير صحيح — حاول مرة أخرى';
+                    }
+                    this.authLoading = false;
+                },
+
+                async signOut() {
+                    if (!supabase) return;
+                    await supabase.auth.signOut();
+                    this.user = null;
+                    this.hasAccess = false;
                 },
 
                 renderMarkdown(md) {

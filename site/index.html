@@ -65,6 +65,9 @@
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <!-- Lemon Squeezy Widget -->
+    <script src="https://lmsqueezy.com/assets/button.js" defer></script>
+
     <!-- Flowbite -->
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet">
 
@@ -456,7 +459,7 @@
                         </li>
                     </ul>
                     <!-- Lemon Squeezy checkout link will go here -->
-                    <a href="#" class="lemonsqueezy-button block text-center py-3 rounded-xl bg-gradient-to-l from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition-all hover:-translate-y-0.5">
+                    <a href="#" @click.prevent="openCheckout('single')" class="lemonsqueezy-button block text-center py-3 rounded-xl bg-gradient-to-l from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition-all hover:-translate-y-0.5">
                         اشترك الآن
                     </a>
                 </div>
@@ -489,7 +492,7 @@
                             مشاريع إضافية حصرية
                         </li>
                     </ul>
-                    <a href="#" class="lemonsqueezy-button block text-center py-3 rounded-xl border border-white/10 hover:border-brand-500/30 text-sm font-medium text-surface-200 hover:text-white hover:bg-white/5 transition-all">
+                    <a href="#" @click.prevent="openCheckout('bundle')" class="lemonsqueezy-button block text-center py-3 rounded-xl border border-white/10 hover:border-brand-500/30 text-sm font-medium text-surface-200 hover:text-white hover:bg-white/5 transition-all">
                         اشترك في الباقة
                     </a>
                 </div>
@@ -508,7 +511,7 @@
                                 <span class="text-3xl font-bold">$199</span>
                                 <span class="text-surface-200 text-sm me-1">/ سنوياً</span>
                             </div>
-                            <a href="#" class="lemonsqueezy-button px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-sm font-medium text-white transition-all">
+                            <a href="#" @click.prevent="openCheckout('all')" class="lemonsqueezy-button px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-sm font-medium text-white transition-all">
                                 اشترك
                             </a>
                         </div>
@@ -669,6 +672,31 @@
                 authLoading: false,
                 authError: '',
                 newsletterEmail: '',
+
+                // Lemon Squeezy integration
+                getVariantId() {
+                    return window.PUBLIC_CONFIG?.LEMON_VARIANT_ID || "VARIANT_ID";
+                },
+
+                openCheckout(variantType) {
+                    let variantId = this.getVariantId();
+                    if (variantType === 'bundle') {
+                        variantId = "bundle-variant-id"; // Placeholder to be configured in Lemon Squeezy
+                    } else if (variantType === 'all') {
+                        variantId = "all-access-variant-id"; // Placeholder to be configured in Lemon Squeezy
+                    }
+                    
+                    let url = `https://checkout.lemonsqueezy.com/buy/${variantId}?embed=1`;
+                    if (this.user?.email) {
+                        url += `&checkout[email]=${encodeURIComponent(this.user.email)}`;
+                    }
+
+                    if (window.LemonSqueezy) {
+                        window.LemonSqueezy.Url.Open(url);
+                    } else {
+                        window.open(url, '_blank');
+                    }
+                },
 
                 courses: [{"slug": "advanced-prompt-engineering-for-developers", "title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-orange-500 to-red-500"}, {"slug": "ai-governance-and-ethics-in-the-arab-world", "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "modules": 5, "duration": "3 ساعات", "price": 29, "gradient": "from-cyan-500 to-blue-500"}, {"slug": "building-a-production-rag-system", "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب", "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.", "tags": ["RAG", "Vector Search", "Hybrid Search", "Embeddings"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-emerald-500 to-teal-500"}, {"slug": "langgraph-multi-agents", "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "llm-fine-tuning-with-lora-and-qlora", "title": "ضبط النماذج اللغوية الكبيرة (Fine-Tuning) باستخدام LoRA وQLoRA", "description": "دورة عملية لضبط نماذج لغوية مفتوحة المصدر على مهام مخصصة باستخدام تقنيتي LoRA وQLoRA بتكلفة وحجم ذاكرة منخفضين.", "tags": ["Fine-Tuning", "LoRA", "QLoRA", "PEFT"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-purple-500 to-pink-500"}, {"slug": "mlops-from-experiment-to-production", "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-rose-500 to-orange-500"}],
 
