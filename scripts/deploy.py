@@ -377,29 +377,29 @@ def generate_config():
 def inject_courses_into_index(courses_list):
     """Inject the compiled course list directly into site/index.html.
 
-    We replace the placeholder token `/*COURSES_PLACEHOLDER*/` inside the
-    Alpine `app()` data with a real JS array literal. This guarantees the
-    course grid renders immediately, with no async fetch / undefined flash.
+    We replace the courses array inside the Alpine `app()` data with a real JS
+    array literal. This guarantees the course grid renders immediately.
     """
     index_path = os.path.join("site", "index.html")
     if not os.path.exists(index_path):
         return
 
+    import re
     courses_js = json.dumps(courses_list, ensure_ascii=False)
-    token = "/*COURSES_PLACEHOLDER*/"
-    placeholder = f"courses: {token},"
-    replacement = f"courses: {courses_js},"
-
+    
     with open(index_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    if token not in html:
-        print("⚠️  courses placeholder token not found in index.html — skipping inject")
+    pattern = r"courses:\s*\[.*?\],"
+    replacement = f"courses: {courses_js},"
+    
+    new_html, count = re.subn(pattern, replacement, html, count=1)
+    if count == 0:
+        print("⚠️  courses list pattern not found in index.html — skipping inject")
         return
 
-    html = html.replace(placeholder, replacement, 1)
     with open(index_path, "w", encoding="utf-8") as f:
-        f.write(html)
+        f.write(new_html)
     print("📄 Injected course list into site/index.html")
 
 
