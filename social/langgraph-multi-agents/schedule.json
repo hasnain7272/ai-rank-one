@@ -1,0 +1,15 @@
+{
+  "course": "langgraph-multi-agents",
+  "posts": [
+    {
+      "file": "thread_1.md",
+      "platform": "twitter",
+      "offset_days": 1
+    },
+    {
+      "file": "post_1.md",
+      "platform": "linkedin",
+      "offset_days": 1
+    }
+  ]
+}

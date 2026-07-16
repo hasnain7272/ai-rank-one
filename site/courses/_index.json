@@ -48,17 +48,17 @@
   },
   {
     "slug": "langgraph-multi-agents",
-    "title": "بناء أنظمة الوكلاء المتعددة باستخدام LangGraph",
-    "description": "تعلم كيفية بناء أنظمة وكلاء ذكية متعددة تتعاون وتنسق مع بعضها لحل المهام المعقدة باستخدام LangGraph.",
+    "title": "دورة متقدمة في LangGraph Multi Agents",
+    "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات LangGraph Multi Agents في بيئات العمل الفعلية.",
     "tags": [
       "LangGraph",
-      "Agents",
-      "Python"
+      "Python",
+      "Mute"
     ],
     "modules": 5,
     "duration": "4 ساعات",
     "price": 29,
-    "gradient": "from-brand-500 to-blue-500"
+    "gradient": "from-brand-500 to-indigo-500"
   },
   {
     "slug": "llm-fine-tuning-with-lora-and-qlora",

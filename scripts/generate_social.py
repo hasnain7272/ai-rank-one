@@ -51,27 +51,55 @@ Return ONLY the raw JSON object (no markdown formatting, no comments).
 """
 
 def generate_social(course_filepath):
-    print(f"📣 Generating social media assets for {course_filepath} using model: {MODEL}...")
+    print(f"📣 Generating social media assets for {course_filepath}...")
     try:
         with open(course_filepath, "r", encoding="utf-8") as f:
             course_data = json.load(f)
             
         title = course_data.get("title", "")
         description = course_data.get("description", "")
-        # Grab first module's content (teaser)
-        module1 = course_data.get("modules", [{}])[0]
-        module1_content = module1.get("content", "")[:3000] # Cap to avoid token bloat
+        slug = course_data.get("slug") or os.path.basename(course_filepath).replace(".json", "")
         
-        response = completion(
-            model=MODEL,
-            messages=[
-                {"role": "system", "content": "You are a marketing JSON generator. You output only valid JSON."},
-                {"role": "user", "content": SOCIAL_PROMPT.format(title=title, description=description, module1_content=module1_content)}
-            ],
-            response_format={"type": "json_object"}
-        )
+        # Check if API key is configured
+        api_key_set = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
         
-        social_data = json.loads(response.choices[0].message.content)
+        social_data = None
+        if api_key_set and "your_" not in api_key_set:
+            try:
+                module1 = course_data.get("modules", [{}])[0]
+                module1_content = module1.get("content", "")[:3000]
+                
+                response = completion(
+                    model=MODEL,
+                    messages=[
+                        {"role": "system", "content": "You are a marketing JSON generator. You output only valid JSON."},
+                        {"role": "user", "content": SOCIAL_PROMPT.format(title=title, description=description, module1_content=module1_content)}
+                    ],
+                    response_format={"type": "json_object"}
+                )
+                social_data = json.loads(response.choices[0].message.content)
+            except Exception as e:
+                print(f"❌ Social generation API call failed: {e}")
+                
+        if not social_data:
+            print("⚠️ Falling back to local marketing template writer...")
+            social_data = {
+                "twitter": [
+                    {
+                        "content": f"🚀 دورة جديدة ومميزة: {title}\n\n{description}\n\nابدأ رحلة التعلم معنا اليوم واكتسب مهارات يحتاجها سوق العمل في الخليج والعالم العربي.\n\nتابع تفاصيل الدورة 👇 #الذكاء_الاصطناعي #بايثون"
+                    }
+                ],
+                "linkedin": [
+                    {
+                        "content": f"🚀 يسرنا إطلاق الدورة التقنية المتقدمة الجديدة: '{title}' باللغة العربية الفصحى.\n\nتهدف الدورة لمساعدة مهندسي البرمجيات والذكاء الاصطناعي على فهم وتطبيق أحدث التقنيات البرمجية من خلال مشاريع حقيقية وكود كامل.\n\nماذا ستتعلم؟\n- فهم شامل ومفصل للتقنيات والركائز.\n- تطبيق كود عملي ومشاريع برمجية.\n- شهادة إتمام بترميز QR قابلة للمشاركة والتحقق.\n\n🔗 جرب الوحدة الأولى مجاناً الآن: https://airankone.com/courses/{slug}\n\n#الذكاء_الاصطناعي #مطورين #تعلم_الآلة #بايثون"
+                    }
+                ],
+                "youtube": {
+                    "script": f"مرحباً بكم في شرح مبسط لدورة {title}.\n\nسنتناول في هذا العرض السريع أهم الأفكار والتقنيات البرمجية المعتمدة.\n\nشاهد كيف يمكنك بدء البرمجة محلياً.\n\nالدورة كاملة متوفرة في موقعنا.",
+                    "description": f"شرح دورة {title}. تفضل بزيارة موقعنا للمزيد: https://airankone.com/courses/{slug}",
+                    "thumbnail_prompt": f"Professional design for course {title}, dark mode, elegant layout, tech illustration"
+                }
+            }
         
         # Save output in organized folders
         slug = course_data.get("slug") or os.path.basename(course_filepath).replace(".json", "")

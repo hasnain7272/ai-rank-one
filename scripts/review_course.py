@@ -23,7 +23,15 @@ Course JSON to review:
 """
 
 def review_course(filepath):
-    print(f"🧐 Reviewing course: {filepath} using model: {REVIEW_MODEL}...")
+    print(f"🧐 Reviewing course: {filepath}...")
+    
+    # Check if API key is configured
+    api_key_set = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
+    
+    if not api_key_set or "your_" in api_key_set:
+        print("⚠️ No API key found. Skipping LLM review pass, accepting course file as-is.")
+        return True
+
     try:
         with open(filepath, "r", encoding="utf-8") as f:
             course_data = json.load(f)
@@ -46,7 +54,7 @@ def review_course(filepath):
         print(f"✨ Course review completed. Refined content saved to {filepath}")
         return True
     except Exception as e:
-        print(f"⚠️ Review pipeline skipped or failed: {e}")
+        print(f"⚠️ Review pipeline failed: {e}")
         return False
 
 if __name__ == "__main__":

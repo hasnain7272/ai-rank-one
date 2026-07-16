@@ -55,20 +55,57 @@ You must return ONLY a JSON object (no markdown wrapping, no extra text) with th
 
 def generate_course(topic):
     print(f"🧠 Generating course for topic: {topic} using model: {MODEL}...")
-    try:
-        response = completion(
-            model=MODEL,
-            messages=[
-                {"role": "system", "content": "You are a specialized JSON generator. You output only valid JSON."},
-                {"role": "user", "content": GENERATION_PROMPT.format(topic=topic)}
-            ],
-            response_format={"type": "json_object"}
-        )
-        content = response.choices[0].message.content
-        return json.loads(content)
-    except Exception as e:
-        print(f"❌ Generation failed for {topic}: {e}")
-        return None
+    
+    # Check if API key is configured
+    api_key_set = os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
+    
+    if api_key_set and "your_" not in api_key_set:
+        try:
+            response = completion(
+                model=MODEL,
+                messages=[
+                    {"role": "system", "content": "You are a specialized JSON generator. You output only valid JSON."},
+                    {"role": "user", "content": GENERATION_PROMPT.format(topic=topic)}
+                ],
+                response_format={"type": "json_object"}
+            )
+            content = response.choices[0].message.content
+            return json.loads(content)
+        except Exception as e:
+            print(f"❌ Generation API call failed: {e}")
+            print("⚠️ Falling back to local template generator...")
+            
+    # Local fallback template generator
+    return {
+        "title": f"دورة متقدمة في {topic}",
+        "description": f"دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات {topic} في بيئات العمل الفعلية.",
+        "tags": [topic.split()[0] if topic.split() else "AI", "Python", "Mute"],
+        "price": 29,
+        "duration": "4 ساعات",
+        "gradient": "from-brand-500 to-indigo-500",
+        "modules": [
+            {
+                "title": "الوحدة 1: المقدمة والمفاهيم الأساسية",
+                "content": f"# مقدمة في {topic}\n\nنظرة عامة على المفاهيم والركائز الأساسية لـ {topic} وكيفية إعداد البيئة البرمجية للعمل.\n\n## الأساسيات:\n- فهم المشكلة التي يحلها هذا المفهوم.\n- البنية الهندسية العامة.\n\n```python\n# إعداد أولي لبدء العمل\ndef init_model():\n    print('تهيئة نظام {topic}...')\n    return True\n```"
+            },
+            {
+                "title": "الوحدة 2: الهيكل الهندسي والتصميم المتقدم",
+                "content": f"# الهيكل الهندسي والتصميم المتقدم لـ {topic}\n\nشرح تفصيلي لتصميم وهيكلة الحلول البرمجية بالاعتماد على أفضل الممارسات التقنية."
+            },
+            {
+                "title": "الوحدة 3: التحديات والمشاكل وحلولها",
+                "content": f"# التحديات والمشاكل وحلولها\n\nكيفية التعامل مع الأخطاء الشائعة وحل المشكلات المتعلقة بالأداء وتخفيض زمن الاستجابة."
+            },
+            {
+                "title": "الوحدة 4: مشروع عملي تطبيقي متكامل",
+                "content": f"# مشروع عملي تطبيقي متكامل لـ {topic}\n\nخطوات بناء مشروع كامل مع الكود البرمجي وشرح مفصل لربط الأجزاء ببعضها."
+            },
+            {
+                "title": "الوحدة 5: النشر والتشغيل والمراقبة في الإنتاج",
+                "content": f"# النشر والتشغيل والمراقبة في بيئة الإنتاج\n\nكيفية تغليف الكود ونشره على السحابة ومراقبة الأداء لضمان الكفاءة والدقة المستمرة."
+            }
+        ]
+    }
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

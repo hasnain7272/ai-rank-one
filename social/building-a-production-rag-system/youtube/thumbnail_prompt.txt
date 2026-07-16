@@ -1,0 +1,1 @@
+Data architecture diagram for RAG with hybrid search and reranking, glowing data flows, vector database icon, futuristic tech look
