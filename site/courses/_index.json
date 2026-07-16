@@ -1,5 +1,52 @@
 [
   {
+    "slug": "advanced-prompt-engineering-for-developers",
+    "title": "هندسة الأوامر المتقدمة للمطورين",
+    "description": "تجاوز كتابة الأوامر البسيطة. تعلم تقنيات هندسة الأوامر البرمجية والمنهجية لبناء تطبيقات موثوقة تعتمد على النماذج اللغوية الكبيرة مع التحكم بالهيكلية وتقليل الهلوسة.",
+    "tags": [
+      "Prompt Engineering",
+      "LLM",
+      "ReAct",
+      "JSON Output",
+      "Security"
+    ],
+    "modules": 5,
+    "duration": "3 ساعات",
+    "price": 29,
+    "gradient": "from-brand-500 to-indigo-500"
+  },
+  {
+    "slug": "ai-governance-and-ethics-in-the-arab-world",
+    "title": "حوكمة الذكاء الاصطناعي وأخلاقياته في العالم العربي",
+    "description": "دراسة تقنية وقانونية متكاملة لأطر حوكمة الذكاء الاصطناعي، الخصوصية وحماية البيانات، موثوقية النماذج، والامتثال للأنظمة التشريعية الصادرة في السعودية والإمارات وبقية الدول العربية.",
+    "tags": [
+      "Governance",
+      "Ethics",
+      "Compliance",
+      "SDAIA",
+      "Data Privacy"
+    ],
+    "modules": 5,
+    "duration": "3 ساعات",
+    "price": 29,
+    "gradient": "from-rose-500 to-red-500"
+  },
+  {
+    "slug": "building-a-production-rag-system",
+    "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب",
+    "description": "دورة هندسية متقدمة في بناء أنظمة الاسترجاع المعزز بالتوليد (RAG) القابلة للتطوير للتعامل مع ملايين المستندات بزمن استجابة منخفض ودقة عالية.",
+    "tags": [
+      "RAG",
+      "Vector DB",
+      "Hybrid Search",
+      "Reranking"
+    ],
+    "modules": 5,
+    "duration": "5 ساعات",
+    "price": 49,
+    "gradient": "from-purple-500 to-pink-500"
+  },
+  {
     "slug": "langgraph-multi-agents",
     "title": "بناء أنظمة الوكلاء المتعددة باستخدام LangGraph",
     "description": "تعلم كيفية بناء أنظمة وكلاء ذكية متعددة تتعاون وتنسق مع بعضها لحل المهام المعقدة باستخدام LangGraph.",
@@ -12,5 +59,37 @@
     "duration": "4 ساعات",
     "price": 29,
     "gradient": "from-brand-500 to-blue-500"
+  },
+  {
+    "slug": "llm-fine-tuning-with-lora-and-qlora",
+    "title": "ضبط النماذج اللغوية الكبيرة باستخدام LoRA و QLoRA",
+    "description": "دليل هندسي متكامل لضبط وتدريب النماذج اللغوية الكبيرة (LLMs) على بياناتك الخاصة باستخدام تقنيات التدريب منخفض الرتبة لتوفير موارد كرت الشاشة وتسريع عملية التدريب.",
+    "tags": [
+      "Fine-tuning",
+      "LoRA",
+      "QLoRA",
+      "PyTorch",
+      "HuggingFace"
+    ],
+    "modules": 5,
+    "duration": "4 ساعات",
+    "price": 39,
+    "gradient": "from-green-500 to-emerald-500"
+  },
+  {
+    "slug": "mlops-from-experiment-to-production",
+    "title": "أنظمة MLOps — من التجربة إلى بيئة الإنتاج",
+    "description": "دورة عملية متكاملة في إدارة دورة حياة مشاريع تعلم الآلة (MLOps)، بناء خطوط الأتمتة (Pipelines)، تتبع التجارب، مراقبة أداء النماذج، ونشرها على الحوسبة السحابية.",
+    "tags": [
+      "MLOps",
+      "MLflow",
+      "CI/CD",
+      "Docker",
+      "Model Monitoring"
+    ],
+    "modules": 5,
+    "duration": "5 ساعات",
+    "price": 49,
+    "gradient": "from-cyan-500 to-blue-500"
   }
 ]

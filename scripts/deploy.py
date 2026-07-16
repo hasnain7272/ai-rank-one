@@ -125,7 +125,7 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
     <script src="/assets/js/config.js"></script>
     <script src="/assets/js/paywall.js"></script>
     <script>
-        // Supabase Init (config loaded from /assets/js/config.js, generated from .env)
+        // Supabase Init loaded from config.js
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
         const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
         let supabase;
