@@ -98,20 +98,29 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
         <!-- Render Content -->
         <div class="prose prose-invert max-w-none">
             <!-- Module Header -->
-            <h2 class="text-xl font-bold mb-4" x-text="course.modules[activeModule]?.title"></h2>
+            <h2 class="text-xl font-bold mb-4" x-show="course.modules && course.modules[activeModule]" x-text="course.modules[activeModule]?.title"></h2>
+            <h2 class="text-xl font-bold mb-4" x-show="!course.modules || !course.modules[activeModule]">جارٍ التحميل...</h2>
 
             <!-- Module Body -->
-            <div x-show="activeModule === 0 || hasAccess">
+            <div x-show="(activeModule === 0 || hasAccess) && course.modules && course.modules[activeModule]">
                 <div x-html="renderMarkdown(course.modules[activeModule]?.content)"></div>
             </div>
 
             <!-- Paywall Overlay for Modules 2-5 -->
-            <div x-show="activeModule > 0 && !hasAccess" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
+            <div x-show="activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
                 <svg class="w-12 h-12 text-brand-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
                 <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">اشترك الآن لفتح جميع الوحدات التقنية الأربعة الإضافية والحصول على الكود المصدري وشهادة الإتمام.</p>
-                <a :href="'https://checkout.lemonsqueezy.com/checkout/buy/' + (window.PUBLIC_CONFIG?.LEMON_VARIANT_ID || 'VARIANT_ID') + '?checkout[custom][course_slug]=' + course.slug" id="checkout-btn" class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
+                <a x-show="window.PUBLIC_CONFIG?.LEMON_VARIANT_ID && window.PUBLIC_CONFIG.LEMON_VARIANT_ID !== 'VARIANT_ID'"
+                   :href="'https://checkout.lemonsqueezy.com/checkout/buy/' + window.PUBLIC_CONFIG.LEMON_VARIANT_ID + '?checkout[custom][course_slug]=' + course.slug"
+                   id="checkout-btn"
+                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
                     اشترك الآن مقابل {price}$ فقط
+                </a>
+                <a x-show="!window.PUBLIC_CONFIG?.LEMON_VARIANT_ID || window.PUBLIC_CONFIG.LEMON_VARIANT_ID === 'VARIANT_ID'"
+                   href="#pricing"
+                   class="inline-block px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 font-semibold text-white transition-all shadow-lg shadow-brand-600/25">
+                    متاح قريباً — شاهد الخطط
                 </a>
             </div>
         </div>
@@ -193,6 +202,35 @@ def generate_config():
         print("🔑 Generated: site/assets/js/config.js (from .env)")
 
 
+def inject_courses_into_index(courses_list):
+    """Inject the compiled course list directly into site/index.html.
+
+    We replace the placeholder token `/*COURSES_PLACEHOLDER*/` inside the
+    Alpine `app()` data with a real JS array literal. This guarantees the
+    course grid renders immediately, with no async fetch / undefined flash.
+    """
+    index_path = os.path.join("site", "index.html")
+    if not os.path.exists(index_path):
+        return
+
+    courses_js = json.dumps(courses_list, ensure_ascii=False)
+    token = "/*COURSES_PLACEHOLDER*/"
+    placeholder = f"courses: {token},"
+    replacement = f"courses: {courses_js},"
+
+    with open(index_path, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    if token not in html:
+        print("⚠️  courses placeholder token not found in index.html — skipping inject")
+        return
+
+    html = html.replace(placeholder, replacement, 1)
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("📄 Injected course list into site/index.html")
+
+
 def compile_and_deploy():
     print("🚀 Compiling courses and preparing deployment...")
     generate_config()
@@ -248,11 +286,9 @@ def compile_and_deploy():
         json.dump(courses_list, f, ensure_ascii=False, indent=2)
     print("📄 Updated: site/courses/_index.json")
 
-    # Update index.html to load courses dynamically via Alpine
-    # Wait, our index.html already loads courses from "courses" array. We should inject the dynamic list!
-    # Let's read site/index.html and replace the course list payload.
-    # To keep it extremely simple, we can have Alpine fetch "/courses/_index.json" on init!
-    # Yes! Let's edit index.html's init() to fetch courses dynamically.
+    # Inject the course list directly into index.html so courses render without
+    # depending on an async fetch (which can briefly show "no courses").
+    inject_courses_into_index(courses_list)
 
     # Git Deploy
     print("📤 Pushing to Cloudflare Pages (via git)...")
