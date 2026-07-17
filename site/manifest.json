@@ -1,7 +1,7 @@
 {
-    "name": "منصة الذكاء الاصطناعي العربية",
+    "name": "AI Rank One",
     "short_name": "AI Rank One",
-    "description": "دورات تقنية متقدمة في الذكاء الاصطناعي بالعربية الفصحى",
+    "description": "منصة عربية لتعليم الذكاء الاصطناعي بالعربية الفصحى",
     "start_url": "/",
     "display": "standalone",
     "dir": "rtl",
@@ -12,14 +12,10 @@
     "categories": ["education", "technology"],
     "icons": [
         {
-            "src": "/assets/images/icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/assets/images/icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png"
+            "src": "/assets/images/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
         }
     ]
 }
