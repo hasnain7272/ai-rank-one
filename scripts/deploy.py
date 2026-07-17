@@ -394,14 +394,17 @@ def inject_courses_into_index(courses_list):
 
     import re
     courses_js = json.dumps(courses_list, ensure_ascii=False)
-    
+
     with open(index_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    pattern = r"courses:\s*\[.*?\],"
-    replacement = f"courses: {courses_js},"
-    
-    new_html, count = re.subn(pattern, replacement, html, count=1)
+    # Greedy match of the FULL courses array (from `courses: [` to the last `],`
+    # that precedes the `// Init` comment). The previous non-greedy `.*?\],`
+    # matched only up to the first course's closing bracket, corrupting the array.
+    pattern = r"courses:\s*\[.*\],\s*\n"
+    replacement = f"courses: {courses_js},\n"
+
+    new_html, count = re.subn(pattern, replacement, html, count=1, flags=re.S)
     if count == 0:
         print("⚠️  courses list pattern not found in index.html — skipping inject")
         return
