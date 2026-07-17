@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="../../assets/images/icon.svg">
-    <meta name="mobile-web-app-capable" content="yes">
     <title>حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي | منصة الذكاء الاصطناعي العربية</title>
-    <meta name="description" content="دورة تطبيقية للمهندسين وصنّاع القرار حول حوكمة الذكاء الاصطناعي ومواءمة التقنية مع القيم واللوائح العربية والعالمية: قانون الاتحاد الأوروبي، إطار سدايا السعودي، وميثاق الإمارات.">
+    <meta name="description" content="دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.">
     <link rel="manifest" href="../../manifest.json">
     <meta name="theme-color" content="#0f172a">
     
@@ -14,7 +12,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../assets/css/tailwind.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: { 400: '#59b0ff', 500: '#338dff', 600: '#1b6ff5', 950: '#142957' },
+                        surface: { 50: '#f8fafc', 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
+                    }
+                }
+            }
+        }
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -95,7 +109,7 @@
                 <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. يرجى الاشتراك في الدورة لفتح كامل المحتوى وكود المصدر والشهادة فوراً!</p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-                    <a href="../../index.html#pricing?course=ai-governance-and-ethics-in-the-arab-world" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
+                    <a href="../../index.html#pricing" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
                         اشترك في الدورة
                     </a>
                     <button @click="showAuth = true" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-surface-200 hover:text-white transition-all">
@@ -160,10 +174,160 @@
 
     <!-- Script Data Injected by Compiler -->
     <script id="course-data" type="application/json">
-    {"title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصنّاع القرار حول حوكمة الذكاء الاصطناعي ومواءمة التقنية مع القيم واللوائح العربية والعالمية: قانون الاتحاد الأوروبي، إطار سدايا السعودي، وميثاق الإمارات.", "tags": ["حوكمة الذكاء الاصطناعي", "الأخلاقيات", "الامتثال", "الذكاء الاصطناعي المسؤول"], "price": 29, "duration": "3 ساعات", "gradient": "from-cyan-500 to-blue-500", "modules": [{"title": "الوحدة 1: لماذا الحوكمة وليس مجرد الأخلاقيات", "content": "# لماذا الحوكمة وليس مجرد الأخلاقيات\n\nالأخلاقيات وحدها لا تكفي: المؤسسات تحتاج حوكمة قابلة للتنفيذ — أدوار، توثيق، بوابات نشر، وأثر تدقيق. في 2026 تحوّلت الأطر الطوعية إلى لوائح ملزمة في مناطق عدة.\n\n## القاعدة القائمة على المخاطر\nأشهر نهج عالمي: تصنيف أنظمة الذكاء الاصطناعي حسب مستوى المخاطر (محظور ← مقبول ← شفاف ← عالي المخاطر). هذا ما بنى عليه المنظّمون معاييرهم.\n\n## المبادئ السبع الأوروبية (مرجع عالمي)\n1. وكالة الإنسان والإشراف. 2. المتانة التقنية والسلامة. 3. خصوصية وحوكمة البيانات. 4. الشفافية. 5. التنوّع وعدم التمييز والإنصاف. 6. رفاه المجتمع والبيئة. 7. المساءلة.\n\n## لماذا يهم المهندس العربي\n- عقود حكومية خليجية تشترط دليل امتثال.\n- معالجة بيانات شخصية تخضع لقوانين حماية بيانات وطنية.\n- تصدير أنظمة لأسواق منظّمة (الاتحاد الأوروبي) يتطلب توافقاً مسبقاً.\n\nالحوكمة ليست عائقاً للابتكار بل بنية تحتية للثقة القابلة للتوسّع."}, {"title": "الوحدة 2: قانون الذكاء الاصطناعي الأوروبي (EU AI Act)", "content": ""}, {"title": "الوحدة 3: الإطار السعودي (سدايا) وقانون حماية البيانات", "content": ""}, {"title": "الوحدة 4: الإطار الإماراتي والمشهد العربي الأوسع", "content": ""}, {"title": "الوحدة 5: بناء نظام حوكمة عملي (Playbook)", "content": ""}], "slug": "ai-governance-and-ethics-in-the-arab-world"}
+    {"title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "price": 29, "duration": "3 ساعات", "gradient": "from-cyan-500 to-blue-500", "modules": [{"title": "الوحدة 1: مفاهيم الحوكمة والمخاطر", "content": "# مفاهيم الحوكمة والمخاطر\n\n**حوكمة الذكاء الاصطناعي** هي الإطار الذي يضمن أنظمة الذكاء الاصطناعي آمنة ومنصفة وقابلة للمساءلة.\n\n## المخاطر الشائعة\n- **التحيّز (Bias)**: نماذج تتدرب على بيانات غير ممثلة للغة العربية.\n- **الهلوسة**: توليد معلومات خاطئة في سياقات حساسة (طبية، قانونية).\n- **الخصوصية**: جمع بيانات دون رضا واضح.\n- **الشفافية**: قرارات غير مفسّرة.\n\n## لماذا يهم العالم العربي؟\nمعظم النماذج الكبرى تدربت على لغات أجنبية؛ غياب البيانات العربية يضخّم التحيّز ويقلّل الدقة."}, {"title": "الوحدة 2: الإطار التشريعي العالمي والعربي", "content": ""}, {"title": "الوحدة 3: عدالة البيانات والتحيّز اللغوي", "content": ""}, {"title": "الوحدة 4: الشفافية وقابلية التفسير", "content": ""}, {"title": "الوحدة 5: بناء خط أنابيب حوكمة (MLOps للامتثال)", "content": ""}], "slug": "ai-governance-and-ethics-in-the-arab-world"}
     </script>
 
     <script src="../../assets/js/config.js"></script>
-    <script src="../../assets/js/course.js"></script>
+    <script>
+        // Supabase Init loaded from config.js
+        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
+        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
+        let supabase;
+        try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
+
+        function courseView() {
+            return {
+                course: {},
+                activeModule: 0,
+                hasAccess: false,
+                user: null,
+                loading: false,
+                message: '',
+                
+                // Auth modal state
+                showAuth: false,
+                authStep: 'email',
+                authEmail: '',
+                authOTP: '',
+                authLoading: false,
+                authError: '',
+
+                async init() {
+                    this.course = JSON.parse(document.getElementById('course-data').textContent);
+                    
+                    // Watch for activeModule changes to fetch gated content
+                    this.$watch('activeModule', async (value) => {
+                        await this.loadActiveModule();
+                    });
+
+                    if (!supabase) {
+                        // Offline/demo fallback
+                        this.hasAccess = true;
+                        return;
+                    }
+                    
+                    const { data: { session } } = await supabase.auth.getSession();
+                    this.user = session?.user || null;
+                    await this.checkAccess();
+
+                    // Listen for auth changes
+                    supabase.auth.onAuthStateChange(async (event, session) => {
+                        this.user = session?.user || null;
+                        if (event === 'SIGNED_IN') {
+                            this.showAuth = false;
+                        }
+                        await this.checkAccess();
+                    });
+                },
+
+                async checkAccess() {
+                    if (!supabase) return;
+                    if (!this.user) {
+                        this.hasAccess = false;
+                        return;
+                    }
+                    
+                    try {
+                        const { data, error } = await supabase
+                            .from('user_course_access')
+                            .select('*')
+                            .eq('course_slug', this.course.slug)
+                            .maybeSingle();
+                        
+                        if (error) throw error;
+                        this.hasAccess = !!data;
+                    } catch (e) {
+                        console.error('Error checking course access:', e);
+                        this.hasAccess = false;
+                    }
+                    
+                    await this.loadActiveModule();
+                },
+
+                async loadActiveModule() {
+                    const idx = this.activeModule;
+                    if (idx === 0) return; // Module 1 is always embedded statically
+                    
+                    if (this.hasAccess && this.course.modules && this.course.modules[idx] && !this.course.modules[idx].content) {
+                        this.loading = true;
+                        this.message = '';
+                        try {
+                            const { data, error } = await supabase
+                                .from('course_modules')
+                                .select('content')
+                                .eq('course_slug', this.course.slug)
+                                .eq('module_index', idx)
+                                .single();
+                            
+                            if (error) throw error;
+                            if (data) {
+                                this.course.modules[idx].content = data.content;
+                            }
+                        } catch (e) {
+                            console.error('Error loading module content:', e);
+                            this.message = 'حدث خطأ أثناء تحميل محتوى الوحدة: ' + (e.message || e);
+                        }
+                        this.loading = false;
+                    }
+                },
+
+                // Auth methods
+                async sendOTP() {
+                    if (!supabase) { this.authError = 'Auth not configured'; return; }
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {
+                        const { error } = await supabase.auth.signInWithOtp({
+                            email: this.authEmail,
+                        });
+                        if (error) throw error;
+                        this.authStep = 'otp';
+                    } catch (e) {
+                        this.authError = e.message || 'حدث خطأ — حاول مرة أخرى';
+                    }
+                    this.authLoading = false;
+                },
+
+                async verifyOTP() {
+                    if (!supabase) return;
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {
+                        const { error } = await supabase.auth.verifyOtp({
+                            email: this.authEmail,
+                            token: this.authOTP,
+                            type: 'email',
+                        });
+                        if (error) throw error;
+                        this.showAuth = false;
+                    } catch (e) {
+                        this.authError = e.message || 'رمز غير صحيح — حاول مرة أخرى';
+                    }
+                    this.authLoading = false;
+                },
+
+                async signOut() {
+                    if (!supabase) return;
+                    await supabase.auth.signOut();
+                    this.user = null;
+                    this.hasAccess = false;
+                },
+
+                renderMarkdown(md) {
+                    return md ? marked.parse(md) : '';
+                }
+            }
+        }
+    </script>
 </body>
 </html>

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-    <link rel="icon" type="image/svg+xml" href="assets/images/icon.svg">
-
-    <link rel="stylesheet" href="assets/css/tailwind.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة الذكاء الاصطناعي العربية | تعلّم الذكاء الاصطناعي بالعربية</title>
@@ -17,7 +14,7 @@
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Fonts -->
@@ -25,11 +22,57 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef7ff',
+                            100: '#d9edff',
+                            200: '#bce0ff',
+                            300: '#8ecdff',
+                            400: '#59b0ff',
+                            500: '#338dff',
+                            600: '#1b6ff5',
+                            700: '#1459e1',
+                            800: '#1749b6',
+                            900: '#19408f',
+                            950: '#142957',
+                        },
+                        surface: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Lemon Squeezy Widget -->
-    <script src="https://assets.lemonsqueezy.com/assets/button.js" defer></script>
+    <script src="https://lmsqueezy.com/assets/button.js" defer></script>
+
+    <!-- Cloudflare Web Analytics (privacy-friendly, no cookies) -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CLOUDFLARE_WEB_ANALYTICS_TOKEN"}'></script>
+
+    <!-- Flowbite -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet">
 
     <style>
         * { font-family: 'IBM Plex Sans Arabic', sans-serif; }
@@ -86,7 +129,6 @@
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
-<script id="courses-data" type="application/json">[{"slug": "advanced-prompt-engineering-for-developers", "title": "هندسة التلقين المتقدمة للمطورين", "description": "دورة عملية للمطورين لإتقان هندسة التلقين في 2026: المطالبات المهيكلة، استدعاء الأدوات، والتقييم المستمر عبر نماذج متعددة.", "tags": ["هندسة التلقين", "Prompt Engineering", "المخرجات المهيكلة", "استدعاء الأدوات"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-orange-500 to-red-500"}, {"slug": "ai-governance-and-ethics-in-the-arab-world", "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصنّاع القرار حول حوكمة الذكاء الاصطناعي ومواءمة التقنية مع القيم واللوائح العربية والعالمية: قانون الاتحاد الأوروبي، إطار سدايا السعودي، وميثاق الإمارات.", "tags": ["حوكمة الذكاء الاصطناعي", "الأخلاقيات", "الامتثال", "الذكاء الاصطناعي المسؤول"], "modules": 5, "duration": "3 ساعات", "price": 29, "gradient": "from-cyan-500 to-blue-500"}, {"slug": "building-a-production-rag-system", "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب", "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.", "tags": ["RAG", "Vector Search", "Hybrid Search", "Embeddings"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-emerald-500 to-teal-500"}, {"slug": "langgraph-multi-agents", "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "llm-fine-tuning-with-lora-and-qlora", "title": "ضبط نماذج اللغة الكبيرة بالدقة المنخفضة باستخدام LoRA وQLoRA", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لتطبيق ضبط نماذج اللغة الكبيرة بكفاءة عبر LoRA وQLoRA على أجهزة محدودة، من الإعداد إلى النشر.", "tags": ["ضبط النماذج", "LoRA", "QLoRA", "PEFT"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "mlops-from-experiment-to-production", "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر الملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة وقوالب الجودة.", "tags": ["MLOps", "CI/CD للتعلم الآلي", "سجل النماذج", "مراقبة الانحراف"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-rose-500 to-orange-500"}]</script>
 </head>
 <body class="bg-surface-950 text-white font-arabic antialiased" x-data="app()">
 
@@ -208,8 +250,8 @@
                 <!-- Stats -->
                 <div class="fade-up delay-400 mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
                     <div class="text-center">
-                        <div class="text-2xl md:text-3xl font-bold text-white">6</div>
-                        <div class="text-xs md:text-sm text-surface-200 mt-1">دورات تقنية</div>
+                        <div class="text-2xl md:text-3xl font-bold text-white">10+</div>
+                        <div class="text-xs md:text-sm text-surface-200 mt-1">دورة تقنية</div>
                     </div>
                     <div class="text-center border-x border-white/10">
                         <div class="text-2xl md:text-3xl font-bold text-white">100%</div>
@@ -495,6 +537,10 @@
             <h2 class="text-2xl md:text-3xl font-bold mb-3">أسبوع الذكاء الاصطناعي</h2>
             <p class="text-surface-200 mb-8">نشرة أسبوعية بالعربية — أحدث أخبار AI، نصائح تقنية، ومحتوى حصري. كل خميس.</p>
 
+            <p class="text-sm text-brand-400 mb-6" x-show="subscriberCount !== null">
+                <span class="font-bold" x-text="subscriberCount"></span> مهندساً يتلقّون النشرة بالفعل 🚀
+            </p>
+
             <form @submit.prevent="subscribeNewsletter()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <input
                     type="email"
@@ -537,6 +583,35 @@
             </div>
         </div>
     </footer>
+
+    <!-- ============================================ -->
+    <!-- STRUCTURED DATA (SEO) -->
+    <!-- ============================================ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "AI Rank One",
+      "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev",
+      "description": "منصة عربية لتعليم الذكاء الاصطناعي وتعلم الآلة للمهندسين العرب بدورات تقنية بالعربية الفصحى.",
+      "inLanguage": "ar",
+      "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "item": { "@type": "Course", "name": "هندسة التلقين المتقدمة للمطورين", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/advanced-prompt-engineering-for-developers/index.html" } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "Course", "name": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/ai-governance-and-ethics-in-the-arab-world/index.html" } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "Course", "name": "بناء نظام RAG للإنتاج", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/building-a-production-rag-system/index.html" } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "Course", "name": "بناء أنظمة الوكلاء المتعددة باستخدام LangGraph", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/langgraph-multi-agents/index.html" } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "Course", "name": "ضبط النماذج اللغوية الكبيرة باستخدام LoRA وQLoRA", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/llm-fine-tuning-with-lora-and-qlora/index.html" } },
+        { "@type": "ListItem", "position": 6, "item": { "@type": "Course", "name": "MLOps من التجربة إلى الإنتاج", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/mlops-from-experiment-to-production/index.html" } }
+      ]
+    }
+    </script>
 
     <!-- ============================================ -->
     <!-- AUTH MODAL -->
@@ -593,6 +668,11 @@
     </div>
 
     <!-- ============================================ -->
+    <!-- Flowbite JS -->
+    <!-- ============================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
+    <!-- ============================================ -->
     <!-- SUPABASE SDK -->
     <!-- ============================================ -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -607,14 +687,12 @@
         const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
         const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
 
-        // Initialize Supabase client (no session persistence → no storage writes)
-        let sb;
+        // Initialize Supabase client
+        let supabase;
         try {
-            sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-                auth: { persistSession: false, autoRefreshToken: false },
-            });
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         } catch (e) {
-            sb = null;
+            console.warn('Supabase not configured yet — auth will not work until credentials are set.');
         }
 
         // ========== ALPINE APP ==========
@@ -622,7 +700,6 @@
             return {
                 // State
                 user: null,
-                activeCourseSlug: null, // set on course pages so single-course checkout knows which course
                 mobileMenu: false,
                 showAuth: false,
                 authStep: 'email',
@@ -631,24 +708,35 @@
                 authLoading: false,
                 authError: '',
                 newsletterEmail: '',
+                subscriberCount: null,
 
                 // Lemon Squeezy integration
+                // storeReady flips to true once the Lemon Squeezy store is approved
+                // and real variant IDs are set in config.js (via .env).
+                get storeReady() {
+                    return window.PUBLIC_CONFIG?.LEMON_STORE_READY === 'true';
+                },
+                getVariantId(variantType) {
+                    if (variantType === 'bundle') return window.PUBLIC_CONFIG?.LEMON_BUNDLE_VARIANT_ID;
+                    if (variantType === 'all') return window.PUBLIC_CONFIG?.LEMON_ALL_ACCESS_VARIANT_ID;
+                    return window.PUBLIC_CONFIG?.LEMON_VARIANT_ID;
+                },
+
                 openCheckout(variantType) {
-                    const VARIANTS = window.PUBLIC_CONFIG?.VARIANTS || {};
-                    const variantId = VARIANTS[variantType];
-                    if (!variantId) {
-                        alert('عذراً، الدفع غير متاح حالياً. يرجى المحاولة لاحقاً.');
+                    const variantId = this.getVariantId(variantType);
+
+                    // Guard: store not live yet (placeholders / review pending)
+                    const isPlaceholder = !variantId || String(variantId).includes('VARIANT') || String(variantId).includes('variant-id');
+                    if (!this.storeReady || isPlaceholder) {
+                        alert('🚧 متجر الدفع قيد المراجعة حالياً. النشرة المجانية متاحة الآن — اشترك ببريدك وسنخبرك فور تفعيل الدفع!');
                         return;
                     }
 
-                    // Pass the active course slug so the webhook can grant the right access.
-                    const params = new URLSearchParams({ embed: '1' });
-                    if (this.user?.email) params.set('checkout[email]', this.user.email);
-                    if (variantType === 'single' && this.activeCourseSlug) {
-                        params.set('checkout[data][custom][course_slug]', this.activeCourseSlug);
+                    let url = `https://checkout.lemonsqueezy.com/buy/${variantId}?embed=1`;
+                    if (this.user?.email) {
+                        url += `&checkout[email]=${encodeURIComponent(this.user.email)}`;
                     }
 
-                    const url = `https://checkout.lemonsqueezy.com/buy/${variantId}?${params.toString()}`;
                     if (window.LemonSqueezy) {
                         window.LemonSqueezy.Url.Open(url);
                     } else {
@@ -656,10 +744,13 @@
                     }
                 },
 
-                courses: (window.__COURSES__ || []),
+                courses: [{"slug": "advanced-prompt-engineering-for-developers", "title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-orange-500 to-red-500"}, {"slug": "ai-governance-and-ethics-in-the-arab-world", "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "modules": 5, "duration": "3 ساعات", "price": 29, "gradient": "from-cyan-500 to-blue-500"}, {"slug": "building-a-production-rag-system", "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب", "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.", "tags": ["RAG", "Vector Search", "Hybrid Search", "Embeddings"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-emerald-500 to-teal-500"}, {"slug": "langgraph-multi-agents", "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "llm-fine-tuning-with-lora-and-qlora", "title": "دورة متقدمة في LLM Fine-tuning with LoRA and QLoRA", "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات LLM Fine-tuning with LoRA and QLoRA في بيئات العمل الفعلية.", "tags": ["LLM", "Python", "Mute"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "mlops-from-experiment-to-production", "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-rose-500 to-orange-500"}], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-orange-500 to-red-500"}, {"slug": "ai-governance-and-ethics-in-the-arab-world", "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "modules": 5, "duration": "3 ساعات", "price": 29, "gradient": "from-cyan-500 to-blue-500"}, {"slug": "building-a-production-rag-system", "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب", "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.", "tags": ["RAG", "Vector Search", "Hybrid Search", "Embeddings"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-emerald-500 to-teal-500"}, {"slug": "langgraph-multi-agents", "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "llm-fine-tuning-with-lora-and-qlora", "title": "دورة متقدمة في LLM Fine-tuning with LoRA and QLoRA", "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات LLM Fine-tuning with LoRA and QLoRA في بيئات العمل الفعلية.", "tags": ["LLM", "Python", "Mute"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "mlops-from-experiment-to-production", "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-rose-500 to-orange-500"}], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-orange-500 to-red-500"}, {"slug": "ai-governance-and-ethics-in-the-arab-world", "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "modules": 5, "duration": "3 ساعات", "price": 29, "gradient": "from-cyan-500 to-blue-500"}, {"slug": "building-a-production-rag-system", "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب", "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.", "tags": ["RAG", "Vector Search", "Hybrid Search", "Embeddings"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-emerald-500 to-teal-500"}, {"slug": "langgraph-multi-agents", "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "llm-fine-tuning-with-lora-and-qlora", "title": "ضبط النماذج اللغوية الكبيرة (Fine-Tuning) باستخدام LoRA وQLoRA", "description": "دورة عملية لضبط نماذج لغوية مفتوحة المصدر على مهام مخصصة باستخدام تقنيتي LoRA وQLoRA بتكلفة وحجم ذاكرة منخفضين.", "tags": ["Fine-Tuning", "LoRA", "QLoRA", "PEFT"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-purple-500 to-pink-500"}, {"slug": "mlops-from-experiment-to-production", "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-rose-500 to-orange-500"}],
 
                 // Init
                 async init() {
+                    // Social proof: live subscriber count (never exposes emails)
+                    this.loadSubscriberCount();
+
                     // Courses are injected at build time, but refresh from the
                     // live index in case new courses were published after build.
                     try {
@@ -674,17 +765,13 @@
                         console.warn('Could not refresh course index, using built-in list.', e);
                     }
 
-                    // Single-course checkout reads ?course=slug when arriving from a course page.
-                    const params = new URLSearchParams(window.location.search);
-                    this.activeCourseSlug = params.get('course') || null;
-
-                    if (!sb) return;
-                    const { data } = await sb.auth.getSession();
+                    if (!supabase) return;
+                    const { data } = await supabase.auth.getSession();
                     if (data.session) {
                         this.user = data.session.user;
                     }
                     // Listen for auth changes
-                    sb.auth.onAuthStateChange((event, session) => {
+                    supabase.auth.onAuthStateChange((event, session) => {
                         this.user = session?.user || null;
                         if (event === 'SIGNED_IN') {
                             this.showAuth = false;
@@ -694,11 +781,11 @@
 
                 // Auth methods
                 async sendOTP() {
-                    if (!sb) { this.authError = 'Auth not configured'; return; }
+                    if (!supabase) { this.authError = 'Auth not configured'; return; }
                     this.authLoading = true;
                     this.authError = '';
                     try {
-                        const { error } = await sb.auth.signInWithOtp({
+                        const { error } = await supabase.auth.signInWithOtp({
                             email: this.authEmail,
                         });
                         if (error) throw error;
@@ -710,11 +797,11 @@
                 },
 
                 async verifyOTP() {
-                    if (!sb) return;
+                    if (!supabase) return;
                     this.authLoading = true;
                     this.authError = '';
                     try {
-                        const { error } = await sb.auth.verifyOtp({
+                        const { error } = await supabase.auth.verifyOtp({
                             email: this.authEmail,
                             token: this.authOTP,
                             type: 'email',
@@ -728,20 +815,37 @@
                 },
 
                 async signOut() {
-                    if (!sb) return;
-                    await sb.auth.signOut();
+                    if (!supabase) return;
+                    await supabase.auth.signOut();
                     this.user = null;
+                },
+
+                async loadSubscriberCount() {
+                    const fn = window.PUBLIC_CONFIG?.SUBSCRIBER_COUNT_FN
+                        || `${SUPABASE_URL}/functions/v1/subscriber-count`;
+                    try {
+                        const res = await fetch(fn, {
+                            headers: { 'apikey': SUPABASE_ANON_KEY }
+                        });
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (typeof data.count === 'number') this.subscriberCount = data.count;
+                        }
+                    } catch (e) {
+                        console.warn('Could not load subscriber count.', e);
+                    }
                 },
 
                 // Newsletter
                 async subscribeNewsletter() {
                     if (!this.newsletterEmail) return;
-                    if (!sb) {
-                        alert('عذراً، خدمة الاشتراك غير متاحة حالياً. يرجى المحاولة لاحقاً.');
+                    if (!supabase) {
+                        alert('شكراً! تم تسجيلك في النشرة الأسبوعية.');
+                        this.newsletterEmail = '';
                         return;
                     }
                     try {
-                        const { error } = await sb.from('subscribers').insert({
+                        const { error } = await supabase.from('subscribers').insert({
                             email: this.newsletterEmail,
                             subscribed_at: new Date().toISOString(),
                         });

@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="../../assets/images/icon.svg">
-    <meta name="mobile-web-app-capable" content="yes">
     <title>هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج | منصة الذكاء الاصطناعي العربية</title>
-    <meta name="description" content="دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر الملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة وقوالب الجودة.">
+    <meta name="description" content="دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.">
     <link rel="manifest" href="../../manifest.json">
     <meta name="theme-color" content="#0f172a">
     
@@ -14,7 +12,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../assets/css/tailwind.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: { 400: '#59b0ff', 500: '#338dff', 600: '#1b6ff5', 950: '#142957' },
+                        surface: { 50: '#f8fafc', 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
+                    }
+                }
+            }
+        }
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -95,7 +109,7 @@
                 <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. يرجى الاشتراك في الدورة لفتح كامل المحتوى وكود المصدر والشهادة فوراً!</p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-                    <a href="../../index.html#pricing?course=mlops-from-experiment-to-production" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
+                    <a href="../../index.html#pricing" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
                         اشترك في الدورة
                     </a>
                     <button @click="showAuth = true" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-surface-200 hover:text-white transition-all">
@@ -160,10 +174,160 @@
 
     <!-- Script Data Injected by Compiler -->
     <script id="course-data" type="application/json">
-    {"title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر الملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة وقوالب الجودة.", "tags": ["MLOps", "CI/CD للتعلم الآلي", "سجل النماذج", "مراقبة الانحراف"], "price": 29, "duration": "5 ساعات", "gradient": "from-rose-500 to-orange-500", "modules": [{"title": "الوحدة 1: مبادئ MLOps والتحكم في الإصدارات", "content": "# مبادئ MLOps والتحكم في الإصدارات\n\nالتعلّم الآلي أكثر تعقيداً من البرمجيات التقليدية: اعتماد على البيانات، تدهور أداء النموذج، دورات إعادة تدريب، وانحراف البيانات (data drift). هدف MLOps: التشغيل الآلي والمعياري لدورة حياة النموذج.\n\n## الركائز الأربع\n- **قابلية التكرار**: كل تجربة وتدريب قابل لإعادة الإنتاج بنفس الشروط.\n- **الأتمتة**: إزالة الخطوات اليدوية وتقليل الأخطاء البشرية.\n- **المراقبة**: تتبع الأداء واكتشاف الشذوذ لحظياً.\n- **الحوكمة**: أثر تدقيق ومسار امتثال.\n\n## version everything — ليس الكود فقط\nنموذج قابل للتكرار يعني استعادة ثلاثة مدخلات: الكود (Git)، البيانات (DVC)، النموذج/التجربة (MLflow).\n\n```bash\n# Git يصدر الكود، DVC يربط نسخة البيانات بنفس الالتزام\ngit add train.py dvc.yaml && git commit -m \"pipeline v3\"\ndvc add data/raw.csv          # يسجّل التجزئة (hash) في .dvc\ndvc repro                     # يعيد تشغيل المراحل المتغيرة فقط\n```\n\n```python\nimport mlflow\nmlflow.log_param(\"lr\", 0.01)\nmlflow.log_metric(\"f1\", 0.92)\nmlflow.log_artifact(\"preprocess.pkl\")\n```\n\n## سجل النماذج (Model Registry)\nنموذج واحد يمرّ بمراحل: None ← Staging ← Production ← Archived، بكل انتقال مسجّل وموافق عليه. استخدم الأسماء المستعارة (aliases) لا الوسوم اليدوية: التراجع سطر واحد (`@production` يشير للنسخة السابقة)."}, {"title": "الوحدة 2: خط أنابيب CI/CD للتعلم الآلي (مع CT)", "content": ""}, {"title": "الوحدة 3: سجل النماذج والتعبئة والنشر الآمن", "content": ""}, {"title": "الوحدة 4: مشروع عملي — من البيانات إلى خدمة الاستدلال", "content": ""}, {"title": "الوحدة 5: المراقبة والانحراف وإعادة التدريب والتكلفة", "content": ""}], "slug": "mlops-from-experiment-to-production"}
+    {"title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "price": 29, "duration": "5 ساعات", "gradient": "from-rose-500 to-orange-500", "modules": [{"title": "الوحدة 1: الفجوة بين النموذج والإنتاج", "content": "# الفجوة بين النموذج والإنتاج\n\nنموذج يعمل في دفتر Jupyter ليس نظاماً إنتاجياً. التحدي الحقيقي: **البيانات، التشغيل، والمراقبة**.\n\n## ركائز MLOps\n- **التحكم بالإصدارات** (الكود + البيانات + النموذج).\n- **خطوط أنابيب قابلة لإعادة الإنتاج**.\n- **المراقبة المستمرة** لأداء النموذج.\n\n## أول خطوة: إخراج التدريب من الدفتر\n\n```python\n# train.py — سكربت مستقل قابل للتشغيل عبر CI\ndef main():\n    data = load_dataset(\"train.csv\")\n    model = train(data)\n    evaluate_and_save(model, \"models/v1\")\n\nif __name__ == \"__main__\":\n    main()\n```"}, {"title": "الوحدة 2: تتبّع التجارب وسجل النماذج", "content": ""}, {"title": "الوحدة 3: أتمتة التدريب بـ CI/CD", "content": ""}, {"title": "الوحدة 4: نشر النموذج كخدمة (Model Serving)", "content": ""}, {"title": "الوحدة 5: المراقبة وانجراف البيانات", "content": ""}], "slug": "mlops-from-experiment-to-production"}
     </script>
 
     <script src="../../assets/js/config.js"></script>
-    <script src="../../assets/js/course.js"></script>
+    <script>
+        // Supabase Init loaded from config.js
+        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
+        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
+        let supabase;
+        try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
+
+        function courseView() {
+            return {
+                course: {},
+                activeModule: 0,
+                hasAccess: false,
+                user: null,
+                loading: false,
+                message: '',
+                
+                // Auth modal state
+                showAuth: false,
+                authStep: 'email',
+                authEmail: '',
+                authOTP: '',
+                authLoading: false,
+                authError: '',
+
+                async init() {
+                    this.course = JSON.parse(document.getElementById('course-data').textContent);
+                    
+                    // Watch for activeModule changes to fetch gated content
+                    this.$watch('activeModule', async (value) => {
+                        await this.loadActiveModule();
+                    });
+
+                    if (!supabase) {
+                        // Offline/demo fallback
+                        this.hasAccess = true;
+                        return;
+                    }
+                    
+                    const { data: { session } } = await supabase.auth.getSession();
+                    this.user = session?.user || null;
+                    await this.checkAccess();
+
+                    // Listen for auth changes
+                    supabase.auth.onAuthStateChange(async (event, session) => {
+                        this.user = session?.user || null;
+                        if (event === 'SIGNED_IN') {
+                            this.showAuth = false;
+                        }
+                        await this.checkAccess();
+                    });
+                },
+
+                async checkAccess() {
+                    if (!supabase) return;
+                    if (!this.user) {
+                        this.hasAccess = false;
+                        return;
+                    }
+                    
+                    try {
+                        const { data, error } = await supabase
+                            .from('user_course_access')
+                            .select('*')
+                            .eq('course_slug', this.course.slug)
+                            .maybeSingle();
+                        
+                        if (error) throw error;
+                        this.hasAccess = !!data;
+                    } catch (e) {
+                        console.error('Error checking course access:', e);
+                        this.hasAccess = false;
+                    }
+                    
+                    await this.loadActiveModule();
+                },
+
+                async loadActiveModule() {
+                    const idx = this.activeModule;
+                    if (idx === 0) return; // Module 1 is always embedded statically
+                    
+                    if (this.hasAccess && this.course.modules && this.course.modules[idx] && !this.course.modules[idx].content) {
+                        this.loading = true;
+                        this.message = '';
+                        try {
+                            const { data, error } = await supabase
+                                .from('course_modules')
+                                .select('content')
+                                .eq('course_slug', this.course.slug)
+                                .eq('module_index', idx)
+                                .single();
+                            
+                            if (error) throw error;
+                            if (data) {
+                                this.course.modules[idx].content = data.content;
+                            }
+                        } catch (e) {
+                            console.error('Error loading module content:', e);
+                            this.message = 'حدث خطأ أثناء تحميل محتوى الوحدة: ' + (e.message || e);
+                        }
+                        this.loading = false;
+                    }
+                },
+
+                // Auth methods
+                async sendOTP() {
+                    if (!supabase) { this.authError = 'Auth not configured'; return; }
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {
+                        const { error } = await supabase.auth.signInWithOtp({
+                            email: this.authEmail,
+                        });
+                        if (error) throw error;
+                        this.authStep = 'otp';
+                    } catch (e) {
+                        this.authError = e.message || 'حدث خطأ — حاول مرة أخرى';
+                    }
+                    this.authLoading = false;
+                },
+
+                async verifyOTP() {
+                    if (!supabase) return;
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {
+                        const { error } = await supabase.auth.verifyOtp({
+                            email: this.authEmail,
+                            token: this.authOTP,
+                            type: 'email',
+                        });
+                        if (error) throw error;
+                        this.showAuth = false;
+                    } catch (e) {
+                        this.authError = e.message || 'رمز غير صحيح — حاول مرة أخرى';
+                    }
+                    this.authLoading = false;
+                },
+
+                async signOut() {
+                    if (!supabase) return;
+                    await supabase.auth.signOut();
+                    this.user = null;
+                    this.hasAccess = false;
+                },
+
+                renderMarkdown(md) {
+                    return md ? marked.parse(md) : '';
+                }
+            }
+        }
+    </script>
 </body>
 </html>

@@ -3,11 +3,9 @@
 window.PUBLIC_CONFIG = {
   SUPABASE_URL: "https://qezitivobatbayifkmsk.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFleml0aXZvYmF0YmF5aWZrbXNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxODY5NjQsImV4cCI6MjA5OTc2Mjk2NH0.xJCU9kYJT--lI2WGmjKBTb9DnUmL8Mdl2rHIUyOC6-Q",
-  SITE_URL: "https://ai-rank-one.hasnainrazalakhani7272.workers.dev",
-  // Lemon Squeezy variant IDs per pricing tier. Map tier -> variant in the webhook.
-  VARIANTS: {
-    single: "SINGLE_VARIANT_ID",
-    bundle: "BUNDLE_VARIANT_ID",
-    all: "ALL_VARIANT_ID",
-  },
+  LEMON_VARIANT_ID: "your_variant_id",
+  LEMON_BUNDLE_VARIANT_ID: "bundle-variant-id",
+  LEMON_ALL_ACCESS_VARIANT_ID: "all-access-variant-id",
+  LEMON_STORE_READY: "false",
+  SUBSCRIBER_COUNT_FN: "https://qezitivobatbayifkmsk.supabase.co/functions/v1/subscriber-count",
 };

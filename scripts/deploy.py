@@ -17,8 +17,6 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="../../assets/images/icon.svg">
-    <meta name="mobile-web-app-capable" content="yes">
     <title>{title} | منصة الذكاء الاصطناعي العربية</title>
     <meta name="description" content="{description}">
     <link rel="manifest" href="../../manifest.json">
@@ -28,7 +26,23 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../../assets/css/tailwind.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {{
+            theme: {{
+                extend: {{
+                    fontFamily: {{
+                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }},
+                    colors: {{
+                        brand: {{ 400: '#59b0ff', 500: '#338dff', 600: '#1b6ff5', 950: '#142957' }},
+                        surface: {{ 50: '#f8fafc', 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }}
+                    }}
+                }}
+            }}
+        }}
+    </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -109,7 +123,7 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
                 <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. يرجى الاشتراك في الدورة لفتح كامل المحتوى وكود المصدر والشهادة فوراً!</p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-                    <a href="../../index.html#pricing?course={slug}" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
+                    <a href="../../index.html#pricing" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
                         اشترك في الدورة
                     </a>
                     <button @click="showAuth = true" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-surface-200 hover:text-white transition-all">
@@ -178,62 +192,170 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
     </script>
 
     <script src="../../assets/js/config.js"></script>
-    <script src="../../assets/js/course.js"></script>
+    <script>
+        // Supabase Init loaded from config.js
+        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
+        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
+        let supabase;
+        try {{ supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); }} catch(e) {{}}
+
+        function courseView() {{
+            return {{
+                course: {{}},
+                activeModule: 0,
+                hasAccess: false,
+                user: null,
+                loading: false,
+                message: '',
+                
+                // Auth modal state
+                showAuth: false,
+                authStep: 'email',
+                authEmail: '',
+                authOTP: '',
+                authLoading: false,
+                authError: '',
+
+                async init() {{
+                    this.course = JSON.parse(document.getElementById('course-data').textContent);
+                    
+                    // Watch for activeModule changes to fetch gated content
+                    this.$watch('activeModule', async (value) => {{
+                        await this.loadActiveModule();
+                    }});
+
+                    if (!supabase) {{
+                        // Offline/demo fallback
+                        this.hasAccess = true;
+                        return;
+                    }}
+                    
+                    const {{ data: {{ session }} }} = await supabase.auth.getSession();
+                    this.user = session?.user || null;
+                    await this.checkAccess();
+
+                    // Listen for auth changes
+                    supabase.auth.onAuthStateChange(async (event, session) => {{
+                        this.user = session?.user || null;
+                        if (event === 'SIGNED_IN') {{
+                            this.showAuth = false;
+                        }}
+                        await this.checkAccess();
+                    }});
+                }},
+
+                async checkAccess() {{
+                    if (!supabase) return;
+                    if (!this.user) {{
+                        this.hasAccess = false;
+                        return;
+                    }}
+                    
+                    try {{
+                        const {{ data, error }} = await supabase
+                            .from('user_course_access')
+                            .select('*')
+                            .eq('course_slug', this.course.slug)
+                            .maybeSingle();
+                        
+                        if (error) throw error;
+                        this.hasAccess = !!data;
+                    }} catch (e) {{
+                        console.error('Error checking course access:', e);
+                        this.hasAccess = false;
+                    }}
+                    
+                    await this.loadActiveModule();
+                }},
+
+                async loadActiveModule() {{
+                    const idx = this.activeModule;
+                    if (idx === 0) return; // Module 1 is always embedded statically
+                    
+                    if (this.hasAccess && this.course.modules && this.course.modules[idx] && !this.course.modules[idx].content) {{
+                        this.loading = true;
+                        this.message = '';
+                        try {{
+                            const {{ data, error }} = await supabase
+                                .from('course_modules')
+                                .select('content')
+                                .eq('course_slug', this.course.slug)
+                                .eq('module_index', idx)
+                                .single();
+                            
+                            if (error) throw error;
+                            if (data) {{
+                                this.course.modules[idx].content = data.content;
+                            }}
+                        }} catch (e) {{
+                            console.error('Error loading module content:', e);
+                            this.message = 'حدث خطأ أثناء تحميل محتوى الوحدة: ' + (e.message || e);
+                        }}
+                        this.loading = false;
+                    }}
+                }},
+
+                // Auth methods
+                async sendOTP() {{
+                    if (!supabase) {{ this.authError = 'Auth not configured'; return; }}
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {{
+                        const {{ error }} = await supabase.auth.signInWithOtp({{
+                            email: this.authEmail,
+                        }});
+                        if (error) throw error;
+                        this.authStep = 'otp';
+                    }} catch (e) {{
+                        this.authError = e.message || 'حدث خطأ — حاول مرة أخرى';
+                    }}
+                    this.authLoading = false;
+                }},
+
+                async verifyOTP() {{
+                    if (!supabase) return;
+                    this.authLoading = true;
+                    this.authError = '';
+                    try {{
+                        const {{ error }} = await supabase.auth.verifyOtp({{
+                            email: this.authEmail,
+                            token: this.authOTP,
+                            type: 'email',
+                        }});
+                        if (error) throw error;
+                        this.showAuth = false;
+                    }} catch (e) {{
+                        this.authError = e.message || 'رمز غير صحيح — حاول مرة أخرى';
+                    }}
+                    this.authLoading = false;
+                }},
+
+                async signOut() {{
+                    if (!supabase) return;
+                    await supabase.auth.signOut();
+                    this.user = null;
+                    this.hasAccess = false;
+                }},
+
+                renderMarkdown(md) {{
+                    return md ? marked.parse(md) : '';
+                }}
+            }}
+        }}
+    </script>
 </body>
 </html>
 """
 
-def _fetch_linked_supabase():
-    """Best-effort: pull the project ref + anon key from the linked Supabase CLI.
-
-    Falls back to placeholders if the CLI isn't linked or the call fails, so the
-    build never hard-fails.
-    """
-    url, anon = "https://YOUR_PROJECT.supabase.co", "YOUR_ANON_KEY"
-    try:
-        out = subprocess.run(
-            "supabase projects api-keys",
-            capture_output=True, text=True, timeout=30, shell=True,
-        )
-        data = json.loads(out.stdout)
-        for k in data.get("keys", []):
-            if k.get("id") == "anon":
-                anon = k["api_key"]
-                ref = json.loads(_b64_payload(anon)).get("ref", "")
-                if ref:
-                    url = f"https://{ref}.supabase.co"
-                break
-    except Exception:
-        pass
-    return url, anon
-
-
-def _b64_payload(jwt):
-    import base64
-    parts = jwt.split(".")
-    if len(parts) < 2:
-        return "{}"
-    pad = parts[1] + "=" * (-len(parts[1]) % 4)
-    return base64.urlsafe_b64decode(pad).decode("utf-8", "ignore")
-
-
 def generate_config():
-    """Generate site/assets/js/config.js from .env so keys live in ONE place.
-
-    If Supabase creds aren't in .env, they're pulled from the linked Supabase
-    project automatically so the deployed site always has working auth.
-    """
-    supabase_url = os.getenv("SUPABASE_URL")
-    anon_key = os.getenv("SUPABASE_ANON_KEY")
-    if not supabase_url or not anon_key:
-        fetched_url, fetched_anon = _fetch_linked_supabase()
-        supabase_url = supabase_url or fetched_url
-        anon_key = anon_key or fetched_anon
-
-    site_url = os.getenv("SITE_URL", "https://ai-rank-one.hasnainrazalakhani7272.workers.dev")
-    variant_single = os.getenv("LEMON_VARIANT_SINGLE", "SINGLE_VARIANT_ID")
-    variant_bundle = os.getenv("LEMON_VARIANT_BUNDLE", "BUNDLE_VARIANT_ID")
-    variant_all = os.getenv("LEMON_VARIANT_ALL", "ALL_VARIANT_ID")
+    """Generate site/assets/js/config.js from .env so keys live in ONE place."""
+    supabase_url = os.getenv("SUPABASE_URL", "https://YOUR_PROJECT.supabase.co")
+    anon_key = os.getenv("SUPABASE_ANON_KEY", "YOUR_ANON_KEY")
+    variant_id = os.getenv("LEMON_SQUEEZY_VARIANT_ID", "VARIANT_ID")
+    bundle_variant_id = os.getenv("LEMON_SQUEEZY_BUNDLE_VARIANT_ID", "bundle-variant-id")
+    all_access_variant_id = os.getenv("LEMON_SQUEEZY_ALL_ACCESS_VARIANT_ID", "all-access-variant-id")
+    # Flip to "true" in .env once the Lemon Squeezy store is approved + live.
+    store_ready = os.getenv("LEMON_STORE_READY", "false")
 
     config_content = (
         "// AUTO-GENERATED by scripts/deploy.py from .env — do not edit manually.\n"
@@ -241,13 +363,11 @@ def generate_config():
         "window.PUBLIC_CONFIG = {\n"
         f'  SUPABASE_URL: "{supabase_url}",\n'
         f'  SUPABASE_ANON_KEY: "{anon_key}",\n'
-        f'  SITE_URL: "{site_url}",\n'
-        '  // Lemon Squeezy variant IDs per pricing tier. Map tier -> variant in the webhook.\n'
-        '  VARIANTS: {\n'
-        f'    single: "{variant_single}",\n'
-        f'    bundle: "{variant_bundle}",\n'
-        f'    all: "{variant_all}",\n'
-        "  },\n"
+        f'  LEMON_VARIANT_ID: "{variant_id}",\n'
+        f'  LEMON_BUNDLE_VARIANT_ID: "{bundle_variant_id}",\n'
+        f'  LEMON_ALL_ACCESS_VARIANT_ID: "{all_access_variant_id}",\n'
+        f'  LEMON_STORE_READY: "{store_ready}",\n'
+        f'  SUBSCRIBER_COUNT_FN: "{supabase_url.rstrip("/")}/functions/v1/subscriber-count",\n'
         "};\n"
     )
 
@@ -263,27 +383,28 @@ def generate_config():
 
 
 def inject_courses_into_index(courses_list):
-    """Inject the compiled course list into site/index.html as a JSON data tag.
+    """Inject the compiled course list directly into site/index.html.
 
-    We embed the courses as `application/json` (not a JS literal) so it can never
-    break the surrounding script, and `app()` reads it via `window.__COURSES__`.
+    We replace the courses array inside the Alpine `app()` data with a real JS
+    array literal. This guarantees the course grid renders immediately.
     """
     index_path = os.path.join("site", "index.html")
     if not os.path.exists(index_path):
         return
 
     import re
-    courses_json = json.dumps(courses_list, ensure_ascii=False)
-    data_tag = f'<script id="courses-data" type="application/json">{courses_json}</script>'
-
+    courses_js = json.dumps(courses_list, ensure_ascii=False)
+    
     with open(index_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    pattern = r'<script id="courses-data" type="application/json">.*?</script>'
-    if re.search(pattern, html, re.S):
-        new_html = re.sub(pattern, data_tag, html, count=1, flags=re.S)
-    else:
-        new_html = html.replace("</head>", data_tag + "\n</head>", 1)
+    pattern = r"courses:\s*\[.*?\],"
+    replacement = f"courses: {courses_js},"
+    
+    new_html, count = re.subn(pattern, replacement, html, count=1)
+    if count == 0:
+        print("⚠️  courses list pattern not found in index.html — skipping inject")
+        return
 
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(new_html)
@@ -399,7 +520,6 @@ def compile_and_deploy():
         html_content = COURSE_TEMPLATE.format(
             title=course_data.get("title", ""),
             description=course_data.get("description", ""),
-            slug=slug,
             course_json=json.dumps(public_course_data, ensure_ascii=False),
             price=course_data.get("price", 29)
         )
@@ -418,18 +538,15 @@ def compile_and_deploy():
     # depending on an async fetch (which can briefly show "no courses").
     inject_courses_into_index(courses_list)
 
-    # Git Deploy (opt-in via AUTO_DEPLOY=true to avoid accidental commits)
-    if os.getenv("AUTO_DEPLOY", "false").lower() == "true":
-        print("📤 Pushing to Cloudflare Pages (via git)...")
-        try:
-            subprocess.run(["git", "add", "."], check=True)
-            subprocess.run(["git", "commit", "-m", "Auto-compiled courses and assets"], check=True)
-            subprocess.run(["git", "push", "origin", "main"], check=True)
-            print("🎉 Deployment completed successfully!")
-        except Exception as e:
-            print(f"⚠️ Git push failed (may not have set up remote or no changes): {e}")
-    else:
-        print("ℹ️ Skipped git deploy (set AUTO_DEPLOY=true to commit & push).")
+    # Git Deploy
+    print("📤 Pushing to Cloudflare Pages (via git)...")
+    try:
+        subprocess.run(["git", "add", "."], check=True)
+        subprocess.run(["git", "commit", "-m", "Auto-compiled courses and assets"], check=True)
+        subprocess.run(["git", "push", "origin", "main"], check=True)
+        print("🎉 Deployment completed successfully!")
+    except Exception as e:
+        print(f"⚠️ Git push failed (may not have set up remote or no changes): {e}")
 
 if __name__ == "__main__":
     compile_and_deploy()
