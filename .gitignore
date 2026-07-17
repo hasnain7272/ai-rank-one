@@ -13,3 +13,4 @@ newsletter/issues/
 *.log
 supabase/.temp/
 ai-rank-one.txt
+social/
