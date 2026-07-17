@@ -117,8 +117,8 @@ window.courseView = function(){return{
   },
   async checkAccess(){
     if(!this.user){ this.hasAccess=false; this.loadModule(); return; }
-    const {data} = await sb.from('user_course_access').select('*').eq('course_slug',this.course.slug).maybeSingle();
-    this.hasAccess = !!data; this.loadModule();
+    const {data} = await sb.from('user_course_access').select('course_slug').in('course_slug',[this.course.slug,'*']);
+    this.hasAccess = !!(data && data.length); this.loadModule();
   },
   async loadModule(){
     const i=this.activeModule; if(i===0) return;
@@ -129,7 +129,7 @@ window.courseView = function(){return{
       this.loading=false;
     }
   },
-  async sendOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.signInWithOtp({email:this.authEmail}); if(error) throw error; this.otpSent=true; }catch(e){ this.authError=e.message||'خطأ'; } this.loading=false; },
+  async sendOTP(){ this.loading=true; this.authError=''; try{ const r=await fetch(window.PUBLIC_CONFIG.AUTH_OTP_FN,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY},body:JSON.stringify({email:this.authEmail})}); const d=await r.json().catch(()=>({})); if(!r.ok||d.error) throw new Error(d.error||'فشل الإرسال'); this.otpSent=true; }catch(e){ this.authError=e.message||'خطأ'; } this.loading=false; },
   async verifyOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'}); if(error) throw error; this.showAuth=false; }catch(e){ this.authError=e.message||'رمز خاطئ'; } this.loading=false; },
   async signOut(){ await sb.auth.signOut(); this.user=null; this.hasAccess=false; },
   renderMarkdown(md){ return md ? marked.parse(md) : ''; }

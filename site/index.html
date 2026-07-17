@@ -148,10 +148,10 @@ function app(){return{
     const u=`https://checkout.lemonsqueezy.com/buy/${v}?embed=1`+(this.user?.email?`&checkout[email]=${encodeURIComponent(this.user.email)}`:'');
     window.open(u,'_blank');
   },
-  async sendOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.signInWithOtp({email:this.authEmail,options:{emailRedirectTo:location.href}});if(error)throw error;this.otpSent=true;}catch(e){const m=e?.message||'';this.authError=m.includes('500')||m.includes('confirmation')?'تعذّر إرسال رمز التحقق حالياً — تواصل معنا أو اشترك بالنشرة المجانية أولاً.':(m||'حدث خطأ — حاول مرة أخرى');}this.loading=false;},
+  async sendOTP(){this.loading=true;this.authError='';try{const r=await fetch(LS.AUTH_OTP_FN,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY},body:JSON.stringify({email:this.authEmail})});const d=await r.json().catch(()=>({}));if(!r.ok||d.error)throw new Error(d.error||'فشل الإرسال');this.otpSent=true;}catch(e){this.authError=(e?.message)||'تعذّر إرسال رمز التحقق — حاول مرة أخرى';}this.loading=false;},
   async verifyOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'});if(error)throw error;this.showAuth=false;}catch(e){this.authError=e?.message||'رمز غير صحيح — حاول مرة أخرى';}this.loading=false;},
   async signOut(){await sb.auth.signOut();this.user=null;},
-  async subscribe(){if(!this.email)return;try{const{error}=await sb.from('subscribers').insert({email:this.email,subscribed_at:new Date().toISOString()});if(error)throw error;alert('شكراً! تم تسجيلك في النشرة 🎉');this.email='';}catch(e){alert('تم تسجيلك مسبقاً أو حدث خطأ.');}}
+  async subscribe(){if(!this.email)return;try{const r=await fetch(LS.SUBSCRIBE_FN,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY},body:JSON.stringify({email:this.email})});const d=await r.json().catch(()=>({}));if(!r.ok||d.error)throw new Error(d.error||'خطأ');alert('شكراً! تم تسجيلك في النشرة 🎉 تحقق من بريدك.');this.email='';if(this.subscriberCount!==null)this.subscriberCount++;}catch(e){alert('تم تسجيلك مسبقاً أو حدث خطأ.');}}
 };}
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));}
 </script>

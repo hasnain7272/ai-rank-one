@@ -7,5 +7,7 @@ window.PUBLIC_CONFIG = {
   "LEMON_BUNDLE_VARIANT_ID": "bundle-variant-id",
   "LEMON_ALL_ACCESS_VARIANT_ID": "all-access-variant-id",
   "LEMON_STORE_READY": "false",
-  "SUBSCRIBER_COUNT_FN": "https://qezitivobatbayifkmsk.supabase.co/functions/v1/subscriber-count"
+  "SUBSCRIBER_COUNT_FN": "https://qezitivobatbayifkmsk.supabase.co/functions/v1/subscriber-count",
+  "AUTH_OTP_FN": "https://qezitivobatbayifkmsk.supabase.co/functions/v1/auth-otp",
+  "SUBSCRIBE_FN": "https://qezitivobatbayifkmsk.supabase.co/functions/v1/subscribe"
 };
