@@ -1,875 +1,143 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة الذكاء الاصطناعي العربية | تعلّم الذكاء الاصطناعي بالعربية</title>
-    <meta name="description" content="أول منصة عربية متخصصة في تعليم الذكاء الاصطناعي وتعلم الآلة للمهندسين العرب. دورات تقنية متقدمة بالعربية الفصحى مع شهادات إتمام قابلة للتحقق.">
-    <meta name="keywords" content="ذكاء اصطناعي, تعلم الآلة, دورات عربية, بايثون, LLM, RAG, تعلم عميق">
-    <meta property="og:title" content="منصة الذكاء الاصطناعي العربية">
-    <meta property="og:description" content="دورات تقنية متقدمة في الذكاء الاصطناعي بالعربية الفصحى">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg">
-    <meta name="theme-color" content="#0f172a">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef7ff',
-                            100: '#d9edff',
-                            200: '#bce0ff',
-                            300: '#8ecdff',
-                            400: '#59b0ff',
-                            500: '#338dff',
-                            600: '#1b6ff5',
-                            700: '#1459e1',
-                            800: '#1749b6',
-                            900: '#19408f',
-                            950: '#142957',
-                        },
-                        surface: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
-                            950: '#020617',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- Lemon Squeezy Widget -->
-    <script src="https://lmsqueezy.com/assets/button.js" defer></script>
-
-    <!-- Cloudflare Web Analytics (privacy-friendly, no cookies) -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "REPLACE_WITH_CLOUDFLARE_WEB_ANALYTICS_TOKEN"}'></script>
-
-    <!-- Flowbite -->
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet">
-
-    <style>
-        * { font-family: 'IBM Plex Sans Arabic', sans-serif; }
-        code, pre { font-family: 'JetBrains Mono', monospace; direction: ltr; text-align: left; }
-
-        /* Gradient animations */
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .animate-gradient {
-            background-size: 200% 200%;
-            animation: gradient-shift 6s ease infinite;
-        }
-
-        /* Glow effect */
-        .glow-border {
-            position: relative;
-        }
-        .glow-border::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: inherit;
-            background: linear-gradient(135deg, #338dff, #a855f7, #338dff);
-            background-size: 200% 200%;
-            animation: gradient-shift 4s ease infinite;
-            z-index: -1;
-            opacity: 0.6;
-            filter: blur(8px);
-        }
-
-        /* Floating animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-
-        /* Stagger fade-in */
-        @keyframes fade-up {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-up { animation: fade-up 0.6s ease-out forwards; opacity: 0; }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Rank One — تعلّم الذكاء الاصطناعي بالعربية</title>
+<meta name="description" content="منصة عربية لتعليم الذكاء الاصطناعي للمهندسين العرب بدورات تقنية بالعربية الفصحى.">
+<link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg">
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/assets/js/config.js"></script>
+<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}code,pre{font-family:monospace;direction:ltr;text-align:left}</style>
 </head>
-<body class="bg-surface-950 text-white font-arabic antialiased" x-data="app()">
+<body class="bg-slate-950 text-white" x-data="app()" x-init="init()">
 
-    <!-- ============================================ -->
-    <!-- NAVBAR -->
-    <!-- ============================================ -->
-    <nav class="fixed top-0 inset-x-0 z-50 bg-surface-950/80 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <a href="/" class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
-                    </div>
-                    <span class="text-lg font-bold bg-gradient-to-l from-brand-400 to-purple-400 bg-clip-text text-transparent">AI Rank One</span>
-                </a>
-
-                <!-- Nav Links (Desktop) -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#courses" class="text-sm text-surface-200 hover:text-white transition-colors">الدورات</a>
-                    <a href="#pricing" class="text-sm text-surface-200 hover:text-white transition-colors">الأسعار</a>
-                    <a href="about.html" class="text-sm text-surface-200 hover:text-white transition-colors">المدرب</a>
-                    <a href="glossary.html" class="text-sm text-surface-200 hover:text-white transition-colors">القاموس التقني</a>
-                    <a href="verify.html" class="text-sm text-surface-200 hover:text-white transition-colors">تحقق من الشهادة</a>
-                </div>
-
-                <!-- Auth Buttons -->
-                <div class="flex items-center gap-3">
-                    <template x-if="!user">
-                        <div class="flex items-center gap-3">
-                            <button @click="showAuth = true" class="text-sm text-surface-200 hover:text-white transition-colors">
-                                تسجيل الدخول
-                            </button>
-                            <a href="#pricing" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition-all hover:shadow-lg hover:shadow-brand-600/25">
-                                ابدأ التعلم
-                                <svg class="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </template>
-                    <template x-if="user">
-                        <div class="flex items-center gap-3">
-                            <span class="text-sm text-surface-200" x-text="user.email"></span>
-                            <button @click="signOut()" class="text-sm text-red-400 hover:text-red-300 transition-colors">خروج</button>
-                        </div>
-                    </template>
-
-                    <!-- Mobile menu button -->
-                    <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-surface-200 hover:text-white">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div x-show="mobileMenu" x-transition class="md:hidden pb-4 border-t border-white/5 mt-2 pt-4">
-                <a href="#courses" class="block py-2 text-surface-200 hover:text-white">الدورات</a>
-                <a href="#pricing" class="block py-2 text-surface-200 hover:text-white">الأسعار</a>
-                <a href="about.html" class="block py-2 text-surface-200 hover:text-white">المدرب</a>
-                <a href="glossary.html" class="block py-2 text-surface-200 hover:text-white">القاموس التقني</a>
-                <a href="verify.html" class="block py-2 text-surface-200 hover:text-white">تحقق من الشهادة</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ============================================ -->
-    <!-- HERO SECTION -->
-    <!-- ============================================ -->
-    <section class="relative min-h-screen flex items-center pt-16 overflow-hidden">
-        <!-- Background effects -->
-        <div class="absolute inset-0 bg-gradient-to-b from-brand-950/20 via-surface-950 to-surface-950"></div>
-        <div class="absolute top-20 start-1/4 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 end-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
-
-        <!-- Grid pattern overlay -->
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0); background-size: 40px 40px;"></div>
-
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
-            <div class="max-w-4xl mx-auto text-center">
-                <!-- Badge -->
-                <div class="fade-up inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-300 text-sm">
-                    <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                    2026 — عام الذكاء الاصطناعي
-                </div>
-
-                <!-- Main Heading -->
-                <h1 class="fade-up delay-100 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-                    <span class="block">تعلّم</span>
-                    <span class="bg-gradient-to-l from-brand-400 via-purple-400 to-brand-400 bg-clip-text text-transparent animate-gradient">الذكاء الاصطناعي</span>
-                    <span class="block">بالعربية الفصحى</span>
-                </h1>
-
-                <!-- Subtitle -->
-                <p class="fade-up delay-200 text-lg md:text-xl text-surface-200 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    دورات تقنية متقدمة مصممة للمهندسين العرب — من
-                    <span class="text-brand-400 font-medium">RAG</span>
-                    و<span class="text-purple-400 font-medium">LangGraph</span>
-                    إلى
-                    <span class="text-brand-400 font-medium">Fine-Tuning</span>
-                    و<span class="text-purple-400 font-medium">MLOps</span>.
-                    كود حقيقي. مشاريع تطبيقية. شهادات إتمام.
-                </p>
-
-                <!-- CTA Buttons -->
-                <div class="fade-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <a href="#courses" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold rounded-xl bg-gradient-to-l from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white shadow-lg shadow-brand-600/25 hover:shadow-brand-500/30 transition-all transform hover:-translate-y-0.5">
-                        تصفح الدورات المجانية
-                    </a>
-                    <a href="#pricing" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold rounded-xl border border-white/10 hover:border-white/20 text-surface-200 hover:text-white hover:bg-white/5 transition-all">
-                        اشترك الآن — ابتداءً من $29
-                    </a>
-                </div>
-
-                <!-- Stats -->
-                <div class="fade-up delay-400 mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
-                    <div class="text-center">
-                        <div class="text-2xl md:text-3xl font-bold text-white">10+</div>
-                        <div class="text-xs md:text-sm text-surface-200 mt-1">دورة تقنية</div>
-                    </div>
-                    <div class="text-center border-x border-white/10">
-                        <div class="text-2xl md:text-3xl font-bold text-white">100%</div>
-                        <div class="text-xs md:text-sm text-surface-200 mt-1">عربي فصيح</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl md:text-3xl font-bold text-white">$0</div>
-                        <div class="text-xs md:text-sm text-surface-200 mt-1">الوحدة الأولى</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 inset-x-0 flex justify-center animate-bounce">
-            <svg class="w-5 h-5 text-surface-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- FEATURES SECTION -->
-    <!-- ============================================ -->
-    <section class="py-20 md:py-28 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">لماذا هذه المنصة؟</h2>
-                <p class="text-surface-200 text-lg max-w-xl mx-auto">لأن المهندس العربي يستحق محتوى تقني بجودة عالمية بلغته الأم</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
-                <div class="group relative p-6 rounded-2xl bg-surface-900/50 border border-white/5 hover:border-brand-500/30 transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center mb-4 group-hover:bg-brand-500/20 transition-colors">
-                        <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">كود حقيقي — ليس نظريات</h3>
-                    <p class="text-surface-200 text-sm leading-relaxed">كل دورة تحتوي على مشاريع تطبيقية كاملة بكود Python قابل للتشغيل مباشرة. من التصميم إلى النشر.</p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="group relative p-6 rounded-2xl bg-surface-900/50 border border-white/5 hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition-colors">
-                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">عربية فصحى تقنية</h3>
-                    <p class="text-surface-200 text-sm leading-relaxed">ليس ترجمة آلية — محتوى مكتوب بعربية فصحى سليمة مع مصطلحات تقنية دقيقة يفهمها كل مهندس عربي.</p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="group relative p-6 rounded-2xl bg-surface-900/50 border border-white/5 hover:border-green-500/30 transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition-colors">
-                        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-2">شهادة إتمام قابلة للتحقق</h3>
-                    <p class="text-surface-200 text-sm leading-relaxed">احصل على شهادة إتمام برمز QR يمكن لأي جهة التحقق منها فوراً. أضفها لسيرتك الذاتية بثقة.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- COURSES SECTION -->
-    <!-- ============================================ -->
-    <section id="courses" class="py-20 md:py-28 relative bg-surface-900/30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-sm mb-4">
-                    <span class="w-1.5 h-1.5 rounded-full bg-brand-400"></span>
-                    دورات متاحة الآن
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">الدورات التقنية</h2>
-                <p class="text-surface-200 text-lg max-w-xl mx-auto">الوحدة الأولى من كل دورة مجانية — جرّب قبل أن تشتري</p>
-            </div>
-
-            <!-- Course Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="courses-grid">
-                <!-- Course cards will be injected here by the Python pipeline -->
-                <!-- Placeholder cards for initial design -->
-
-                <template x-for="course in courses" :key="course.slug">
-                    <div class="group relative flex flex-col rounded-2xl bg-surface-900/80 border border-white/5 hover:border-brand-500/20 transition-all duration-300 overflow-hidden hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5">
-                        <!-- Course header gradient -->
-                        <div class="h-2 bg-gradient-to-l" :class="course.gradient"></div>
-
-                        <div class="flex flex-col flex-1 p-6">
-                            <!-- Tags -->
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <template x-for="tag in course.tags" :key="tag">
-                                    <span class="px-2.5 py-0.5 rounded-md text-xs font-medium bg-white/5 text-surface-200" x-text="tag"></span>
-                                </template>
-                            </div>
-
-                            <!-- Title -->
-                            <h3 class="text-lg font-bold mb-2 group-hover:text-brand-400 transition-colors" x-text="course.title"></h3>
-
-                            <!-- Description -->
-                            <p class="text-sm text-surface-200 mb-4 flex-1 leading-relaxed" x-text="course.description"></p>
-
-                            <!-- Modules info -->
-                            <div class="flex items-center gap-4 text-xs text-surface-200 mb-4">
-                                <span class="flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                                    <span x-text="course.modules + ' وحدات'"></span>
-                                </span>
-                                <span class="flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span x-text="course.duration"></span>
-                                </span>
-                            </div>
-
-                            <!-- Actions -->
-                            <div class="flex items-center gap-3 pt-4 border-t border-white/5">
-                                <a :href="'courses/' + course.slug + '/index.html'" class="flex-1 text-center py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-sm font-medium text-surface-200 hover:text-white transition-all">
-                                    المعاينة المجانية
-                                </a>
-                                <a :href="'courses/' + course.slug + '/index.html'" class="flex-1 text-center py-2.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-sm font-medium text-white transition-all shadow-sm">
-                                    دخول مجاني
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- PRICING SECTION -->
-    <!-- ============================================ -->
-    <section id="pricing" class="py-20 md:py-28 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">خطط الأسعار</h2>
-                <p class="text-surface-200 text-lg max-w-xl mx-auto">الوحدة الأولى مجانية دائماً — ادفع فقط عندما تريد المزيد</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <!-- Free Tier -->
-                <div class="relative flex flex-col p-6 rounded-2xl bg-surface-900/50 border border-white/5">
-                    <div class="mb-6">
-                        <h3 class="text-lg font-bold mb-1">مجاني</h3>
-                        <p class="text-sm text-surface-200">جرّب قبل الشراء</p>
-                    </div>
-                    <div class="mb-6">
-                        <span class="text-4xl font-bold">$0</span>
-                        <span class="text-surface-200 text-sm me-1">/ للأبد</span>
-                    </div>
-                    <ul class="space-y-3 mb-8 flex-1">
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            الوحدة الأولى من كل دورة
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            النشرة الأسبوعية بالعربية
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-surface-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            <span class="text-surface-700">الوحدات المتقدمة</span>
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-surface-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            <span class="text-surface-700">الكود المصدري</span>
-                        </li>
-                    </ul>
-                    <a href="#courses" class="block text-center py-3 rounded-xl border border-white/10 hover:border-white/20 text-sm font-medium text-surface-200 hover:text-white transition-all">
-                        ابدأ مجاناً
-                    </a>
-                </div>
-
-                <!-- Single Course (Recommended) -->
-                <div class="relative flex flex-col p-6 rounded-2xl glow-border bg-surface-900 border border-brand-500/30 scale-[1.02]">
-                    <div class="absolute -top-3 inset-x-0 flex justify-center">
-                        <span class="px-3 py-1 rounded-full bg-brand-600 text-xs font-semibold text-white">الأكثر شيوعاً</span>
-                    </div>
-                    <div class="mb-6">
-                        <h3 class="text-lg font-bold mb-1">دورة واحدة</h3>
-                        <p class="text-sm text-surface-200">الدورة الكاملة + الكود</p>
-                    </div>
-                    <div class="mb-6">
-                        <span class="text-4xl font-bold">$29</span>
-                        <span class="text-surface-200 text-sm me-1">- $49</span>
-                    </div>
-                    <ul class="space-y-3 mb-8 flex-1">
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            جميع الوحدات (5 وحدات)
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            الكود المصدري كاملاً
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            شهادة إتمام بـ QR
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            وصول دائم للمحتوى
-                        </li>
-                    </ul>
-                    <!-- Lemon Squeezy checkout link will go here -->
-                    <a href="#" @click.prevent="openCheckout('single')" class="lemonsqueezy-button block text-center py-3 rounded-xl bg-gradient-to-l from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition-all hover:-translate-y-0.5">
-                        اشترك الآن
-                    </a>
-                </div>
-
-                <!-- Bundle -->
-                <div class="relative flex flex-col p-6 rounded-2xl bg-surface-900/50 border border-white/5">
-                    <div class="mb-6">
-                        <h3 class="text-lg font-bold mb-1">باقة 5 دورات</h3>
-                        <p class="text-sm text-surface-200">وفّر 40% على الشراء المنفرد</p>
-                    </div>
-                    <div class="mb-6">
-                        <span class="text-4xl font-bold">$149</span>
-                        <span class="text-surface-200 text-sm me-1 line-through">$245</span>
-                    </div>
-                    <ul class="space-y-3 mb-8 flex-1">
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            5 دورات كاملة (اختر ما تشاء)
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            كل الأكواد المصدرية
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            5 شهادات إتمام
-                        </li>
-                        <li class="flex items-center gap-2 text-sm text-surface-200">
-                            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            مشاريع إضافية حصرية
-                        </li>
-                    </ul>
-                    <a href="#" @click.prevent="openCheckout('bundle')" class="lemonsqueezy-button block text-center py-3 rounded-xl border border-white/10 hover:border-brand-500/30 text-sm font-medium text-surface-200 hover:text-white hover:bg-white/5 transition-all">
-                        اشترك في الباقة
-                    </a>
-                </div>
-            </div>
-
-            <!-- All Access -->
-            <div class="mt-8 max-w-5xl mx-auto">
-                <div class="relative p-6 rounded-2xl bg-gradient-to-l from-brand-950/50 to-purple-950/50 border border-brand-500/20">
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                        <div>
-                            <h3 class="text-xl font-bold mb-1">وصول شامل — كل الدورات</h3>
-                            <p class="text-surface-200 text-sm">جميع الدورات الحالية والمستقبلية لمدة سنة كاملة</p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div>
-                                <span class="text-3xl font-bold">$199</span>
-                                <span class="text-surface-200 text-sm me-1">/ سنوياً</span>
-                            </div>
-                            <a href="#" @click.prevent="openCheckout('all')" class="lemonsqueezy-button px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-sm font-medium text-white transition-all">
-                                اشترك
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- NEWSLETTER SECTION -->
-    <!-- ============================================ -->
-    <section class="py-20 relative bg-surface-900/30">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="w-16 h-16 rounded-2xl bg-brand-500/10 flex items-center justify-center mx-auto mb-6">
-                <svg class="w-8 h-8 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-            </div>
-            <h2 class="text-2xl md:text-3xl font-bold mb-3">أسبوع الذكاء الاصطناعي</h2>
-            <p class="text-surface-200 mb-8">نشرة أسبوعية بالعربية — أحدث أخبار AI، نصائح تقنية، ومحتوى حصري. كل خميس.</p>
-
-            <p class="text-sm text-brand-400 mb-6" x-show="subscriberCount !== null">
-                <span class="font-bold" x-text="subscriberCount"></span> مهندساً يتلقّون النشرة بالفعل 🚀
-            </p>
-
-            <form @submit.prevent="subscribeNewsletter()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                    type="email"
-                    x-model="newsletterEmail"
-                    required
-                    placeholder="بريدك الإلكتروني"
-                    class="flex-1 px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
-                    dir="ltr"
-                >
-                <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all shrink-0">
-                    اشترك مجاناً
-                </button>
-            </form>
-            <p class="text-xs text-surface-700 mt-3">لا رسائل مزعجة — إلغاء الاشتراك في أي وقت</p>
-        </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!-- FOOTER -->
-    <!-- ============================================ -->
-    <footer class="py-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
-                    </div>
-                    <span class="font-bold text-sm">AI Rank One</span>
-                </div>
-
-                <div class="flex items-center gap-6 text-sm text-surface-200">
-                    <a href="about.html" class="hover:text-white transition-colors">عن المنصة</a>
-                    <a href="verify.html" class="hover:text-white transition-colors">تحقق من الشهادة</a>
-                    <a href="#pricing" class="hover:text-white transition-colors">الأسعار</a>
-                </div>
-
-                <p class="text-xs text-surface-700">© 2026 AI Rank One — جميع الحقوق محفوظة</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ============================================ -->
-    <!-- STRUCTURED DATA (SEO) -->
-    <!-- ============================================ -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "AI Rank One",
-      "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev",
-      "description": "منصة عربية لتعليم الذكاء الاصطناعي وتعلم الآلة للمهندسين العرب بدورات تقنية بالعربية الفصحى.",
-      "inLanguage": "ar",
-      "sameAs": []
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "item": { "@type": "Course", "name": "هندسة التلقين المتقدمة للمطورين", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/advanced-prompt-engineering-for-developers/index.html" } },
-        { "@type": "ListItem", "position": 2, "item": { "@type": "Course", "name": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/ai-governance-and-ethics-in-the-arab-world/index.html" } },
-        { "@type": "ListItem", "position": 3, "item": { "@type": "Course", "name": "بناء نظام RAG للإنتاج", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/building-a-production-rag-system/index.html" } },
-        { "@type": "ListItem", "position": 4, "item": { "@type": "Course", "name": "بناء أنظمة الوكلاء المتعددة باستخدام LangGraph", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/langgraph-multi-agents/index.html" } },
-        { "@type": "ListItem", "position": 5, "item": { "@type": "Course", "name": "ضبط النماذج اللغوية الكبيرة باستخدام LoRA وQLoRA", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/llm-fine-tuning-with-lora-and-qlora/index.html" } },
-        { "@type": "ListItem", "position": 6, "item": { "@type": "Course", "name": "MLOps من التجربة إلى الإنتاج", "provider": { "@type": "Organization", "name": "AI Rank One" }, "inLanguage": "ar", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/mlops-from-experiment-to-production/index.html" } }
-      ]
-    }
-    </script>
-
-    <!-- ============================================ -->
-    <!-- AUTH MODAL -->
-    <!-- ============================================ -->
-    <div x-show="showAuth" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" @click.self="showAuth = false">
-        <div class="w-full max-w-sm bg-surface-900 rounded-2xl border border-white/10 p-6 shadow-2xl" @click.stop>
-            <div class="text-center mb-6">
-                <h3 class="text-xl font-bold mb-1">تسجيل الدخول</h3>
-                <p class="text-sm text-surface-200">سنرسل لك رمز تحقق على بريدك الإلكتروني</p>
-            </div>
-
-            <!-- Step 1: Email -->
-            <form x-show="authStep === 'email'" @submit.prevent="sendOTP()">
-                <input
-                    type="email"
-                    x-model="authEmail"
-                    required
-                    placeholder="بريدك الإلكتروني"
-                    class="w-full px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm mb-3"
-                    dir="ltr"
-                >
-                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all" :disabled="authLoading">
-                    <span x-show="!authLoading">إرسال رمز التحقق</span>
-                    <span x-show="authLoading" class="flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                        جاري الإرسال...
-                    </span>
-                </button>
-            </form>
-
-            <!-- Step 2: OTP -->
-            <form x-show="authStep === 'otp'" @submit.prevent="verifyOTP()">
-                <p class="text-xs text-surface-200 mb-3 text-center">أدخل الرمز المرسل إلى <span class="text-white" x-text="authEmail" dir="ltr"></span></p>
-                <input
-                    type="text"
-                    x-model="authOTP"
-                    required
-                    placeholder="رمز التحقق (6 أرقام)"
-                    maxlength="6"
-                    class="w-full px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 text-sm mb-3 text-center tracking-[0.3em]"
-                    dir="ltr"
-                >
-                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all" :disabled="authLoading">
-                    تأكيد الدخول
-                </button>
-                <button type="button" @click="authStep = 'email'" class="w-full mt-2 py-2 text-xs text-surface-200 hover:text-white transition-colors">
-                    إرسال رمز جديد
-                </button>
-            </form>
-
-            <!-- Error -->
-            <p x-show="authError" x-text="authError" class="mt-3 text-xs text-red-400 text-center"></p>
-        </div>
+<nav class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <span class="text-lg font-bold text-blue-400">AI Rank One</span>
+    <div class="flex items-center gap-4 text-sm">
+      <a href="#courses" class="hover:text-white text-slate-200">الدورات</a>
+      <a href="#pricing" class="hover:text-white text-slate-200">الأسعار</a>
+      <a href="#news" class="hover:text-white text-slate-200">النشرة</a>
+      <button x-show="!user" @click="showAuth=true" class="text-slate-200 hover:text-white">دخول</button>
+      <span x-show="user" x-text="user?.email" class="text-slate-300"></span>
+      <button x-show="user" @click="signOut()" class="text-red-400">خروج</button>
     </div>
+  </div>
+</nav>
 
-    <!-- ============================================ -->
-    <!-- Flowbite JS -->
-    <!-- ============================================ -->
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+<section class="min-h-screen flex items-center pt-16 px-4">
+  <div class="max-w-3xl mx-auto text-center">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6">تعلّم الذكاء الاصطناعي <span class="text-blue-400">بالعربية الفصحى</span></h1>
+    <p class="text-lg text-slate-300 mb-8">دورات تقنية للمهندسين العرب: RAG، LangGraph، Fine-Tuning، MLOps. كود حقيقي وشهادات إتمام.</p>
+    <a href="#courses" class="inline-block px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 font-semibold">تصفح الدورات المجانية</a>
+  </div>
+</section>
 
-    <!-- ============================================ -->
-    <!-- SUPABASE SDK -->
-    <!-- ============================================ -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<section id="courses" class="py-20 px-4 max-w-7xl mx-auto">
+  <h2 class="text-3xl font-bold mb-8 text-center">الدورات التقنية</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <template x-for="c in courses" :key="c.slug">
+      <div class="rounded-2xl bg-slate-900 border border-white/5 p-6 flex flex-col">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <template x-for="t in c.tags"><span class="px-2 py-0.5 rounded bg-white/5 text-xs text-slate-300" x-text="t"></span></template>
+        </div>
+        <h3 class="font-bold mb-2" x-text="c.title"></h3>
+        <p class="text-sm text-slate-300 flex-1 mb-4" x-text="c.description"></p>
+        <a :href="'courses/'+c.slug+'/index.html'" class="text-center py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-sm font-medium">المعاينة المجانية</a>
+      </div>
+    </template>
+  </div>
+</section>
 
-    <!-- ============================================ -->
-    <!-- APP LOGIC -->
-    <!-- ============================================ -->
-    <script src="/assets/js/config.js"></script>
-    <script>
-        // ========== CONFIG ==========
-        // Loaded from /assets/js/config.js (generated from .env by deploy.py)
-        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
-        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
+<section id="pricing" class="py-20 px-4 max-w-5xl mx-auto">
+  <h2 class="text-3xl font-bold mb-8 text-center">الأسعار</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="rounded-2xl bg-slate-900 border border-white/5 p-6">
+      <h3 class="font-bold mb-1">مجاني</h3><p class="text-slate-400 text-sm mb-4">جرّب قبل الشراء</p>
+      <div class="text-4xl font-bold mb-4">$0</div>
+      <ul class="text-sm text-slate-300 space-y-2 mb-6"><li>الوحدة الأولى من كل دورة</li><li>النشرة الأسبوعية</li></ul>
+      <a href="#courses" class="block text-center py-3 rounded-xl border border-white/10 hover:border-white/20 text-sm">ابدأ مجاناً</a>
+    </div>
+    <div class="rounded-2xl bg-slate-900 border border-blue-500/30 p-6 scale-[1.02]">
+      <h3 class="font-bold mb-1">دورة واحدة</h3><p class="text-slate-400 text-sm mb-4">الدورة الكاملة + الكود</p>
+      <div class="text-4xl font-bold mb-4">$29</div>
+      <ul class="text-sm text-slate-300 space-y-2 mb-6"><li>كل الوحدات</li><li>الكود المصدري</li><li>شهادة إتمام</li></ul>
+      <button @click="openCheckout('single')" class="block w-full text-center py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold">اشترك الآن</button>
+    </div>
+    <div class="rounded-2xl bg-slate-900 border border-white/5 p-6">
+      <h3 class="font-bold mb-1">باقة 5 دورات</h3><p class="text-slate-400 text-sm mb-4">وفّر 40%</p>
+      <div class="text-4xl font-bold mb-4">$149</div>
+      <ul class="text-sm text-slate-300 space-y-2 mb-6"><li>5 دورات كاملة</li><li>كل الأكواد</li><li>5 شهادات</li></ul>
+      <button @click="openCheckout('bundle')" class="block w-full text-center py-3 rounded-xl border border-white/10 hover:border-blue-500/30 text-sm">اشترك في الباقة</button>
+    </div>
+  </div>
+</section>
 
-        // Initialize Supabase client
-        let supabase;
-        try {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        } catch (e) {
-            console.warn('Supabase not configured yet — auth will not work until credentials are set.');
-        }
+<section id="news" class="py-20 px-4 bg-slate-900/30">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-3">أسبوع الذكاء الاصطناعي</h2>
+    <p class="text-slate-300 mb-6">نشرة أسبوعية بالعربية — كل خميس.</p>
+    <p class="text-sm text-blue-400 mb-6" x-show="subscriberCount!==null"><span class="font-bold" x-text="subscriberCount"></span> مهندساً يتلقّون النشرة بالفعل 🚀</p>
+    <form @submit.prevent="subscribe()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input type="email" x-model="email" required placeholder="بريدك الإلكتروني" dir="ltr" class="flex-1 px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm">
+      <button class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold">اشترك مجاناً</button>
+    </form>
+    <p class="text-xs text-slate-600 mt-3">لا رسائل مزعجة — إلغاء في أي وقت</p>
+  </div>
+</section>
 
-        // ========== ALPINE APP ==========
-        function app() {
-            return {
-                // State
-                user: null,
-                mobileMenu: false,
-                showAuth: false,
-                authStep: 'email',
-                authEmail: '',
-                authOTP: '',
-                authLoading: false,
-                authError: '',
-                newsletterEmail: '',
-                subscriberCount: null,
+<div x-show="showAuth" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" @click.self="showAuth=false">
+  <div class="w-full max-w-sm bg-slate-900 rounded-2xl border border-white/10 p-6">
+    <template x-if="!otpSent">
+      <form @submit.prevent="sendOTP()">
+        <input type="email" x-model="authEmail" required placeholder="بريدك الإلكتروني" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3">
+        <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold" :disabled="loading">إرسال رمز التحقق</button>
+      </form>
+    </template>
+    <template x-if="otpSent">
+      <form @submit.prevent="verifyOTP()">
+        <input type="text" x-model="authOTP" required placeholder="رمز (6 أرقام)" maxlength="6" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3 text-center tracking-[0.3em]">
+        <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold">تأكيد الدخول</button>
+      </form>
+    </template>
+    <p x-show="authError" x-text="authError" class="mt-3 text-xs text-red-400 text-center"></p>
+  </div>
+</div>
 
-                // Lemon Squeezy integration
-                // storeReady flips to true once the Lemon Squeezy store is approved
-                // and real variant IDs are set in config.js (via .env).
-                get storeReady() {
-                    return window.PUBLIC_CONFIG?.LEMON_STORE_READY === 'true';
-                },
-                getVariantId(variantType) {
-                    if (variantType === 'bundle') return window.PUBLIC_CONFIG?.LEMON_BUNDLE_VARIANT_ID;
-                    if (variantType === 'all') return window.PUBLIC_CONFIG?.LEMON_ALL_ACCESS_VARIANT_ID;
-                    return window.PUBLIC_CONFIG?.LEMON_VARIANT_ID;
-                },
-
-                openCheckout(variantType) {
-                    const variantId = this.getVariantId(variantType);
-
-                    // Guard: store not live yet (placeholders / review pending)
-                    const isPlaceholder = !variantId || String(variantId).includes('VARIANT') || String(variantId).includes('variant-id');
-                    if (!this.storeReady || isPlaceholder) {
-                        alert('🚧 متجر الدفع قيد المراجعة حالياً. النشرة المجانية متاحة الآن — اشترك ببريدك وسنخبرك فور تفعيل الدفع!');
-                        return;
-                    }
-
-                    let url = `https://checkout.lemonsqueezy.com/buy/${variantId}?embed=1`;
-                    if (this.user?.email) {
-                        url += `&checkout[email]=${encodeURIComponent(this.user.email)}`;
-                    }
-
-                    if (window.LemonSqueezy) {
-                        window.LemonSqueezy.Url.Open(url);
-                    } else {
-                        window.open(url, '_blank');
-                    }
-                },
-
-                courses: [{"slug": "advanced-prompt-engineering-for-developers", "title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-orange-500 to-red-500"}, {"slug": "ai-governance-and-ethics-in-the-arab-world", "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "modules": 5, "duration": "3 ساعات", "price": 29, "gradient": "from-cyan-500 to-blue-500"}, {"slug": "building-a-production-rag-system", "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب", "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.", "tags": ["RAG", "Vector Search", "Hybrid Search", "Embeddings"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-emerald-500 to-teal-500"}, {"slug": "langgraph-multi-agents", "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "llm-fine-tuning-with-lora-and-qlora", "title": "دورة متقدمة في LLM Fine-tuning with LoRA and QLoRA", "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات LLM Fine-tuning with LoRA and QLoRA في بيئات العمل الفعلية.", "tags": ["LLM", "Python", "Mute"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "mlops-from-experiment-to-production", "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-rose-500 to-orange-500"}],
-                // Init
-                async init() {
-                    // Social proof: live subscriber count (never exposes emails)
-                    this.loadSubscriberCount();
-
-                    // Courses are injected at build time, but refresh from the
-                    // live index in case new courses were published after build.
-                    try {
-                        const res = await fetch('courses/_index.json?t=' + Date.now());
-                        if (res.ok) {
-                            const fresh = await res.json();
-                            if (Array.isArray(fresh) && fresh.length) {
-                                this.courses = fresh;
-                            }
-                        }
-                    } catch (e) {
-                        console.warn('Could not refresh course index, using built-in list.', e);
-                    }
-
-                    if (!supabase) return;
-                    const { data } = await supabase.auth.getSession();
-                    if (data.session) {
-                        this.user = data.session.user;
-                    }
-                    // Listen for auth changes
-                    supabase.auth.onAuthStateChange((event, session) => {
-                        this.user = session?.user || null;
-                        if (event === 'SIGNED_IN') {
-                            this.showAuth = false;
-                        }
-                    });
-                },
-
-                // Auth methods
-                async sendOTP() {
-                    if (!supabase) { this.authError = 'Auth not configured'; return; }
-                    this.authLoading = true;
-                    this.authError = '';
-                    try {
-                        const { error } = await supabase.auth.signInWithOtp({
-                            email: this.authEmail,
-                        });
-                        if (error) throw error;
-                        this.authStep = 'otp';
-                    } catch (e) {
-                        this.authError = e.message || 'حدث خطأ — حاول مرة أخرى';
-                    }
-                    this.authLoading = false;
-                },
-
-                async verifyOTP() {
-                    if (!supabase) return;
-                    this.authLoading = true;
-                    this.authError = '';
-                    try {
-                        const { error } = await supabase.auth.verifyOtp({
-                            email: this.authEmail,
-                            token: this.authOTP,
-                            type: 'email',
-                        });
-                        if (error) throw error;
-                        // Auth state change listener handles the rest
-                    } catch (e) {
-                        this.authError = e.message || 'رمز غير صحيح — حاول مرة أخرى';
-                    }
-                    this.authLoading = false;
-                },
-
-                async signOut() {
-                    if (!supabase) return;
-                    await supabase.auth.signOut();
-                    this.user = null;
-                },
-
-                async loadSubscriberCount() {
-                    const fn = window.PUBLIC_CONFIG?.SUBSCRIBER_COUNT_FN
-                        || `${SUPABASE_URL}/functions/v1/subscriber-count`;
-                    try {
-                        const res = await fetch(fn, {
-                            headers: { 'apikey': SUPABASE_ANON_KEY }
-                        });
-                        if (res.ok) {
-                            const data = await res.json();
-                            if (typeof data.count === 'number') this.subscriberCount = data.count;
-                        }
-                    } catch (e) {
-                        console.warn('Could not load subscriber count.', e);
-                    }
-                },
-
-                // Newsletter
-                async subscribeNewsletter() {
-                    if (!this.newsletterEmail) return;
-                    if (!supabase) {
-                        alert('شكراً! تم تسجيلك في النشرة الأسبوعية.');
-                        this.newsletterEmail = '';
-                        return;
-                    }
-                    try {
-                        const { error } = await supabase.from('subscribers').insert({
-                            email: this.newsletterEmail,
-                            subscribed_at: new Date().toISOString(),
-                        });
-                        if (error) throw error;
-                        alert('شكراً! تم تسجيلك في النشرة الأسبوعية. 🎉');
-                        this.newsletterEmail = '';
-                    } catch (e) {
-                        console.error('Newsletter subscribe failed:', e);
-                        const msg = e?.message || '';
-                        if (msg.includes('Invalid API key') || msg.includes('JWT')) {
-                            alert('خطأ في إعداد قاعدة البيانات — يرجى مراجعة مفتاح Supabase.');
-                        } else {
-                            alert('تم تسجيلك مسبقاً أو حدث خطأ مؤقت.');
-                        }
-                    }
-                },
-            }
-        }
-
-        // Register service worker for PWA
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-        }
-    </script>
+<script>
+const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
+const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const LS = window.PUBLIC_CONFIG;
+function app(){return{
+  user:null, showAuth:false, otpSent:false, authEmail:'', authOTP:'', authError:'', loading:false,
+  email:'', subscriberCount:null, courses: [{"slug": "advanced-prompt-engineering-for-developers", "title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)", "description": "دورة عملية للمطورين لإتقان تقنيات التلقين المتقدمة: السلسلة الفكرية، الأدوات، وبنى المخرجات الموثوقة لبناء تطبيقات ذكاء اصطناعي إنتاجية.", "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-orange-500 to-red-500"}, {"slug": "ai-governance-and-ethics-in-the-arab-world", "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "modules": 5, "duration": "3 ساعات", "price": 29, "gradient": "from-cyan-500 to-blue-500"}, {"slug": "building-a-production-rag-system", "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب", "description": "دورة عملية لبناء نظام استرجاع معزّز بالتوليد (RAG) جاهز للإنتاج باستخدام البحث الهجين وإعادة الترتيب لتقليل الهلوسة وتحسين الدقة.", "tags": ["RAG", "Vector Search", "Hybrid Search", "Embeddings"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-emerald-500 to-teal-500"}, {"slug": "langgraph-multi-agents", "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph", "description": "دورة عملية متقدمة لمهندسي البرمجيات العرب لبناء أنظمة تتعاون من وكلاء ذكاء اصطناعي متخصصين باستخدام LangGraph، مع مشاريع كود حقيقية قابلة للتشغيل.", "tags": ["LangGraph", "Python", "Multi-Agent Systems", "LLM Orchestration"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "llm-fine-tuning-with-lora-and-qlora", "title": "دورة متقدمة في LLM Fine-tuning with LoRA and QLoRA", "description": "دورة عملية متقدمة مصممة لمهندسي البرمجيات العرب لتغطية أساسيات وتطبيقات LLM Fine-tuning with LoRA and QLoRA في بيئات العمل الفعلية.", "tags": ["LLM", "Python", "Mute"], "modules": 5, "duration": "4 ساعات", "price": 29, "gradient": "from-brand-500 to-indigo-500"}, {"slug": "mlops-from-experiment-to-production", "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة عملية لتحويل نماذج التعلّم الآلي من دفاتر ملاحظات إلى أنظمة إنتاجية موثوقة عبر أتمتة التدريب والنشر والمراقبة.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring"], "modules": 5, "duration": "5 ساعات", "price": 29, "gradient": "from-rose-500 to-orange-500"}],
+  async init(){
+    try{const r=await fetch('courses/_index.json?t='+Date.now()); if(r.ok) this.courses=await r.json();}catch(e){}
+    try{const r=await fetch(LS.SUBSCRIBER_COUNT_FN,{headers:{'apikey':SUPABASE_ANON_KEY}}); if(r.ok){const d=await r.json(); if(typeof d.count==='number') this.subscriberCount=d.count;}}catch(e){}
+    const {data}=await sb.auth.getSession(); this.user=data.session?.user||null;
+    sb.auth.onAuthStateChange((e,s)=>{this.user=s?.user||null; if(e==='SIGNED_IN') this.showAuth=false;});
+  },
+  get storeReady(){return LS?.LEMON_STORE_READY==='true';},
+  vid(t){return t==='bundle'?LS?.LEMON_BUNDLE_VARIANT_ID:t==='all'?LS?.LEMON_ALL_ACCESS_VARIANT_ID:LS?.LEMON_VARIANT_ID;},
+  openCheckout(t){
+    const v=this.vid(t);
+    if(!this.storeReady||!v||String(v).includes('VARIANT')||String(v).includes('variant-id')){alert('🚧 متجر الدفع قيد المراجعة. اشترك بالنشرة المجانية وسنخبرك عند التفعيل!');return;}
+    const u=`https://checkout.lemonsqueezy.com/buy/${v}?embed=1`+(this.user?.email?`&checkout[email]=${encodeURIComponent(this.user.email)}`:'');
+    window.open(u,'_blank');
+  },
+  async sendOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.signInWithOtp({email:this.authEmail});if(error)throw error;this.otpSent=true;}catch(e){this.authError=e.message||'خطأ';}this.loading=false;},
+  async verifyOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'});if(error)throw error;}catch(e){this.authError=e.message||'رمز خاطئ';}this.loading=false;},
+  async signOut(){await sb.auth.signOut();this.user=null;},
+  async subscribe(){if(!this.email)return;try{const{error}=await sb.from('subscribers').insert({email:this.email,subscribed_at:new Date().toISOString()});if(error)throw error;alert('شكراً! تم تسجيلك في النشرة 🎉');this.email='';}catch(e){alert('تم تسجيلك مسبقاً أو حدث خطأ.');}}
+};}
+</script>
 </body>
 </html>
