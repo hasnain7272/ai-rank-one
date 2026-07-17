@@ -1,333 +1,110 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي | منصة الذكاء الاصطناعي العربية</title>
-    <meta name="description" content="دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.">
-    <link rel="manifest" href="../../manifest.json">
-    <meta name="theme-color" content="#0f172a">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        brand: { 400: '#59b0ff', 500: '#338dff', 600: '#1b6ff5', 950: '#142957' },
-                        surface: { 50: '#f8fafc', 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
-                    }
-                }
-            }
-        }
-    </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <style>
-        * { font-family: 'IBM Plex Sans Arabic', sans-serif; }
-        .prose code { font-family: 'JetBrains Mono', monospace; direction: ltr; text-align: left; background-color: rgba(255,255,255,0.05); padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875em; color: #59b0ff; }
-        .prose pre { background: #0f172a; padding: 1.25rem; border-radius: 0.75rem; overflow-x: auto; border: 1px border-white/5; margin: 1.5rem 0; }
-        .prose pre code { background: transparent; padding: 0; border-radius: 0; color: #fff; font-size: 0.9em; }
-        .prose h1, .prose h2, .prose h3 { font-weight: 700; color: #fff; margin-top: 2rem; margin-bottom: 1rem; }
-        .prose h1 { font-size: 1.8em; }
-        .prose h2 { font-size: 1.4em; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; }
-        .prose p { color: #e2e8f0; line-height: 1.8; margin-bottom: 1.25rem; }
-        .prose ul { list-style-type: disc; padding-inline-start: 1.5rem; margin-bottom: 1.25rem; color: #e2e8f0; }
-        .prose li { margin-bottom: 0.5rem; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي | AI Rank One</title>
+<meta name="description" content="دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.">
+<link rel="icon" type="image/svg+xml" href="../../assets/images/icon.svg">
+<link rel="manifest" href="../../manifest.json">
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}code,pre{font-family:'JetBrains Mono',monospace;direction:ltr;text-align:left}.prose{max-width:none;color:#e2e8f0;line-height:1.8}.prose h1,.prose h2,.prose h3{font-weight:700;color:#fff;margin:1.5rem 0 1rem}.prose h1{font-size:1.8em}.prose h2{font-size:1.4em;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:.5rem}.prose p{margin-bottom:1.25rem}.prose ul{list-style:disc;padding-inline-start:1.5rem;margin-bottom:1.25rem}.prose code{background:rgba(255,255,255,.05);padding:.2rem .4rem;border-radius:.25rem;color:#59b0ff}.prose pre{background:#0f172a;padding:1.25rem;border-radius:.75rem;overflow-x:auto;margin:1.5rem 0}</style>
 </head>
-<body class="bg-surface-950 text-white font-arabic antialiased" x-data="courseView()">
-
-     <!-- Navbar -->
-    <nav class="fixed top-0 inset-x-0 z-50 bg-surface-950/80 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <a href="../../index.html" class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                </div>
-                <span class="text-lg font-bold bg-gradient-to-l from-brand-400 to-purple-400 bg-clip-text text-transparent">AI Rank One</span>
-            </a>
-            <div class="flex items-center gap-6">
-                <a href="../../index.html" class="text-sm text-surface-200 hover:text-white transition-colors">الرئيسية</a>
-                <span x-show="user" class="text-sm text-surface-200" x-text="user.email"></span>
-                <button x-show="user" @click="signOut()" class="text-sm text-red-400 hover:text-red-300 transition-colors">تسجيل الخروج</button>
-                <button x-show="!user" @click="showAuth = true" class="text-sm text-brand-400 hover:text-brand-300 transition-colors">تسجيل الدخول</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="pt-24 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-extrabold mb-4" x-text="course.title"></h1>
-        <p class="text-surface-200 text-lg mb-8 leading-relaxed" x-text="course.description"></p>
-
-        <!-- Module Navigation Tabs -->
-        <div class="flex border-b border-white/10 mb-8 overflow-x-auto whitespace-nowrap">
-            <template x-for="(mod, index) in course.modules" :key="index">
-                <button
-                    @click="activeModule = index"
-                    class="py-3 px-4 text-sm font-semibold border-b-2 transition-colors"
-                    :class="activeModule === index ? 'border-brand-500 text-brand-400' : 'border-transparent text-surface-200 hover:text-white'"
-                    x-text="'الوحدة ' + (index + 1)"
-                ></button>
-            </template>
-        </div>
-
-        <!-- Render Content -->
-        <div class="prose prose-invert max-w-none">
-            <!-- Module Header -->
-            <h2 class="text-xl font-bold mb-4" x-show="course.modules && course.modules[activeModule]" x-text="course.modules[activeModule]?.title"></h2>
-            <h2 class="text-xl font-bold mb-4" x-show="!course.modules || !course.modules[activeModule]">جارٍ التحميل...</h2>
-
-            <!-- Loading Spinner -->
-            <div x-show="loading" class="flex justify-center my-12">
-                <svg class="w-8 h-8 animate-spin text-brand-500" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                </svg>
-            </div>
-
-            <!-- Module Body -->
-            <div x-show="!loading && (activeModule === 0 || hasAccess) && course.modules && course.modules[activeModule]">
-                <div x-html="renderMarkdown(course.modules[activeModule]?.content)"></div>
-            </div>
-
-            <!-- Paywall Overlay for Modules 2-5 -->
-            <div x-show="!loading && activeModule > 0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-gradient-to-br from-brand-950/20 to-purple-950/20 border border-brand-500/20 text-center my-8">
-                <svg class="w-12 h-12 text-brand-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-                <p class="text-surface-200 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. يرجى الاشتراك في الدورة لفتح كامل المحتوى وكود المصدر والشهادة فوراً!</p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-                    <a href="../../index.html#pricing" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all text-center">
-                        اشترك في الدورة
-                    </a>
-                    <button @click="showAuth = true" class="w-full sm:w-auto px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-surface-200 hover:text-white transition-all">
-                        تسجيل الدخول للمشتركين
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- AUTH MODAL -->
-    <div x-show="showAuth" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" @click.self="showAuth = false" style="display: none;">
-        <div class="w-full max-w-sm bg-surface-900 rounded-2xl border border-white/10 p-6 shadow-2xl" @click.stop>
-            <div class="text-center mb-6">
-                <h3 class="text-xl font-bold mb-1">تسجيل الدخول</h3>
-                <p class="text-sm text-surface-200">سنرسل لك رمز تحقق على بريدك الإلكتروني</p>
-            </div>
-
-            <!-- Step 1: Email -->
-            <form x-show="authStep === 'email'" @submit.prevent="sendOTP()">
-                <input
-                    type="email"
-                    x-model="authEmail"
-                    required
-                    placeholder="بريدك الإلكتروني"
-                    class="w-full px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm mb-3"
-                    dir="ltr"
-                >
-                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all" :disabled="authLoading">
-                    <span x-show="!authLoading">إرسال رمز التحقق</span>
-                    <span x-show="authLoading" class="flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                        جاري الإرسال...
-                    </span>
-                </button>
-            </form>
-
-            <!-- Step 2: OTP -->
-            <form x-show="authStep === 'otp'" @submit.prevent="verifyOTP()">
-                <p class="text-xs text-surface-200 mb-3 text-center">أدخل الرمز المرسل إلى <span class="text-white" x-text="authEmail" dir="ltr"></span></p>
-                <input
-                    type="text"
-                    x-model="authOTP"
-                    required
-                    placeholder="رمز التحقق (6 أرقام)"
-                    maxlength="6"
-                    class="w-full px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 text-sm mb-3 text-center tracking-[0.3em]"
-                    dir="ltr"
-                >
-                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all" :disabled="authLoading">
-                    تأكيد الدخول
-                </button>
-                <button type="button" @click="authStep = 'email'" class="w-full mt-2 py-2 text-xs text-surface-200 hover:text-white transition-colors">
-                    إرسال رمز جديد
-                </button>
-            </form>
-
-            <!-- Error -->
-            <p x-show="authError" x-text="authError" class="mt-3 text-xs text-red-400 text-center"></p>
-        </div>
+<body class="bg-slate-950 text-white" x-data="courseView">
+<nav class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="../../index.html" class="text-lg font-bold text-blue-400">AI Rank One</a>
+    <div class="flex items-center gap-4 text-sm">
+      <a href="../../index.html" class="text-slate-200 hover:text-white">الرئيسية</a>
+      <span x-show="user" x-text="user?.email" class="text-slate-300"></span>
+      <button x-show="user" @click="signOut()" class="text-red-400">خروج</button>
+      <button x-show="!user" @click="showAuth=true" class="text-blue-400">دخول</button>
     </div>
-
-    <!-- Script Data Injected by Compiler -->
-    <script id="course-data" type="application/json">
-    {"title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "price": 29, "duration": "3 ساعات", "gradient": "from-cyan-500 to-blue-500", "modules": [{"title": "الوحدة 1: مفاهيم الحوكمة والمخاطر", "content": "# مفاهيم الحوكمة والمخاطر\n\n**حوكمة الذكاء الاصطناعي** هي الإطار الذي يضمن أنظمة الذكاء الاصطناعي آمنة ومنصفة وقابلة للمساءلة.\n\n## المخاطر الشائعة\n- **التحيّز (Bias)**: نماذج تتدرب على بيانات غير ممثلة للغة العربية.\n- **الهلوسة**: توليد معلومات خاطئة في سياقات حساسة (طبية، قانونية).\n- **الخصوصية**: جمع بيانات دون رضا واضح.\n- **الشفافية**: قرارات غير مفسّرة.\n\n## لماذا يهم العالم العربي؟\nمعظم النماذج الكبرى تدربت على لغات أجنبية؛ غياب البيانات العربية يضخّم التحيّز ويقلّل الدقة."}, {"title": "الوحدة 2: الإطار التشريعي العالمي والعربي", "content": ""}, {"title": "الوحدة 3: عدالة البيانات والتحيّز اللغوي", "content": ""}, {"title": "الوحدة 4: الشفافية وقابلية التفسير", "content": ""}, {"title": "الوحدة 5: بناء خط أنابيب حوكمة (MLOps للامتثال)", "content": ""}], "slug": "ai-governance-and-ethics-in-the-arab-world"}
-    </script>
-
-    <script src="../../assets/js/config.js"></script>
-    <script>
-        // Supabase Init loaded from config.js
-        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
-        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
-        let supabase;
-        try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
-
-        function courseView() {
-            return {
-                course: {},
-                activeModule: 0,
-                hasAccess: false,
-                user: null,
-                loading: false,
-                message: '',
-                
-                // Auth modal state
-                showAuth: false,
-                authStep: 'email',
-                authEmail: '',
-                authOTP: '',
-                authLoading: false,
-                authError: '',
-
-                async init() {
-                    this.course = JSON.parse(document.getElementById('course-data').textContent);
-                    
-                    // Watch for activeModule changes to fetch gated content
-                    this.$watch('activeModule', async (value) => {
-                        await this.loadActiveModule();
-                    });
-
-                    if (!supabase) {
-                        // Offline/demo fallback
-                        this.hasAccess = true;
-                        return;
-                    }
-                    
-                    const { data: { session } } = await supabase.auth.getSession();
-                    this.user = session?.user || null;
-                    await this.checkAccess();
-
-                    // Listen for auth changes
-                    supabase.auth.onAuthStateChange(async (event, session) => {
-                        this.user = session?.user || null;
-                        if (event === 'SIGNED_IN') {
-                            this.showAuth = false;
-                        }
-                        await this.checkAccess();
-                    });
-                },
-
-                async checkAccess() {
-                    if (!supabase) return;
-                    if (!this.user) {
-                        this.hasAccess = false;
-                        return;
-                    }
-                    
-                    try {
-                        const { data, error } = await supabase
-                            .from('user_course_access')
-                            .select('*')
-                            .eq('course_slug', this.course.slug)
-                            .maybeSingle();
-                        
-                        if (error) throw error;
-                        this.hasAccess = !!data;
-                    } catch (e) {
-                        console.error('Error checking course access:', e);
-                        this.hasAccess = false;
-                    }
-                    
-                    await this.loadActiveModule();
-                },
-
-                async loadActiveModule() {
-                    const idx = this.activeModule;
-                    if (idx === 0) return; // Module 1 is always embedded statically
-                    
-                    if (this.hasAccess && this.course.modules && this.course.modules[idx] && !this.course.modules[idx].content) {
-                        this.loading = true;
-                        this.message = '';
-                        try {
-                            const { data, error } = await supabase
-                                .from('course_modules')
-                                .select('content')
-                                .eq('course_slug', this.course.slug)
-                                .eq('module_index', idx)
-                                .single();
-                            
-                            if (error) throw error;
-                            if (data) {
-                                this.course.modules[idx].content = data.content;
-                            }
-                        } catch (e) {
-                            console.error('Error loading module content:', e);
-                            this.message = 'حدث خطأ أثناء تحميل محتوى الوحدة: ' + (e.message || e);
-                        }
-                        this.loading = false;
-                    }
-                },
-
-                // Auth methods
-                async sendOTP() {
-                    if (!supabase) { this.authError = 'Auth not configured'; return; }
-                    this.authLoading = true;
-                    this.authError = '';
-                    try {
-                        const { error } = await supabase.auth.signInWithOtp({
-                            email: this.authEmail,
-                        });
-                        if (error) throw error;
-                        this.authStep = 'otp';
-                    } catch (e) {
-                        this.authError = e.message || 'حدث خطأ — حاول مرة أخرى';
-                    }
-                    this.authLoading = false;
-                },
-
-                async verifyOTP() {
-                    if (!supabase) return;
-                    this.authLoading = true;
-                    this.authError = '';
-                    try {
-                        const { error } = await supabase.auth.verifyOtp({
-                            email: this.authEmail,
-                            token: this.authOTP,
-                            type: 'email',
-                        });
-                        if (error) throw error;
-                        this.showAuth = false;
-                    } catch (e) {
-                        this.authError = e.message || 'رمز غير صحيح — حاول مرة أخرى';
-                    }
-                    this.authLoading = false;
-                },
-
-                async signOut() {
-                    if (!supabase) return;
-                    await supabase.auth.signOut();
-                    this.user = null;
-                    this.hasAccess = false;
-                },
-
-                renderMarkdown(md) {
-                    return md ? marked.parse(md) : '';
-                }
-            }
-        }
-    </script>
+  </div>
+</nav>
+<main class="pt-24 pb-20 max-w-4xl mx-auto px-4">
+  <h1 class="text-3xl font-extrabold mb-4" x-text="course.title"></h1>
+  <p class="text-slate-300 text-lg mb-8" x-text="course.description"></p>
+  <div class="flex border-b border-white/10 mb-8 overflow-x-auto whitespace-nowrap">
+    <template x-for="(mod,index) in course.modules" :key="index">
+      <button @click="activeModule=index" class="py-3 px-4 text-sm font-semibold border-b-2 transition-colors" :class="activeModule===index?'border-blue-500 text-blue-400':'border-transparent text-slate-300 hover:text-white'" x-text="'الوحدة '+(index+1)"></button>
+    </template>
+  </div>
+  <div class="prose">
+    <h2 class="text-xl font-bold mb-4" x-show="course.modules && course.modules[activeModule]" x-text="course.modules[activeModule]?.title"></h2>
+    <div x-show="loading" class="flex justify-center my-12"><svg class="w-8 h-8 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg></div>
+    <div x-show="!loading && (activeModule===0 || hasAccess) && course.modules && course.modules[activeModule]">
+      <div x-html="renderMarkdown(course.modules[activeModule]?.content)"></div>
+    </div>
+    <div x-show="!loading && activeModule>0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-blue-950/20 border border-blue-500/20 text-center my-8">
+      <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
+      <p class="text-slate-300 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. اشترك لفتح كامل المحتوى والكود والشهادة!</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+        <a href="../../index.html#pricing" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold text-center">اشترك في الدورة</a>
+        <button @click="showAuth=true" class="px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold">تسجيل الدخول</button>
+      </div>
+    </div>
+  </div>
+</main>
+<div x-show="showAuth" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" @click.self="showAuth=false">
+  <div class="w-full max-w-sm bg-slate-900 rounded-2xl border border-white/10 p-6">
+    <template x-if="!otpSent">
+      <form @submit.prevent="sendOTP()">
+        <input type="email" x-model="authEmail" required placeholder="بريدك الإلكتروني" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3">
+        <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold" :disabled="loading">إرسال رمز التحقق</button>
+      </form>
+    </template>
+    <template x-if="otpSent">
+      <form @submit.prevent="verifyOTP()">
+        <input type="text" x-model="authOTP" required placeholder="رمز (6 أرقام)" maxlength="6" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3 text-center tracking-[0.3em]">
+        <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold">تأكيد الدخول</button>
+      </form>
+    </template>
+    <p x-show="authError" x-text="authError" class="mt-3 text-xs text-red-400 text-center"></p>
+  </div>
+</div>
+<script id="course-data" type="application/json">
+{"title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي", "description": "دورة تطبيقية للمهندسين وصناع القرار حول حوكمة الذكاء الاصطناعي، ومواءمة التقنية مع القيم واللوائح العربية والعالمية.", "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI"], "price": 29, "duration": "3 ساعات", "gradient": "from-cyan-500 to-blue-500", "modules": [{"title": "الوحدة 1: مفاهيم الحوكمة والمخاطر", "content": "# مفاهيم الحوكمة والمخاطر\n\n**حوكمة الذكاء الاصطناعي** هي الإطار الذي يضمن أنظمة الذكاء الاصطناعي آمنة ومنصفة وقابلة للمساءلة.\n\n## المخاطر الشائعة\n- **التحيّز (Bias)**: نماذج تتدرب على بيانات غير ممثلة للغة العربية.\n- **الهلوسة**: توليد معلومات خاطئة في سياقات حساسة (طبية، قانونية).\n- **الخصوصية**: جمع بيانات دون رضا واضح.\n- **الشفافية**: قرارات غير مفسّرة.\n\n## لماذا يهم العالم العربي؟\nمعظم النماذج الكبرى تدربت على لغات أجنبية؛ غياب البيانات العربية يضخّم التحيّز ويقلّل الدقة."}, {"title": "الوحدة 2: الإطار التشريعي العالمي والعربي", "content": ""}, {"title": "الوحدة 3: عدالة البيانات والتحيّز اللغوي", "content": ""}, {"title": "الوحدة 4: الشفافية وقابلية التفسير", "content": ""}, {"title": "الوحدة 5: بناء خط أنابيب حوكمة (MLOps للامتثال)", "content": ""}], "slug": "ai-governance-and-ethics-in-the-arab-world"}
+</script>
+<script src="../../assets/js/config.js"></script>
+<script>
+const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
+const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+window.courseView = function(){return{
+  course:{}, activeModule:0, hasAccess:false, user:null, loading:false,
+  showAuth:false, otpSent:false, authEmail:'', authOTP:'', authError:'', loading:false,
+  init(){
+    this.course = JSON.parse(document.getElementById('course-data').textContent);
+    this.$watch('activeModule', () => this.loadModule());
+    sb.auth.getSession().then(({data}) => { this.user = data.session?.user||null; this.checkAccess(); });
+    sb.auth.onAuthStateChange((e,s) => { this.user=s?.user||null; if(e==='SIGNED_IN') this.showAuth=false; this.checkAccess(); });
+  },
+  async checkAccess(){
+    if(!this.user){ this.hasAccess=false; this.loadModule(); return; }
+    const {data} = await sb.from('user_course_access').select('*').eq('course_slug',this.course.slug).maybeSingle();
+    this.hasAccess = !!data; this.loadModule();
+  },
+  async loadModule(){
+    const i=this.activeModule; if(i===0) return;
+    if(this.hasAccess && this.course.modules[i] && !this.course.modules[i].content){
+      this.loading=true;
+      const {data,error} = await sb.from('course_modules').select('content').eq('course_slug',this.course.slug).eq('module_index',i).single();
+      if(!error && data) this.course.modules[i].content=data.content;
+      this.loading=false;
+    }
+  },
+  async sendOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.signInWithOtp({email:this.authEmail}); if(error) throw error; this.otpSent=true; }catch(e){ this.authError=e.message||'خطأ'; } this.loading=false; },
+  async verifyOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'}); if(error) throw error; this.showAuth=false; }catch(e){ this.authError=e.message||'رمز خاطئ'; } this.loading=false; },
+  async signOut(){ await sb.auth.signOut(); this.user=null; this.hasAccess=false; },
+  renderMarkdown(md){ return md ? marked.parse(md) : ''; }
+};};
+</script>
 </body>
 </html>
