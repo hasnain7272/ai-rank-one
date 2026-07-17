@@ -25,8 +25,6 @@
       <a href="#courses" class="hover:text-white text-slate-200">الدورات</a>
       <a href="#pricing" class="hover:text-white text-slate-200">الأسعار</a>
       <a href="#news" class="hover:text-white text-slate-200">النشرة</a>
-      <button x-show="!user" @click="showAuth=true" class="text-slate-200 hover:text-white">دخول</button>
-      <span x-show="user" x-text="user?.email" class="text-slate-300"></span>
       <button x-show="user" @click="signOut()" class="text-red-400">خروج</button>
     </div>
   </div>
@@ -133,8 +131,8 @@ function app(){return{
     const u=`https://checkout.lemonsqueezy.com/buy/${v}?embed=1`+(this.user?.email?`&checkout[email]=${encodeURIComponent(this.user.email)}`:'');
     window.open(u,'_blank');
   },
-  async sendOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.signInWithOtp({email:this.authEmail});if(error)throw error;this.otpSent=true;}catch(e){this.authError=e.message||'خطأ';}this.loading=false;},
-  async verifyOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'});if(error)throw error;}catch(e){this.authError=e.message||'رمز خاطئ';}this.loading=false;},
+  async sendOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.signInWithOtp({email:this.authEmail,options:{emailRedirectTo:location.href}});if(error)throw error;this.otpSent=true;}catch(e){const m=e?.message||'';this.authError=m.includes('500')||m.includes('confirmation')?'تعذّر إرسال رمز التحقق حالياً — تواصل معنا أو اشترك بالنشرة المجانية أولاً.':(m||'حدث خطأ — حاول مرة أخرى');}this.loading=false;},
+  async verifyOTP(){this.loading=true;this.authError='';try{const{error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'});if(error)throw error;this.showAuth=false;}catch(e){this.authError=e?.message||'رمز غير صحيح — حاول مرة أخرى';}this.loading=false;},
   async signOut(){await sb.auth.signOut();this.user=null;},
   async subscribe(){if(!this.email)return;try{const{error}=await sb.from('subscribers').insert({email:this.email,subscribed_at:new Date().toISOString()});if(error)throw error;alert('شكراً! تم تسجيلك في النشرة 🎉');this.email='';}catch(e){alert('تم تسجيلك مسبقاً أو حدث خطأ.');}}
 };}
