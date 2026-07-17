@@ -55,6 +55,20 @@ COURSE_TEMPLATE = """<!DOCTYPE html>
     <div x-show="loading" class="flex justify-center my-12"><svg class="w-8 h-8 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg></div>
     <div x-show="!loading && (activeModule===0 || hasAccess) && course.modules && course.modules[activeModule]">
       <div x-html="renderMarkdown(course.modules[activeModule]?.content)"></div>
+      <div x-show="course.modules[activeModule]?.resources?.length" class="not-prose mt-10 pt-6 border-t border-white/10">
+        <h3 class="text-lg font-bold text-white mb-4">مصادر إضافية موصى بها</h3>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <template x-for="(res,ri) in (course.modules[activeModule]?.resources||[])" :key="ri">
+            <a :href="res.url" target="_blank" rel="noopener" class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 hover:bg-white/10 transition-colors">
+              <span class="text-lg shrink-0" x-text="({article:'📄',paper:'🎓',video:'🎬',podcast:'🎧',docs:'📘'})[res.type]||'🔗'"></span>
+              <span class="min-w-0">
+                <span class="block text-sm font-semibold text-blue-300 truncate" x-text="res.title"></span>
+                <span x-show="res.source" class="block text-xs text-slate-400 mt-0.5" x-text="res.source"></span>
+              </span>
+            </a>
+          </template>
+        </div>
+      </div>
     </div>
     <div x-show="!loading && activeModule>0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-blue-950/20 border border-blue-500/20 text-center my-8">
       <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
@@ -237,7 +251,8 @@ def sync_course_to_supabase(course_data, slug):
             "course_slug": slug,
             "module_index": idx,
             "title": mod.get("title", ""),
-            "content": mod.get("content", "")
+            "content": mod.get("content", ""),
+            "resources": mod.get("resources", [])
         }
         try:
             r = requests.post(url_modules, json=module_payload, headers=headers)
@@ -296,6 +311,7 @@ def compile_and_deploy():
         for idx, mod in enumerate(public_course_data.get("modules", [])):
             if idx > 0:
                 mod["content"] = ""  # Clear paid content to prevent scraping!
+                mod["resources"] = []  # Curated resources are paid value too.
 
         html_content = (
             COURSE_TEMPLATE
