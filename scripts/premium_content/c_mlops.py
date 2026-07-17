@@ -665,7 +665,7 @@ def should_retrain(perf_auc: float, psi_max: float, days_since: int) -> str:
         "title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج",
         "description": "دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.",
         "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring", "FastAPI", "Docker"],
-        "price": 49,
+        "price": 39,
         "duration": "6 ساعات",
         "gradient": "from-rose-500 to-orange-500",
         "modules": [

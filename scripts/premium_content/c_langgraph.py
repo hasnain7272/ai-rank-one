@@ -117,13 +117,54 @@ app = g.compile()
 3. Map-Reduce  
 4. Reflection (مولّد + ناقد)
 
+## نمط المشرف (Supervisor) — توجيه ديناميكي
+في الأنظمة الأكبر لا تثبّت المسار A→B→C. دع **مشرفاً** يقرر أي وكيل يعمل تالياً بناءً على الحالة.
+
+```python
+from typing import Literal
+
+def supervisor(state: AgentState) -> dict:
+    # في الإنتاج: استدعِ LLM ليختار الوكيل التالي أو FINISH.
+    if not state.get("research_notes"):
+        nxt = "researcher"
+    elif not state.get("code_draft"):
+        nxt = "coder"
+    elif not state.get("review_ok"):
+        nxt = "reviewer"
+    else:
+        nxt = "FINISH"
+    return {"next": nxt}
+
+def route_supervisor(state: AgentState) -> Literal["researcher", "coder", "reviewer", "__end__"]:
+    nxt = state.get("next", "FINISH")
+    return END if nxt == "FINISH" or state.get("iteration", 0) >= 6 else nxt
+
+sg = StateGraph(AgentState)
+sg.add_node("supervisor", supervisor)
+for w in ("researcher", "coder", "reviewer"):
+    sg.add_node(w, globals()[w])
+    sg.add_edge(w, "supervisor")  # كل عامل يعود للمشرف
+sg.add_edge(START, "supervisor")
+sg.add_conditional_edges("supervisor", route_supervisor,
+    {"researcher": "researcher", "coder": "coder", "reviewer": "reviewer", "__end__": END})
+supervised = sg.compile()
+```
+
+**متى تختار أي نمط؟**
+| النمط | الأنسب | المخاطر |
+|-------|--------|---------|
+| Pipeline ثابت | مهام متسلسلة متوقعة | جمود أمام الحالات الشاذة |
+| Supervisor | توجيه مرن حسب الحالة | تكلفة LLM لكل قرار |
+| Map-Reduce | مهام متوازية مستقلة | تجميع النتائج معقّد |
+
 ## أخطاء مكلفة
 - نسيان حد الحلقات → فاتورة API  
 - عقدة واحدة عملاقة → صندوق أسود  
 - عدم تسجيل messages → تصحيح مستحيل
+- مشرف بلا شرط FINISH واضح → حلقة لا نهائية
 
 ## تمرين
-حوّل تذكرة دعم (تلخيص → رد → مراجعة نبرة) إلى 3 عقد وشغّل `invoke`.
+حوّل تذكرة دعم (تلخيص → رد → مراجعة نبرة) إلى 3 عقد، ثم أعد بناءها بنمط المشرف وقارن عدد استدعاءات LLM.
 """ + res([
         ("docs", "Multi-agent collaboration tutorial", "https://langchain-ai.github.io/langgraph/tutorials/multi_agent/multi-agent-collaboration/"),
         ("blog", "Anthropic: Building effective agents", "https://www.anthropic.com/research/building-effective-agents"),
@@ -161,6 +202,33 @@ app.invoke({
 | Long-term | تفضيلات عبر الجلسات (DB/Vector) |
 
 للإنتاج استخدم checkpointer على Postgres/SQLite بدل MemorySaver فقط.
+
+## checkpointer إنتاجي على Postgres
+`MemorySaver` يضيع كل شيء عند إعادة تشغيل الخادم. للإنتاج ثبّت الحالة في قاعدة بيانات.
+
+```python
+# pip install "langgraph-checkpoint-postgres>=1.0" psycopg
+from langgraph.checkpoint.postgres import PostgresSaver
+
+DB_URI = "postgresql://user:pass@localhost:5432/agents?sslmode=disable"
+
+with PostgresSaver.from_conn_string(DB_URI) as checkpointer:
+    checkpointer.setup()  # ينشئ الجداول أول مرة فقط
+    app = g.compile(checkpointer=checkpointer)
+    cfg = {"configurable": {"thread_id": "user-42-session-1"}}
+    app.invoke({"task": "...", "messages": [], "iteration": 0,
+                "research_notes": "", "code_draft": "", "review_ok": False}, cfg)
+
+    # استعادة أحدث نقطة حفظ لنفس الجلسة (مثلاً بعد إعادة تشغيل)
+    snapshot = app.get_state(cfg)
+    print("آخر تكرار محفوظ:", snapshot.values.get("iteration"))
+```
+
+**قائمة تحقق للذاكرة الإنتاجية:**
+- [ ] `thread_id` مشتق من هوية المستخدم الموثّقة (لا من المدخلات)
+- [ ] سياسة انتهاء صلاحية/أرشفة للجلسات القديمة
+- [ ] عدم تخزين أسرار أو PII خام في الحالة
+- [ ] نسخ احتياطي لقاعدة نقاط الحفظ
 
 ## تمرين
 استدعاءان بنفس thread_id وآخر مختلف — قارن السلوك واكتب متى تحتاج ذاكرة طويلة المدى.
@@ -272,7 +340,7 @@ Docker + 10 طلبات متزامنة + تقرير صفحة: اختناقات و
         "title": "بناء أنظمة الوكلاء المتعددة (Multi-Agents) باستخدام LangGraph",
         "description": "دورة هندسية: وكلاء متخصصون، ذاكرة جلسات، أدوات آمنة، ونشر قابل للمراقبة — بكود بايثون جاهز للإنتاج وللسوق العربي.",
         "tags": ["LangGraph", "Python", "Multi-Agent", "LLM Orchestration", "Production"],
-        "price": 49,
+        "price": 39,
         "duration": "8 ساعات",
         "gradient": "from-brand-500 to-indigo-500",
         "modules": [

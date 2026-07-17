@@ -13,7 +13,7 @@
     ],
     "modules": 5,
     "duration": "5 ساعات",
-    "price": 49,
+    "price": 39,
     "gradient": "from-orange-500 to-red-500"
   },
   {
@@ -30,7 +30,7 @@
     ],
     "modules": 5,
     "duration": "5 ساعات",
-    "price": 49,
+    "price": 39,
     "gradient": "from-cyan-500 to-blue-500"
   },
   {
@@ -48,7 +48,7 @@
     ],
     "modules": 5,
     "duration": "10 ساعات",
-    "price": 49,
+    "price": 39,
     "gradient": "from-emerald-500 to-teal-500"
   },
   {
@@ -64,7 +64,7 @@
     ],
     "modules": 5,
     "duration": "8 ساعات",
-    "price": 49,
+    "price": 39,
     "gradient": "from-brand-500 to-indigo-500"
   },
   {
@@ -82,7 +82,7 @@
     ],
     "modules": 5,
     "duration": "10 ساعات",
-    "price": 49,
+    "price": 39,
     "gradient": "from-violet-500 to-purple-500"
   },
   {
@@ -99,7 +99,7 @@
     ],
     "modules": 5,
     "duration": "6 ساعات",
-    "price": 49,
+    "price": 39,
     "gradient": "from-rose-500 to-orange-500"
   }
 ]

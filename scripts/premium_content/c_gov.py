@@ -516,7 +516,7 @@ print("COMPLIANCE_GATE_OK")
         "title": "حوكمة الذكاء الاصطناعي والأخلاقيات في العالم العربي",
         "description": "دورة تطبيقية للمهندسين وصنّاع القرار: تصنيف مخاطر، وعي تنظيمي عالمي/إقليمي عالي المستوى، تدقيق عدالة واللهجات العربية، تفسير وسجلات تدقيق، وبوابة امتثال داخل MLOps — بمحتوى عملي وليس شعارات. (ليست استشارة قانونية.)",
         "tags": ["AI Governance", "Ethics", "Compliance", "Responsible AI", "Fairness", "Arabic NLP"],
-        "price": 49,
+        "price": 39,
         "duration": "5 ساعات",
         "gradient": "from-cyan-500 to-blue-500",
         "modules": [

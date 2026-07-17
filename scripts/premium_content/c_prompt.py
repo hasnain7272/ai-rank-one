@@ -579,7 +579,7 @@ def run_eval(predict, path="evals/golden.jsonl"):
         "title": "هندسة التلقين المتقدمة للمطورين (Prompt Engineering)",
         "description": "دورة إنتاجية للمطورين: تشريح التلقين التعاقدي، Few-Shot وCoT بوعي التكلفة، مخرجات JSON/Pydantic موثوقة، حلقات أدوات وكيلية، وتقييمات وحواجز ضد حقن التلقين — بالعربية وبكود جاهز للدمج.",
         "tags": ["Prompt Engineering", "LLM", "Few-Shot", "Structured Output", "Guardrails", "Evals"],
-        "price": 49,
+        "price": 39,
         "duration": "5 ساعات",
         "gradient": "from-orange-500 to-red-500",
         "modules": [

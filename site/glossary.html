@@ -6,6 +6,15 @@
     <title>قاموس المصطلحات التقنية للذكاء الاصطناعي | AI Rank One</title>
     <meta name="description" content="قاموس المصطلحات الفنية والتقنية للذكاء الاصطناعي وتعلم الآلة مع الترجمات والشروحات التفصيلية باللغة العربية الفصحى. مرجعك الموثوق للهندسة والـ MLOps.">
     <meta name="keywords" content="قاموس ذكاء اصطناعي, مصطلحات RAG, معنى Fine-tuning, ترجمة LLM, قاموس تقني عربي">
+    <link rel="canonical" href="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/glossary.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AI Rank One">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:title" content="قاموس المصطلحات التقنية للذكاء الاصطناعي">
+    <meta property="og:description" content="مرجع عربي لمصطلحات الذكاء الاصطناعي وتعلم الآلة مع شروحات بالعربية الفصحى.">
+    <meta property="og:url" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/glossary.html">
+    <meta property="og:image" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/assets/images/icon.svg">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json">
@@ -145,7 +154,7 @@
             return {
                 search: '',
                 activeLetter: 'all',
-                letters: 'abcdefghijklmnopqrstmlopqrstuvwxyz'.split(''),
+                letters: 'abcdefghijklmnopqrstuvwxyz'.split(''),
                 
                 terms: [
                     {
@@ -219,6 +228,146 @@
                         en: 'Neural Network',
                         ar: 'الشبكة العصبية الاصطناعية',
                         definition: 'نموذج رياضي يحاكي بنية العصبونات البيولوجية في دماغ الإنسان، وتتكون من طبقات معالجة مترابطة تستخدم لتعلم الأنماط من البيانات.'
+                    },
+                    {
+                        en: 'LLM (Large Language Model)',
+                        ar: 'النموذج اللغوي الكبير',
+                        definition: 'نموذج تعلم عميق ضخم مدرّب على كميات هائلة من النصوص، قادر على فهم اللغة وتوليدها وأداء مهام متعددة مثل التلخيص والترجمة وكتابة الكود.'
+                    },
+                    {
+                        en: 'LoRA (Low-Rank Adaptation)',
+                        ar: 'التكييف منخفض الرتبة',
+                        definition: 'أسلوب ضبط فعّال يجمّد أوزان النموذج الأصلية ويدرّب مصفوفتين صغيرتين منخفضتي الرتبة فقط، مما يقلّص الذاكرة والتكلفة بشكل كبير مع الحفاظ على الجودة.',
+                        courseLink: 'courses/llm-fine-tuning-with-lora-and-qlora/',
+                        courseTitle: 'ضبط النماذج باستخدام LoRA'
+                    },
+                    {
+                        en: 'QLoRA',
+                        ar: 'LoRA المكمّم',
+                        definition: 'امتداد لـ LoRA يحمّل النموذج الأساس بدقة 4-بت (تكميم) ثم يدرّب محوّلات LoRA فوقه، مما يتيح ضبط نماذج كبيرة على وحدة معالجة رسومية واحدة.',
+                        courseLink: 'courses/llm-fine-tuning-with-lora-and-qlora/',
+                        courseTitle: 'ضبط النماذج باستخدام LoRA'
+                    },
+                    {
+                        en: 'PEFT (Parameter-Efficient Fine-Tuning)',
+                        ar: 'الضبط الفعّال للمعاملات',
+                        definition: 'عائلة من تقنيات الضبط (منها LoRA وQLoRA) تدرّب جزءاً صغيراً فقط من معاملات النموذج بدل الأوزان كاملة، لتوفير الذاكرة والتخزين وتقليل النسيان الكارثي.',
+                        courseLink: 'courses/llm-fine-tuning-with-lora-and-qlora/',
+                        courseTitle: 'ضبط النماذج باستخدام LoRA'
+                    },
+                    {
+                        en: 'SFT (Supervised Fine-Tuning)',
+                        ar: 'الضبط الخاضع للإشراف',
+                        definition: 'ضبط النموذج على أزواج (تعليمة، إجابة مرجعية) ليتعلّم اتّباع التعليمات بأسلوب محدد، وهو الخطوة الأولى قبل محاذاة التفضيلات.'
+                    },
+                    {
+                        en: 'Quantization',
+                        ar: 'التكميم',
+                        definition: 'تقليل دقة أوزان النموذج (مثل من 16-بت إلى 4-بت) لخفض استهلاك الذاكرة وتسريع الاستدلال، مقابل فقدان طفيف محتمل في الدقة.'
+                    },
+                    {
+                        en: 'Attention / Self-Attention',
+                        ar: 'آلية الانتباه الذاتي',
+                        definition: 'آلية تتيح للنموذج ترجيح أهمية كل رمز بالنسبة لبقية الرموز في التسلسل، وهي جوهر معمارية الترانسفورمر.'
+                    },
+                    {
+                        en: 'Context Window',
+                        ar: 'نافذة السياق',
+                        definition: 'الحد الأقصى لعدد الرموز التي يمكن للنموذج معالجتها في طلب واحد (المدخلات + المخرجات). تجاوزها يؤدي إلى اقتطاع أو فقدان معلومات.'
+                    },
+                    {
+                        en: 'Temperature',
+                        ar: 'درجة الحرارة',
+                        definition: 'معامل يتحكم في عشوائية مخرجات النموذج: قيمة منخفضة تعطي إجابات حتمية ومركّزة، وقيمة مرتفعة تزيد التنوّع والإبداع (والمخاطرة بالهلوسة).'
+                    },
+                    {
+                        en: 'Few-Shot Learning',
+                        ar: 'التعلّم بأمثلة قليلة',
+                        definition: 'تزويد النموذج بعدد قليل من الأمثلة داخل التلقين لتوجيه أسلوب ونمط الإجابة دون إعادة تدريب.',
+                        courseLink: 'courses/advanced-prompt-engineering-for-developers/',
+                        courseTitle: 'هندسة التلقين المتقدمة'
+                    },
+                    {
+                        en: 'Chain-of-Thought (CoT)',
+                        ar: 'سلسلة التفكير',
+                        definition: 'أسلوب تلقين يطلب من النموذج إظهار خطوات الاستدلال قبل الإجابة النهائية، مما يحسّن الأداء في المهام المنطقية والحسابية.',
+                        courseLink: 'courses/advanced-prompt-engineering-for-developers/',
+                        courseTitle: 'هندسة التلقين المتقدمة'
+                    },
+                    {
+                        en: 'Guardrails',
+                        ar: 'الحواجز الوقائية',
+                        definition: 'ضوابط برمجية تفحص مدخلات ومخرجات النموذج لمنع المحتوى الضار أو تسريب البيانات أو حقن التلقين (Prompt Injection).',
+                        courseLink: 'courses/advanced-prompt-engineering-for-developers/',
+                        courseTitle: 'هندسة التلقين المتقدمة'
+                    },
+                    {
+                        en: 'Prompt Injection',
+                        ar: 'حقن التلقين',
+                        definition: 'هجوم يدسّ فيه المهاجم تعليمات خبيثة داخل مدخلات المستخدم لتجاوز تعليمات النظام أو استخراج بيانات حساسة.'
+                    },
+                    {
+                        en: 'Chunking',
+                        ar: 'التقطيع',
+                        definition: 'تقسيم المستندات الطويلة إلى مقاطع أصغر متماسكة قبل تضمينها وفهرستها، وجودة التقطيع تؤثر مباشرة في جودة الاسترجاع في أنظمة RAG.',
+                        courseLink: 'courses/building-a-production-rag-system/',
+                        courseTitle: 'بناء نظام RAG للإنتاج'
+                    },
+                    {
+                        en: 'Hybrid Search',
+                        ar: 'البحث الهجين',
+                        definition: 'دمج البحث الكثيف (دلالي عبر المتجهات) مع البحث المتفرّق (لفظي مثل BM25) للحصول على استرجاع أدق يجمع بين المعنى والتطابق الحرفي.',
+                        courseLink: 'courses/building-a-production-rag-system/',
+                        courseTitle: 'بناء نظام RAG للإنتاج'
+                    },
+                    {
+                        en: 'RRF (Reciprocal Rank Fusion)',
+                        ar: 'دمج الرُّتب التبادلي',
+                        definition: 'خوارزمية تدمج نتائج عدة أنظمة بحث بالاعتماد على ترتيب كل نتيجة لا على درجاتها الخام، شائعة لدمج البحث الكثيف والمتفرّق.',
+                        courseLink: 'courses/building-a-production-rag-system/',
+                        courseTitle: 'بناء نظام RAG للإنتاج'
+                    },
+                    {
+                        en: 'Reranking',
+                        ar: 'إعادة الترتيب',
+                        definition: 'مرحلة ثانية تعيد ترتيب أفضل النتائج المسترجعة باستخدام نموذج أدق (Cross-Encoder غالباً) لرفع جودة السياق الممرّر للنموذج.',
+                        courseLink: 'courses/building-a-production-rag-system/',
+                        courseTitle: 'بناء نظام RAG للإنتاج'
+                    },
+                    {
+                        en: 'Agent',
+                        ar: 'الوكيل الذكي',
+                        definition: 'نظام يعتمد على نموذج لغوي يخطّط ويقرّر ويستدعي أدوات خارجية في حلقة لإنجاز مهمة متعددة الخطوات دون تدخل بشري مستمر.',
+                        courseLink: 'courses/langgraph-multi-agents/',
+                        courseTitle: 'بناء أنظمة الوكلاء باستخدام LangGraph'
+                    },
+                    {
+                        en: 'Function / Tool Calling',
+                        ar: 'استدعاء الأدوات',
+                        definition: 'قدرة النموذج على إخراج طلب مُنظَّم لاستدعاء دالة أو أداة خارجية (بحث، حاسبة، واجهة برمجية) ثم استخدام نتيجتها في إجابته.',
+                        courseLink: 'courses/langgraph-multi-agents/',
+                        courseTitle: 'بناء أنظمة الوكلاء باستخدام LangGraph'
+                    },
+                    {
+                        en: 'Model Drift',
+                        ar: 'انجراف النموذج',
+                        definition: 'تدهور أداء النموذج في الإنتاج مع تغيّر توزيع البيانات الواردة عن بيانات التدريب، ويستوجب المراقبة ومحفّزات إعادة التدريب.',
+                        courseLink: 'courses/mlops-from-experiment-to-production/',
+                        courseTitle: 'أنظمة MLOps من التجربة للإنتاج'
+                    },
+                    {
+                        en: 'CI/CD',
+                        ar: 'التكامل والنشر المستمر',
+                        definition: 'ممارسات أتمتة بناء واختبار ونشر الكود والنماذج عبر خطوط أنابيب، مع بوابات جودة تمنع نشر نموذج أضعف من الإصدار الحالي.',
+                        courseLink: 'courses/mlops-from-experiment-to-production/',
+                        courseTitle: 'أنظمة MLOps من التجربة للإنتاج'
+                    },
+                    {
+                        en: 'Model Registry',
+                        ar: 'سجل النماذج',
+                        definition: 'مستودع مركزي يخزّن إصدارات النماذج مع بياناتها الوصفية ومقاييسها وحالتها (تجريبي/إنتاجي)، لتتبّع ما هو منشور فعلياً.',
+                        courseLink: 'courses/mlops-from-experiment-to-production/',
+                        courseTitle: 'أنظمة MLOps من التجربة للإنتاج'
                     }
                 ],
 
@@ -240,5 +389,6 @@
             }
         }
     </script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));}</script>
 </body>
 </html>

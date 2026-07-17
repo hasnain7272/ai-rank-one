@@ -1,9 +1,11 @@
-const CACHE_NAME = 'ai-rank-one-v2';
+const CACHE_NAME = 'ai-rank-one-v3';
 const STATIC_ASSETS = [
     '/',
     '/manifest.json',
     '/about.html',
+    '/glossary.html',
     '/verify.html',
+    '/assets/images/icon.svg',
 ];
 
 // Install — cache static shell

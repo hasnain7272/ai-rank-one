@@ -831,7 +831,7 @@ def observe(ok: bool, refused: bool, latency_ms: int) -> None:
         "title": "بناء نظام RAG للإنتاج مع البحث الهجين وإعادة الترتيب",
         "description": "دورة هندسية مدفوعة: من فشل RAG الساذج إلى Embeddings وChunking عربي، Hybrid+RRF، Reranking، برومبتات مضادّة للهلوسة، تقييم RAGAS-style، ونشر FastAPI مع مراقبة — بكود بايثون جاهز للإنتاج.",
         "tags": ["RAG", "Hybrid Search", "Reranking", "Embeddings", "RRF", "Production", "Arabic NLP"],
-        "price": 49,
+        "price": 39,
         "duration": "10 ساعات",
         "gradient": "from-emerald-500 to-teal-500",
         "modules": [
