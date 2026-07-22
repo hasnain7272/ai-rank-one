@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ضبط نماذج اللغة الدقيقة مع LoRA وQLoRA للإنتاج | AI Rank One</title>
 <meta name="description" content="دورة هندسية مدفوعة: قرار Full FT مقابل LoRA/QLoRA، إعداد PEFT (rank/alpha/target modules)، بيانات SFT وحلقة transformers، مشروع محوّل نطاق عربي، ثم الدمج والتصدير والخدمة والتقييم وحساب التكلفة.">
 <link rel="canonical" href="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/llm-fine-tuning-with-lora-and-qlora/index.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="AI Rank One">
-<meta property="og:locale" content="ar_AR">
-<meta property="og:title" content="ضبط نماذج اللغة الدقيقة مع LoRA وQLoRA للإنتاج">
-<meta property="og:description" content="دورة هندسية مدفوعة: قرار Full FT مقابل LoRA/QLoRA، إعداد PEFT (rank/alpha/target modules)، بيانات SFT وحلقة transformers، مشروع محوّل نطاق عربي، ثم الدمج والتصدير والخدمة والتقييم وحساب التكلفة.">
-<meta property="og:url" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/llm-fine-tuning-with-lora-and-qlora/index.html">
-<meta property="og:image" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/assets/images/icon.svg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ضبط نماذج اللغة الدقيقة مع LoRA وQLoRA للإنتاج">
-<meta name="twitter:description" content="دورة هندسية مدفوعة: قرار Full FT مقابل LoRA/QLoRA، إعداد PEFT (rank/alpha/target modules)، بيانات SFT وحلقة transformers، مشروع محوّل نطاق عربي، ثم الدمج والتصدير والخدمة والتقييم وحساب التكلفة.">
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "Course", "name": "ضبط نماذج اللغة الدقيقة مع LoRA وQLoRA للإنتاج", "description": "دورة هندسية مدفوعة: قرار Full FT مقابل LoRA/QLoRA، إعداد PEFT (rank/alpha/target modules)، بيانات SFT وحلقة transformers، مشروع محوّل نطاق عربي، ثم الدمج والتصدير والخدمة والتقييم وحساب التكلفة.", "inLanguage": "ar", "provider": {"@type": "Organization", "name": "AI Rank One", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/"}}
-</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "ضبط نماذج اللغة الدقيقة مع LoRA وQLoRA للإنتاج", "description": "دورة هندسية مدفوعة: قرار Full FT مقابل LoRA/QLoRA، إعداد PEFT (rank/alpha/target modules)، بيانات SFT وحلقة transformers، مشروع محوّل نطاق عربي، ثم الدمج والتصدير والخدمة والتقييم وحساب التكلفة.", "inLanguage": "ar", "provider": {"@type": "Organization", "name": "AI Rank One", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/"}}</script>
 <link rel="icon" type="image/svg+xml" href="../../assets/images/icon.svg">
-<link rel="apple-touch-icon" href="../../assets/images/icon.svg">
-<link rel="manifest" href="../../manifest.json">
-<meta name="theme-color" content="#0f172a">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}code,pre{font-family:'JetBrains Mono',monospace;direction:ltr;text-align:left}.prose{max-width:none;color:#e2e8f0;line-height:1.8}.prose h1,.prose h2,.prose h3{font-weight:700;color:#fff;margin:1.5rem 0 1rem}.prose h1{font-size:1.8em}.prose h2{font-size:1.4em;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:.5rem}.prose p{margin-bottom:1.25rem}.prose ul{list-style:disc;padding-inline-start:1.5rem;margin-bottom:1.25rem}.prose code{background:rgba(255,255,255,.05);padding:.2rem .4rem;border-radius:.25rem;color:#59b0ff}.prose pre{background:#0f172a;padding:1.25rem;border-radius:.75rem;overflow-x:auto;margin:1.5rem 0}</style>
+<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}code,pre{font-family:'JetBrains Mono',monospace;direction:ltr;text-align:left}.prose{max-width:none;color:#e2e8f0;line-height:1.8}.prose h1,.prose h2,.prose h3{font-weight:700;color:#fff;margin:1.5rem 0 1rem}.prose p{margin-bottom:1.25rem}.prose code{background:rgba(255,255,255,.05);padding:.2rem .4rem;border-radius:.25rem;color:#59b0ff}.prose pre{background:#0f172a;padding:1.25rem;border-radius:.75rem;overflow-x:auto;margin:1.5rem 0}</style>
 </head>
 <body class="bg-slate-950 text-white" x-data="courseView()">
 <nav class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
@@ -37,8 +20,8 @@
     <a href="../../index.html" class="text-lg font-bold text-blue-400">AI Rank One</a>
     <div class="flex items-center gap-4 text-sm">
       <a href="../../index.html" class="text-slate-200 hover:text-white">الرئيسية</a>
-      <a href="../../index.html#news" class="text-slate-200 hover:text-white">النشرة</a>
-      <span x-show="user" x-text="user?.email" class="text-slate-300"></span>
+      <button x-show="!user" @click="showAuth=true" class="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold">تسجيل الدخول</button>
+      <span x-show="user" x-text="user?.email" class="text-slate-300 text-xs truncate max-w-[150px]"></span>
       <button x-show="user" @click="signOut()" class="text-red-400">خروج</button>
     </div>
   </div>
@@ -60,23 +43,20 @@
         <h3 class="text-lg font-bold text-white mb-4">مصادر إضافية موصى بها</h3>
         <div class="grid gap-3 sm:grid-cols-2">
           <template x-for="(res,ri) in (course.modules[activeModule]?.resources||[])" :key="ri">
-            <a :href="res.url" target="_blank" rel="noopener" class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 hover:bg-white/10 transition-colors">
+            <a :href="res.url" target="_blank" rel="noopener" class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 hover:bg-white/10">
               <span class="text-lg shrink-0" x-text="({article:'📄',paper:'🎓',video:'🎬',podcast:'🎧',docs:'📘'})[res.type]||'🔗'"></span>
-              <span class="min-w-0">
-                <span class="block text-sm font-semibold text-blue-300 truncate" x-text="res.title"></span>
-                <span x-show="res.source" class="block text-xs text-slate-400 mt-0.5" x-text="res.source"></span>
-              </span>
+              <span class="min-w-0"><span class="block text-sm font-semibold text-blue-300 truncate" x-text="res.title"></span><span x-show="res.source" class="block text-xs text-slate-400 mt-0.5" x-text="res.source"></span></span>
             </a>
           </template>
         </div>
       </div>
     </div>
-    <div x-show="!loading && activeModule>0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-blue-950/20 border border-blue-500/20 text-center my-8">
+    <div x-show="!loading && activeModule>0 && !hasAccess" class="p-8 rounded-2xl bg-blue-950/20 border border-blue-500/20 text-center my-8">
       <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-      <p class="text-slate-300 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. اشترك لفتح كامل المحتوى والكود والشهادة!</p>
+      <p class="text-slate-300 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. اشترك لفتح كامل المحتوى أو سجل دخولك إذا كنت مشتركاً مسبقاً.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-        <a href="../../index.html#pricing" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold text-center">اشترك في الدورة</a>
-        <a href="../../index.html#news" class="px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-center">اشترك بالنشرة المجانية</a>
+        <button x-show="!user" @click="showAuth=true" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold text-center">تسجيل الدخول</button>
+        <a href="../../index.html#pricing" class="px-6 py-3 rounded-xl border border-blue-500/30 hover:bg-blue-500/10 text-sm font-semibold text-center">اشترك في الدورة ($39)</a>
       </div>
     </div>
   </div>
@@ -85,12 +65,14 @@
   <div class="w-full max-w-sm bg-slate-900 rounded-2xl border border-white/10 p-6">
     <template x-if="!otpSent">
       <form @submit.prevent="sendOTP()">
-        <input type="email" x-model="authEmail" required placeholder="بريدك الإلكتروني" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3">
+        <p class="text-sm font-semibold mb-3 text-center">أدخل بريدك الإلكتروني للدخول</p>
+        <input type="email" x-model="authEmail" required placeholder="name@example.com" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3">
         <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold" :disabled="loading">إرسال رمز التحقق</button>
       </form>
     </template>
     <template x-if="otpSent">
       <form @submit.prevent="verifyOTP()">
+        <p class="text-sm font-semibold mb-3 text-center">أدخل الرمز المرسل إلى بريدك</p>
         <input type="text" x-model="authOTP" required placeholder="رمز (6 أرقام)" maxlength="6" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3 text-center tracking-[0.3em]">
         <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold">تأكيد الدخول</button>
       </form>
@@ -98,19 +80,15 @@
     <p x-show="authError" x-text="authError" class="mt-3 text-xs text-red-400 text-center"></p>
   </div>
 </div>
-<script id="course-data" type="application/json">
-{"title": "ضبط نماذج اللغة الدقيقة مع LoRA وQLoRA للإنتاج", "description": "دورة هندسية مدفوعة: قرار Full FT مقابل LoRA/QLoRA، إعداد PEFT (rank/alpha/target modules)، بيانات SFT وحلقة transformers، مشروع محوّل نطاق عربي، ثم الدمج والتصدير والخدمة والتقييم وحساب التكلفة.", "tags": ["LoRA", "QLoRA", "PEFT", "Fine-tuning", "Transformers", "LLM", "Production"], "price": 39, "duration": "10 ساعات", "gradient": "from-violet-500 to-purple-500", "modules": [{"title": "الوحدة 1: Full FT مقابل LoRA/QLoRA ومتى تضبط النموذج", "content": "# الضبط الكامل مقابل LoRA/QLoRA — الحدس الرياضي ومتى تضبط النموذج\n\n## ماذا ستبني في هذه الدورة؟\nمساراً هندسياً لـ **Fine-tuning** عملي: متى تضبط ومتى يكفي RAG/البرومبت، حدس LoRA وQLoRA، إعداد PEFT (rank/alpha/target modules)، تجهيز البيانات وحلقة التدريب، مشروع محوّل نطاق (domain adapter)، ثم الدمج والتصدير والتقييم والتكلفة.\n\nهذه ليست «شغّل notebook وانسَ». الهدف: **قرارات إنتاج** + كود transformers/peft أسلوب حقيقي.\n\n## متى لا تحتاج Fine-tuning؟\n| الحاجة | الأنسب غالباً |\n|--------|----------------|\n| معرفة حديثة / مستندات خاصة | RAG |\n| تنسيق إخراج بسيط | برومبت + few-shot / JSON schema |\n| أسلوب أو اصطلاحات نطاق ثابتة | LoRA/QLoRA |\n| سلوك أداة معقّد + بيانات وفيرة | SFT (+ تفضيلات لاحقاً) |\n| تغيير قدرات أساسية للنموذج | Full FT أو نموذج أكبر — نادر ومكلف |\n\n**قاعدة ذهبية:** إن كانت المشكلة «لا يجد المعلومة» → RAG أولاً. إن كانت «يعرف لكن لا يتكلم بلسان نطاقك» → adapter.\n\n## Full Fine-Tuning: ماذا يتغيّر؟\nلكل طبقة خطية تقريباً لدينا أوزان `W` بحجم ضخم. التحديث الكامل:\n\n```\nW' = W + ΔW\n```\n\nحيث `ΔW` بنفس رتبة `W` تقريباً → ذاكرة مُحسِّن (Adam states) ضخمة، تخزين نسخة كاملة لكل تجربة، وخطر **نسيان كارثي** لما تعلّمه النموذج الأساس.\n\n## LoRA: تحديث منخفض الرتبة\nالفرضية: التحديث المفيد أثناء التكييف يعيش في فضاء منخفض الرتبة. بدلاً من تعلّم `ΔW` كاملة:\n\n```\nΔW ≈ B @ A\n```\n\n- `A` شكلها `(r, in)` و `B` شكلها `(out, r)` و **r << min(in, out)**\n- عدد المعاملات ≈ `r * (in + out)` بدل `in * out`\n- أثناء الاستدلال يمكن **دمج** `W + BA` فلا تكلفة إضافية للlatency بعد الدمج\n\n```python\n# حدس عددي — ليس تدريب حقيقي\nimport numpy as np\n\nrng = np.random.default_rng(0)\nin_f, out_f, r = 4096, 4096, 16\n# عدد عناصر ΔW الكاملة\nfull = in_f * out_f\n# LoRA\nlora = r * (in_f + out_f)\nprint(\"full params\", full)\nprint(\"lora params\", lora)\nprint(\"ratio\", round(lora / full, 6))\n# مثال: ~0.0078 → أقل من 1% من معاملات الطبقة\n```\n\n### alpha والقياس\nغالباً يُضرب التحديث بـ `alpha / r` (أو يُضبط عبر `lora_alpha` في PEFT) ليبقى تأثير الرتبة مستقراً عند تغيير `r`.\n\n```\nh = W x + scaling * (B (A x))\n```\n\n## QLoRA: LoRA + تكميم 4-bit للأساس\n- يُحمَّل النموذج الأساس مكمّماً (مثل NF4) لتوفير VRAM\n- تُدرَّب محوّلات LoRA بـ precision أعلى (غالباً BF16/FP16 للحسابات)\n- النتيجة: ضبط 7B–70B على بطاقة واحدة أو قليلة — مع حذر من فقدان جودة التكميم\n\n## مقارنة سريعة للقرار\n\n```python\nfrom dataclasses import dataclass\n\n\n@dataclass\nclass FtDecision:\n    use_rag: bool\n    use_lora: bool\n    use_full_ft: bool\n    reason: str\n\n\ndef decide(need_private_knowledge: bool, need_style_or_format: bool,\n           has_labeled_sft: bool, huge_budget: bool) -> FtDecision:\n    if need_private_knowledge and not need_style_or_format:\n        return FtDecision(True, False, False, \"RAG أولاً للمحتوى المتغيّر\")\n    if need_style_or_format and has_labeled_sft:\n        return FtDecision(need_private_knowledge, True, False, \"LoRA/QLoRA للنمط + RAG إن لزم\")\n    if huge_budget and has_labeled_sft and not need_private_knowledge:\n        return FtDecision(False, False, True, \"Full FT نادر — تجربة كبيرة فقط\")\n    return FtDecision(True, False, False, \"ابدأ برومبت/RAG — اجمع بيانات قبل الضبط\")\n```\n\n## تكاليف خفية يتجاهلها المبتدئ\n1. **جمع وتنظيف البيانات** أغلى من GPU.\n2. **تقييم** قبل/بعد على مجموعة ثابتة — وإلا «صار أحلى» وهم.\n3. **إصدار المحوّلات** (base model revision + rank + data hash).\n4. **الامتثال**: بيانات تدريب قد تحتوي PII.\n\n## قائمة تحقق الوحدة 1\n- [ ] كتبت مشكلة منتج بجملة: RAG أم LoRA أم الاثنان؟\n- [ ] فهمت أن LoRA ≈ BA منخفضة الرتبة\n- [ ] حسبت نسبة المعاملات لطبقة 4096×4096 عند r=8 و r=64\n- [ ] عرّفت مقياس نجاح قبل أي `trainer.train()`\n\n## تمرين\nاختر حالة عربية (دعم فني، عقود، طب عام تثقيفي). اكتب:\n1) 20 مثالاً لـ SFT (input/output)\n2) 10 أسئلة تقييم\n3) قرار: LoRA فقط / RAG فقط / هجين — مع تبرير سطرين\n\n## مصادر إضافية (للتعمّق — اختَر 1–2 أسبوعياً)\n\n- **ورقة بحثية** — [LoRA: Low-Rank Adaptation arXiv:2106.09685](https://arxiv.org/abs/2106.09685)\n- **ورقة بحثية** — [QLoRA arXiv:2305.14314](https://arxiv.org/abs/2305.14314)\n- **توثيق رسمي** — [Hugging Face PEFT overview](https://huggingface.co/docs/peft/index)\n- **مقال / مدونة** — [Hugging Face — Parameter-Efficient Fine-Tuning using PEFT](https://huggingface.co/blog/peft)\n- **فيديو** — [Efficient Fine-Tuning — LoRA & QLoRA (Hugging Face)](https://www.youtube.com/watch?v=Us5ZFp16PaU)\n- **بودكاست** — [Latent Space — fine-tuning era](https://www.latent.space/)\n\n> نصيحة: طبّق كود الوحدة أولاً، ثم عد للمصدر لتربط النظرية بالتنفيذ.\n", "resources": [{"type": "paper", "title": "LoRA: Low-Rank Adaptation arXiv:2106.09685", "url": "https://arxiv.org/abs/2106.09685", "source": "ورقة بحثية"}, {"type": "paper", "title": "QLoRA arXiv:2305.14314", "url": "https://arxiv.org/abs/2305.14314", "source": "ورقة بحثية"}, {"type": "docs", "title": "Hugging Face PEFT overview", "url": "https://huggingface.co/docs/peft/index", "source": "توثيق رسمي"}, {"type": "blog", "title": "Hugging Face — Parameter-Efficient Fine-Tuning using PEFT", "url": "https://huggingface.co/blog/peft", "source": "مقال / مدونة"}, {"type": "video", "title": "Efficient Fine-Tuning — LoRA & QLoRA (Hugging Face)", "url": "https://www.youtube.com/watch?v=Us5ZFp16PaU", "source": "فيديو"}, {"type": "podcast", "title": "Latent Space — fine-tuning era", "url": "https://www.latent.space/", "source": "بودكاست"}]}, {"title": "الوحدة 2: إعداد PEFT/LoRA والـ target modules والرتبة", "content": "", "resources": []}, {"title": "الوحدة 3: تجهيز البيانات وحلقة التدريب والإخفاقات", "content": "", "resources": []}, {"title": "الوحدة 4: مشروع محوّل نطاق (Domain Adapter) متكامل", "content": "", "resources": []}, {"title": "الوحدة 5: الدمج والتصدير والخدمة والتقييم والتكلفة", "content": "", "resources": []}], "slug": "llm-fine-tuning-with-lora-and-qlora"}
-</script>
+<script id="course-data" type="application/json">{"title": "ضبط نماذج اللغة الدقيقة مع LoRA وQLoRA للإنتاج", "description": "دورة هندسية مدفوعة: قرار Full FT مقابل LoRA/QLoRA، إعداد PEFT (rank/alpha/target modules)، بيانات SFT وحلقة transformers، مشروع محوّل نطاق عربي، ثم الدمج والتصدير والخدمة والتقييم وحساب التكلفة.", "tags": ["LoRA", "QLoRA", "PEFT", "Fine-tuning", "Transformers", "LLM", "Production"], "price": 39, "duration": "10 ساعات", "gradient": "from-violet-500 to-purple-500", "modules": [{"title": "الوحدة 1: Full FT مقابل LoRA/QLoRA ومتى تضبط النموذج", "content": "# الضبط الكامل مقابل LoRA/QLoRA — الحدس الرياضي ومتى تضبط النموذج\n\n## ماذا ستبني في هذه الدورة؟\nمساراً هندسياً لـ **Fine-tuning** عملي: متى تضبط ومتى يكفي RAG/البرومبت، حدس LoRA وQLoRA، إعداد PEFT (rank/alpha/target modules)، تجهيز البيانات وحلقة التدريب، مشروع محوّل نطاق (domain adapter)، ثم الدمج والتصدير والتقييم والتكلفة.\n\nهذه ليست «شغّل notebook وانسَ». الهدف: **قرارات إنتاج** + كود transformers/peft أسلوب حقيقي.\n\n## متى لا تحتاج Fine-tuning؟\n| الحاجة | الأنسب غالباً |\n|--------|----------------|\n| معرفة حديثة / مستندات خاصة | RAG |\n| تنسيق إخراج بسيط | برومبت + few-shot / JSON schema |\n| أسلوب أو اصطلاحات نطاق ثابتة | LoRA/QLoRA |\n| سلوك أداة معقّد + بيانات وفيرة | SFT (+ تفضيلات لاحقاً) |\n| تغيير قدرات أساسية للنموذج | Full FT أو نموذج أكبر — نادر ومكلف |\n\n**قاعدة ذهبية:** إن كانت المشكلة «لا يجد المعلومة» → RAG أولاً. إن كانت «يعرف لكن لا يتكلم بلسان نطاقك» → adapter.\n\n## Full Fine-Tuning: ماذا يتغيّر؟\nلكل طبقة خطية تقريباً لدينا أوزان `W` بحجم ضخم. التحديث الكامل:\n\n```\nW' = W + ΔW\n```\n\nحيث `ΔW` بنفس رتبة `W` تقريباً → ذاكرة مُحسِّن (Adam states) ضخمة، تخزين نسخة كاملة لكل تجربة، وخطر **نسيان كارثي** لما تعلّمه النموذج الأساس.\n\n## LoRA: تحديث منخفض الرتبة\nالفرضية: التحديث المفيد أثناء التكييف يعيش في فضاء منخفض الرتبة. بدلاً من تعلّم `ΔW` كاملة:\n\n```\nΔW ≈ B @ A\n```\n\n- `A` شكلها `(r, in)` و `B` شكلها `(out, r)` و **r << min(in, out)**\n- عدد المعاملات ≈ `r * (in + out)` بدل `in * out`\n- أثناء الاستدلال يمكن **دمج** `W + BA` فلا تكلفة إضافية للlatency بعد الدمج\n\n```python\n# حدس عددي — ليس تدريب حقيقي\nimport numpy as np\n\nrng = np.random.default_rng(0)\nin_f, out_f, r = 4096, 4096, 16\n# عدد عناصر ΔW الكاملة\nfull = in_f * out_f\n# LoRA\nlora = r * (in_f + out_f)\nprint(\"full params\", full)\nprint(\"lora params\", lora)\nprint(\"ratio\", round(lora / full, 6))\n# مثال: ~0.0078 → أقل من 1% من معاملات الطبقة\n```\n\n### alpha والقياس\nغالباً يُضرب التحديث بـ `alpha / r` (أو يُضبط عبر `lora_alpha` في PEFT) ليبقى تأثير الرتبة مستقراً عند تغيير `r`.\n\n```\nh = W x + scaling * (B (A x))\n```\n\n## QLoRA: LoRA + تكميم 4-bit للأساس\n- يُحمَّل النموذج الأساس مكمّماً (مثل NF4) لتوفير VRAM\n- تُدرَّب محوّلات LoRA بـ precision أعلى (غالباً BF16/FP16 للحسابات)\n- النتيجة: ضبط 7B–70B على بطاقة واحدة أو قليلة — مع حذر من فقدان جودة التكميم\n\n## مقارنة سريعة للقرار\n\n```python\nfrom dataclasses import dataclass\n\n\n@dataclass\nclass FtDecision:\n    use_rag: bool\n    use_lora: bool\n    use_full_ft: bool\n    reason: str\n\n\ndef decide(need_private_knowledge: bool, need_style_or_format: bool,\n           has_labeled_sft: bool, huge_budget: bool) -> FtDecision:\n    if need_private_knowledge and not need_style_or_format:\n        return FtDecision(True, False, False, \"RAG أولاً للمحتوى المتغيّر\")\n    if need_style_or_format and has_labeled_sft:\n        return FtDecision(need_private_knowledge, True, False, \"LoRA/QLoRA للنمط + RAG إن لزم\")\n    if huge_budget and has_labeled_sft and not need_private_knowledge:\n        return FtDecision(False, False, True, \"Full FT نادر — تجربة كبيرة فقط\")\n    return FtDecision(True, False, False, \"ابدأ برومبت/RAG — اجمع بيانات قبل الضبط\")\n```\n\n## تكاليف خفية يتجاهلها المبتدئ\n1. **جمع وتنظيف البيانات** أغلى من GPU.\n2. **تقييم** قبل/بعد على مجموعة ثابتة — وإلا «صار أحلى» وهم.\n3. **إصدار المحوّلات** (base model revision + rank + data hash).\n4. **الامتثال**: بيانات تدريب قد تحتوي PII.\n\n## قائمة تحقق الوحدة 1\n- [ ] كتبت مشكلة منتج بجملة: RAG أم LoRA أم الاثنان؟\n- [ ] فهمت أن LoRA ≈ BA منخفضة الرتبة\n- [ ] حسبت نسبة المعاملات لطبقة 4096×4096 عند r=8 و r=64\n- [ ] عرّفت مقياس نجاح قبل أي `trainer.train()`\n\n## تمرين\nاختر حالة عربية (دعم فني، عقود، طب عام تثقيفي). اكتب:\n1) 20 مثالاً لـ SFT (input/output)\n2) 10 أسئلة تقييم\n3) قرار: LoRA فقط / RAG فقط / هجين — مع تبرير سطرين\n\n## مصادر إضافية (للتعمّق — اختَر 1–2 أسبوعياً)\n\n- **ورقة بحثية** — [LoRA: Low-Rank Adaptation arXiv:2106.09685](https://arxiv.org/abs/2106.09685)\n- **ورقة بحثية** — [QLoRA arXiv:2305.14314](https://arxiv.org/abs/2305.14314)\n- **توثيق رسمي** — [Hugging Face PEFT overview](https://huggingface.co/docs/peft/index)\n- **مقال / مدونة** — [Hugging Face — Parameter-Efficient Fine-Tuning using PEFT](https://huggingface.co/blog/peft)\n- **فيديو** — [Efficient Fine-Tuning — LoRA & QLoRA (Hugging Face)](https://www.youtube.com/watch?v=Us5ZFp16PaU)\n- **بودكاست** — [Latent Space — fine-tuning era](https://www.latent.space/)\n\n> نصيحة: طبّق كود الوحدة أولاً، ثم عد للمصدر لتربط النظرية بالتنفيذ.\n", "resources": [{"type": "paper", "title": "LoRA: Low-Rank Adaptation arXiv:2106.09685", "url": "https://arxiv.org/abs/2106.09685", "source": "ورقة بحثية"}, {"type": "paper", "title": "QLoRA arXiv:2305.14314", "url": "https://arxiv.org/abs/2305.14314", "source": "ورقة بحثية"}, {"type": "docs", "title": "Hugging Face PEFT overview", "url": "https://huggingface.co/docs/peft/index", "source": "توثيق رسمي"}, {"type": "blog", "title": "Hugging Face — Parameter-Efficient Fine-Tuning using PEFT", "url": "https://huggingface.co/blog/peft", "source": "مقال / مدونة"}, {"type": "video", "title": "Efficient Fine-Tuning — LoRA & QLoRA (Hugging Face)", "url": "https://www.youtube.com/watch?v=Us5ZFp16PaU", "source": "فيديو"}, {"type": "podcast", "title": "Latent Space — fine-tuning era", "url": "https://www.latent.space/", "source": "بودكاست"}]}, {"title": "الوحدة 2: إعداد PEFT/LoRA والـ target modules والرتبة", "content": "", "resources": []}, {"title": "الوحدة 3: تجهيز البيانات وحلقة التدريب والإخفاقات", "content": "", "resources": []}, {"title": "الوحدة 4: مشروع محوّل نطاق (Domain Adapter) متكامل", "content": "", "resources": []}, {"title": "الوحدة 5: الدمج والتصدير والخدمة والتقييم والتكلفة", "content": "", "resources": []}], "slug": "llm-fine-tuning-with-lora-and-qlora"}</script>
 <script src="../../assets/js/config.js"></script>
 <script>
-const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
-const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(window.PUBLIC_CONFIG.SUPABASE_URL, window.PUBLIC_CONFIG.SUPABASE_ANON_KEY);
 window.courseView = function(){return{
-  course:{}, activeModule:0, hasAccess:false, user:null, loading:false,
-  showAuth:false, otpSent:false, authEmail:'', authOTP:'', authError:'',
+  course:{}, activeModule:0, hasAccess:false, user:null, loading:false, showAuth:false, otpSent:false, authEmail:'', authOTP:'', authError:'',
   init(){
     this.course = JSON.parse(document.getElementById('course-data').textContent);
+    if(this.course?.slug) localStorage.setItem('last_course_slug', this.course.slug);
     this.$watch('activeModule', () => this.loadModule());
     sb.auth.getSession().then(({data}) => { this.user = data.session?.user||null; this.checkAccess(); });
     sb.auth.onAuthStateChange((e,s) => { this.user=s?.user||null; if(e==='SIGNED_IN') this.showAuth=false; this.checkAccess(); });
@@ -129,12 +107,11 @@ window.courseView = function(){return{
       this.loading=false;
     }
   },
-  async sendOTP(){ this.loading=true; this.authError=''; try{ const r=await fetch(window.PUBLIC_CONFIG.AUTH_OTP_FN,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY},body:JSON.stringify({email:this.authEmail})}); const d=await r.json().catch(()=>({})); if(!r.ok||d.error) throw new Error(d.error||'فشل الإرسال'); this.otpSent=true; }catch(e){ this.authError=e.message||'خطأ'; } this.loading=false; },
+  async sendOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.signInWithOtp({email:this.authEmail}); if(error) throw error; this.otpSent=true; }catch(e){ this.authError=e.message||'خطأ في الإرسال'; } this.loading=false; },
   async verifyOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'}); if(error) throw error; this.showAuth=false; }catch(e){ this.authError=e.message||'رمز خاطئ'; } this.loading=false; },
   async signOut(){ await sb.auth.signOut(); this.user=null; this.hasAccess=false; },
   renderMarkdown(md){ return md ? marked.parse(md) : ''; }
 };};
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));}
 </script>
 </body>
 </html>

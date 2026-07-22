@@ -1,190 +1,58 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحقق من الشهادة | منصة الذكاء الاصطناعي العربية</title>
-    <meta name="description" content="تحقق من صحة شهادة إتمام الدورة — أدخل رمز الشهادة أو امسح رمز QR.">
-
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#0f172a">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'] },
-                    colors: {
-                        brand: { 400: '#59b0ff', 500: '#338dff', 600: '#1b6ff5' },
-                        surface: { 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
-                    }
-                }
-            }
-        }
-    </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <style>* { font-family: 'IBM Plex Sans Arabic', sans-serif; }</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحقق من الشهادة | AI Rank One</title>
+<meta name="description" content="تحقق من صحة شهادة إتمام الدورة من منصة AI Rank One.">
+<link rel="canonical" href="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/verify.html"><link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script><script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script><script src="/assets/js/config.js"></script>
+<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}</style>
 </head>
-<body class="bg-surface-950 text-white font-arabic antialiased" x-data="verifyApp()">
-
-    <!-- Navbar -->
-    <nav class="fixed top-0 inset-x-0 z-50 bg-surface-950/80 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <a href="/" class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                </div>
-                <span class="text-lg font-bold bg-gradient-to-l from-brand-400 to-purple-400 bg-clip-text text-transparent">AI Rank One</span>
-            </a>
-            <div class="flex items-center gap-6">
-                <a href="index.html#courses" class="text-sm text-surface-200 hover:text-white transition-colors">الدورات</a>
-                <a href="glossary.html" class="text-sm text-surface-200 hover:text-white transition-colors">القاموس التقني</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Verify Content -->
-    <main class="pt-24 pb-20">
-        <div class="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-                    </svg>
-                </div>
-                <h1 class="text-2xl md:text-3xl font-bold mb-2">تحقق من الشهادة</h1>
-                <p class="text-surface-200">أدخل رمز الشهادة للتحقق من صحتها</p>
-            </div>
-
-            <!-- Search Form -->
-            <form @submit.prevent="verifyCert()" class="mb-8">
-                <div class="flex gap-3">
-                    <input
-                        type="text"
-                        x-model="certCode"
-                        required
-                        placeholder="رمز الشهادة (مثال: CERT-ABC123)"
-                        class="flex-1 px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
-                        dir="ltr"
-                    >
-                    <button type="submit" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-sm font-semibold text-white transition-all shrink-0" :disabled="loading">
-                        تحقق
-                    </button>
-                </div>
-            </form>
-
-            <!-- Result: Valid -->
-            <div x-show="result === 'valid'" x-transition class="p-6 rounded-2xl bg-green-500/10 border border-green-500/20">
-                <div class="flex items-center gap-3 mb-4">
-                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    <h3 class="text-lg font-bold text-green-400">شهادة صالحة ✓</h3>
-                </div>
-                <div class="space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-surface-200">الاسم:</span>
-                        <span class="font-medium" x-text="certData.name"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-surface-200">الدورة:</span>
-                        <span class="font-medium" x-text="certData.course"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-surface-200">التاريخ:</span>
-                        <span class="font-medium" x-text="certData.date" dir="ltr"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-surface-200">الدرجة:</span>
-                        <span class="font-medium" x-text="certData.score"></span>
-                    </div>
-                </div>
-                <p class="text-xs text-surface-700 mt-4">⚠ هذه شهادة إتمام، وليست شهادة اعتماد مهني</p>
-            </div>
-
-            <!-- Result: Invalid -->
-            <div x-show="result === 'invalid'" x-transition class="p-6 rounded-2xl bg-red-500/10 border border-red-500/20">
-                <div class="flex items-center gap-3">
-                    <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                    <h3 class="text-lg font-bold text-red-400">شهادة غير موجودة</h3>
-                </div>
-                <p class="text-sm text-surface-200 mt-2">لم نتمكن من العثور على شهادة بهذا الرمز. تأكد من الرمز وحاول مرة أخرى.</p>
-            </div>
-
-            <!-- Result: Error (e.g. service unavailable) -->
-            <div x-show="result === 'error'" x-transition class="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20">
-                <div class="flex items-center gap-3">
-                    <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M5 19h14a2 2 0 001.84-2.75L13.74 4a2 2 0 00-3.48 0L3.16 16.25A2 2 0 005 19z"/></svg>
-                    <h3 class="text-lg font-bold text-amber-400">تعذر التحقق</h3>
-                </div>
-                <p class="text-sm text-surface-200 mt-2" x-text="errorMsg"></p>
-            </div>
-        </div>
-    </main>
-
-    <script src="/assets/js/config.js"></script>
-    <script>
-        // Loaded from /assets/js/config.js (generated from .env by deploy.py)
-        const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
-        const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
-
-        let supabase;
-        try { supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) {}
-
-        function verifyApp() {
-            return {
-                certCode: '',
-                result: null,
-                loading: false,
-                certData: {},
-                errorMsg: '',
-
-                init() {
-                    // Check URL params for direct verification links
-                    const params = new URLSearchParams(window.location.search);
-                    const code = params.get('code');
-                    if (code) {
-                        this.certCode = code;
-                        this.verifyCert();
-                    }
-                },
-
-                async verifyCert() {
-                    if (!this.certCode) return;
-                    this.loading = true;
-                    this.result = null;
-
-                    try {
-                        if (!supabase) {
-                            // Supabase unavailable — show error, never a fake cert
-                            this.errorMsg = 'تعذر الاتصال بخدمة التحقق. تأكد من اتصال الإنترنت وحاول مرة أخرى.';
-                            this.result = 'error';
-                            this.loading = false;
-                            return;
-                        }
-
-                        const { data, error } = await supabase
-                            .from('certificates')
-                            .select('*')
-                            .eq('code', this.certCode.trim())
-                            .single();
-
-                        if (error || !data) {
-                            this.result = 'invalid';
-                        } else {
-                            this.certData = data;
-                            this.result = 'valid';
-                        }
-                    } catch (e) {
-                        this.result = 'invalid';
-                    }
-                    this.loading = false;
-                }
-            }
-        }
-    </script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));}</script>
+<body class="bg-slate-950 text-white" x-data="verifyApp()" x-init="init()">
+<nav class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="text-lg font-bold text-blue-400">AI Rank One</a>
+    <div class="flex items-center gap-6 text-sm">
+      <a href="index.html#courses" class="text-slate-200 hover:text-white">الدورات</a>
+      <a href="glossary.html" class="text-slate-200 hover:text-white">القاموس التقني</a>
+    </div>
+  </div>
+</nav>
+<main class="pt-24 pb-20 max-w-lg mx-auto px-4 text-center">
+  <h1 class="text-2xl font-bold mb-2">تحقق من صحة الشهادة</h1>
+  <p class="text-slate-300 text-sm mb-6">أدخل رمز الشهادة المطبوع على الشهادة</p>
+  <form @submit.prevent="verifyCert()" class="flex gap-3 mb-8">
+    <input type="text" x-model="certCode" required placeholder="رمز الشهادة (مثال: CERT-ABC123)" dir="ltr" class="flex-1 px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-white text-sm">
+    <button class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 font-semibold text-sm" :disabled="loading">تحقق</button>
+  </form>
+  <div x-show="result === 'valid'" class="p-6 rounded-2xl bg-green-500/10 border border-green-500/20 text-right space-y-2 text-sm">
+    <h3 class="text-lg font-bold text-green-400 mb-3">شهادة معتمدة وصالحة ✓</h3>
+    <div><span class="text-slate-400">الاسم:</span> <strong x-text="certData.name"></strong></div>
+    <div><span class="text-slate-400">الدورة:</span> <strong x-text="certData.course"></strong></div>
+    <div><span class="text-slate-400">التاريخ:</span> <strong x-text="certData.date" dir="ltr"></strong></div>
+  </div>
+  <div x-show="result === 'invalid'" class="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-semibold">لم نتمكن من العثور على شهادة بهذا الرمز.</div>
+  <div x-show="result === 'error'" class="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm" x-text="errorMsg"></div>
+</main>
+<script>
+const sb = window.supabase.createClient(window.PUBLIC_CONFIG?.SUPABASE_URL, window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY);
+function verifyApp(){return{
+  certCode:'', result:null, loading:false, certData:{}, errorMsg:'',
+  init(){
+    const code = new URLSearchParams(window.location.search).get('code');
+    if(code){ this.certCode = code; this.verifyCert(); }
+  },
+  async verifyCert(){
+    if(!this.certCode) return; this.loading = true; this.result = null;
+    try {
+      const {data, error} = await sb.from('certificates').select('*').eq('code', this.certCode.trim()).single();
+      if(error || !data){ this.result = 'invalid'; } else { this.certData = data; this.result = 'valid'; }
+    } catch(e){ this.result = 'error'; this.errorMsg = 'تعذر الاتصال بمركز التحقق.'; }
+    this.loading = false;
+  }
+};}
+</script>
 </body>
 </html>

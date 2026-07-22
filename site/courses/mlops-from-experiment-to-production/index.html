@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج | AI Rank One</title>
 <meta name="description" content="دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.">
 <link rel="canonical" href="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/mlops-from-experiment-to-production/index.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="AI Rank One">
-<meta property="og:locale" content="ar_AR">
-<meta property="og:title" content="هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج">
-<meta property="og:description" content="دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.">
-<meta property="og:url" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/courses/mlops-from-experiment-to-production/index.html">
-<meta property="og:image" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/assets/images/icon.svg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج">
-<meta name="twitter:description" content="دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.">
-<script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "Course", "name": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.", "inLanguage": "ar", "provider": {"@type": "Organization", "name": "AI Rank One", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/"}}
-</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.", "inLanguage": "ar", "provider": {"@type": "Organization", "name": "AI Rank One", "url": "https://ai-rank-one.hasnainrazalakhani7272.workers.dev/"}}</script>
 <link rel="icon" type="image/svg+xml" href="../../assets/images/icon.svg">
-<link rel="apple-touch-icon" href="../../assets/images/icon.svg">
-<link rel="manifest" href="../../manifest.json">
-<meta name="theme-color" content="#0f172a">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}code,pre{font-family:'JetBrains Mono',monospace;direction:ltr;text-align:left}.prose{max-width:none;color:#e2e8f0;line-height:1.8}.prose h1,.prose h2,.prose h3{font-weight:700;color:#fff;margin:1.5rem 0 1rem}.prose h1{font-size:1.8em}.prose h2{font-size:1.4em;border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:.5rem}.prose p{margin-bottom:1.25rem}.prose ul{list-style:disc;padding-inline-start:1.5rem;margin-bottom:1.25rem}.prose code{background:rgba(255,255,255,.05);padding:.2rem .4rem;border-radius:.25rem;color:#59b0ff}.prose pre{background:#0f172a;padding:1.25rem;border-radius:.75rem;overflow-x:auto;margin:1.5rem 0}</style>
+<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}code,pre{font-family:'JetBrains Mono',monospace;direction:ltr;text-align:left}.prose{max-width:none;color:#e2e8f0;line-height:1.8}.prose h1,.prose h2,.prose h3{font-weight:700;color:#fff;margin:1.5rem 0 1rem}.prose p{margin-bottom:1.25rem}.prose code{background:rgba(255,255,255,.05);padding:.2rem .4rem;border-radius:.25rem;color:#59b0ff}.prose pre{background:#0f172a;padding:1.25rem;border-radius:.75rem;overflow-x:auto;margin:1.5rem 0}</style>
 </head>
 <body class="bg-slate-950 text-white" x-data="courseView()">
 <nav class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
@@ -37,8 +20,8 @@
     <a href="../../index.html" class="text-lg font-bold text-blue-400">AI Rank One</a>
     <div class="flex items-center gap-4 text-sm">
       <a href="../../index.html" class="text-slate-200 hover:text-white">الرئيسية</a>
-      <a href="../../index.html#news" class="text-slate-200 hover:text-white">النشرة</a>
-      <span x-show="user" x-text="user?.email" class="text-slate-300"></span>
+      <button x-show="!user" @click="showAuth=true" class="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold">تسجيل الدخول</button>
+      <span x-show="user" x-text="user?.email" class="text-slate-300 text-xs truncate max-w-[150px]"></span>
       <button x-show="user" @click="signOut()" class="text-red-400">خروج</button>
     </div>
   </div>
@@ -60,23 +43,20 @@
         <h3 class="text-lg font-bold text-white mb-4">مصادر إضافية موصى بها</h3>
         <div class="grid gap-3 sm:grid-cols-2">
           <template x-for="(res,ri) in (course.modules[activeModule]?.resources||[])" :key="ri">
-            <a :href="res.url" target="_blank" rel="noopener" class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 hover:bg-white/10 transition-colors">
+            <a :href="res.url" target="_blank" rel="noopener" class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 hover:bg-white/10">
               <span class="text-lg shrink-0" x-text="({article:'📄',paper:'🎓',video:'🎬',podcast:'🎧',docs:'📘'})[res.type]||'🔗'"></span>
-              <span class="min-w-0">
-                <span class="block text-sm font-semibold text-blue-300 truncate" x-text="res.title"></span>
-                <span x-show="res.source" class="block text-xs text-slate-400 mt-0.5" x-text="res.source"></span>
-              </span>
+              <span class="min-w-0"><span class="block text-sm font-semibold text-blue-300 truncate" x-text="res.title"></span><span x-show="res.source" class="block text-xs text-slate-400 mt-0.5" x-text="res.source"></span></span>
             </a>
           </template>
         </div>
       </div>
     </div>
-    <div x-show="!loading && activeModule>0 && !hasAccess && course.slug" class="p-8 rounded-2xl bg-blue-950/20 border border-blue-500/20 text-center my-8">
+    <div x-show="!loading && activeModule>0 && !hasAccess" class="p-8 rounded-2xl bg-blue-950/20 border border-blue-500/20 text-center my-8">
       <h3 class="text-xl font-bold mb-2">هذه الوحدة مغلقة</h3>
-      <p class="text-slate-300 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. اشترك لفتح كامل المحتوى والكود والشهادة!</p>
+      <p class="text-slate-300 text-sm max-w-md mx-auto mb-6">الوحدات من 2 إلى 5 حصرية للمشتركين. اشترك لفتح كامل المحتوى أو سجل دخولك إذا كنت مشتركاً مسبقاً.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-        <a href="../../index.html#pricing" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold text-center">اشترك في الدورة</a>
-        <a href="../../index.html#news" class="px-6 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-semibold text-center">اشترك بالنشرة المجانية</a>
+        <button x-show="!user" @click="showAuth=true" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-sm font-semibold text-center">تسجيل الدخول</button>
+        <a href="../../index.html#pricing" class="px-6 py-3 rounded-xl border border-blue-500/30 hover:bg-blue-500/10 text-sm font-semibold text-center">اشترك في الدورة ($39)</a>
       </div>
     </div>
   </div>
@@ -85,12 +65,14 @@
   <div class="w-full max-w-sm bg-slate-900 rounded-2xl border border-white/10 p-6">
     <template x-if="!otpSent">
       <form @submit.prevent="sendOTP()">
-        <input type="email" x-model="authEmail" required placeholder="بريدك الإلكتروني" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3">
+        <p class="text-sm font-semibold mb-3 text-center">أدخل بريدك الإلكتروني للدخول</p>
+        <input type="email" x-model="authEmail" required placeholder="name@example.com" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3">
         <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold" :disabled="loading">إرسال رمز التحقق</button>
       </form>
     </template>
     <template x-if="otpSent">
       <form @submit.prevent="verifyOTP()">
+        <p class="text-sm font-semibold mb-3 text-center">أدخل الرمز المرسل إلى بريدك</p>
         <input type="text" x-model="authOTP" required placeholder="رمز (6 أرقام)" maxlength="6" dir="ltr" class="w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10 text-white text-sm mb-3 text-center tracking-[0.3em]">
         <button class="w-full py-3 rounded-xl bg-blue-600 font-semibold">تأكيد الدخول</button>
       </form>
@@ -98,19 +80,15 @@
     <p x-show="authError" x-text="authError" class="mt-3 text-xs text-red-400 text-center"></p>
   </div>
 </div>
-<script id="course-data" type="application/json">
-{"title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring", "FastAPI", "Docker"], "price": 39, "duration": "6 ساعات", "gradient": "from-rose-500 to-orange-500", "modules": [{"title": "الوحدة 1: الفجوة بين دفتر الملاحظات والإنتاج", "content": "# الفجوة بين دفتر الملاحظات والإنتاج\n\n## ماذا ستبني في هذه الدورة؟\nنظام **MLOps** كامل: من سكربت تدريب قابل لإعادة الإنتاج، إلى تتبّع تجارب، CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف تُشغّل إعادة تدريب. الهدف ليس «نموذج بدقة عالية في Notebook» بل **منتج يُشغَّل ويُراقَب ويُباع**.\n\n## لماذا يفشل 80٪ من النماذج بعد التجربة؟\n| سبب | في Notebook | في الإنتاج |\n|-----|-------------|------------|\n| البيانات | CSV ثابت محلي | تدفق حي + مخطط يتغيّر |\n| البيئة | حزم عشوائية | صورة Docker + أقفال إصدارات |\n| الإصدار | «آخر خلية شغّالة» | Git + hash بيانات + model version |\n| التقييم | accuracy مرة واحدة | بوابة مقاييس + shadow deploy |\n| المراقبة | لا شيء | latency + drift + business KPIs |\n\n## ركائز MLOps (احفظها)\n1. **Version everything**: كود + بيانات + بيئة + نموذج.\n2. **Reproduce**: أي تشغيل قديم يمكن إعادته بنفس النتائج تقريباً.\n3. **Automate**: تدريب/تقييم/نشر عبر خطوط أنابيب.\n4. **Observe**: مقاييس تقنية + عمل + تنبيهات.\n5. **Govern**: من وافق على النشر؟ أي إصدار في الإنتاج؟\n\n## أول خطوة هندسية: أخرج التدريب من Jupyter\n\n```python\n# train.py — سكربت مستقل، لا يعتمد على حالة الخلايا\nfrom pathlib import Path\nimport json\nimport hashlib\nimport joblib\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import f1_score, classification_report\n\nDATA = Path(\"data/train.csv\")\nOUT = Path(\"artifacts\")\nOUT.mkdir(exist_ok=True)\n\ndef data_fingerprint(path: Path) -> str:\n    h = hashlib.sha256()\n    h.update(path.read_bytes())\n    return h.hexdigest()[:16]\n\ndef main():\n    df = pd.read_csv(DATA)\n    y = df.pop(\"label\")\n    X = df\n    X_tr, X_te, y_tr, y_te = train_test_split(\n        X, y, test_size=0.2, random_state=42, stratify=y\n    )\n    model = RandomForestClassifier(\n        n_estimators=200, max_depth=12, random_state=42, n_jobs=-1\n    )\n    model.fit(X_tr, y_tr)\n    pred = model.predict(X_te)\n    f1 = float(f1_score(y_te, pred, average=\"weighted\"))\n    meta = {\n        \"f1_weighted\": f1,\n        \"data_sha\": data_fingerprint(DATA),\n        \"n_train\": len(X_tr),\n        \"n_test\": len(X_te),\n        \"features\": list(X.columns),\n    }\n    joblib.dump(model, OUT / \"model.joblib\")\n    (OUT / \"metrics.json\").write_text(\n        json.dumps(meta, ensure_ascii=False, indent=2), encoding=\"utf-8\"\n    )\n    print(classification_report(y_te, pred))\n    print(\"metrics:\", meta)\n    if f1 < 0.75:\n        raise SystemExit(\"GATE_FAIL: F1 below threshold\")\n\nif __name__ == \"__main__\":\n    main()\n```\n\n## متطلبات.txt وأقفال البيئة\nلا تقل «يعمل عندي». ثبّت:\n\n```text\n# requirements.txt (مثال)\nscikit-learn==1.5.2\npandas==2.2.3\njoblib==1.4.2\nmlflow==2.17.2\nfastapi==0.115.0\nuvicorn==0.32.0\n```\n\nوللتطوير استخدم `pip freeze > requirements.lock` أو Poetry/uv.\n\n## هيكل مشروع إنتاجي مقترح\n```\nml-service/\n  data/           # لا ترفع بيانات حساسة — استخدم DVC/S3\n  src/\n    features.py\n    train.py\n    evaluate.py\n    serve.py\n  tests/\n  artifacts/      # models + metrics (gitignore أو registry)\n  Dockerfile\n  .github/workflows/\n```\n\n## قائمة تحقق — هل خرجت من وضع «تجربة»؟\n- [ ] `python train.py` يعمل من جذر المشروع بلا Jupyter\n- [ ] metrics تُحفظ كملف JSON قابل للمقارنة\n- [ ] بصمة بيانات (hash) مربوطة بالنموذج\n- [ ] عتبة جودة تفشل التشغيل إن انخفض الأداء\n- [ ] README يشرح أمر التدريب والتقييم فقط\n\n## تمرين مدفوع القيمة\nحوّل آخر Notebook لديك إلى `train.py` + `evaluate.py`. شغّل مرتين بنفس البذرة: يجب أن تطابق المقاييس تقريباً. إن اختلفت جوهرياً — ابحث عن عشوائية غير مضبوطة (shuffle, GPU nondeterminism, تسريب بيانات).\n\n## أخطاء مكلفة\n- تسريب من test إلى train عبر feature engineering في الدفتر\n- حفظ pickle لنموذج مرتبط بمسارات مطلقة على جهازك\n- عدم فصل preprocessing عن inference → اختلاف توزيع عند الخدمة\n\n## مصادر إضافية (للتعمّق — اختَر 1–2 أسبوعياً)\n\n- **توثيق رسمي** — [Google — MLOps: Continuous delivery and automation](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)\n- **ورقة بحثية** — [Hidden Technical Debt in Machine Learning Systems (Sculley et al.)](https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems)\n- **مقال / مدونة** — [Made With ML — MLOps guide](https://madewithml.com/)\n- **فيديو** — [Full Stack Deep Learning — MLOps lectures](https://fullstackdeeplearning.com/)\n- **بودكاست** — [Practical AI — ML in production episodes](https://changelog.com/practicalai)\n\n> نصيحة: طبّق كود الوحدة أولاً، ثم عد للمصدر لتربط النظرية بالتنفيذ.\n", "resources": [{"type": "docs", "title": "Google — MLOps: Continuous delivery and automation", "url": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning", "source": "توثيق رسمي"}, {"type": "paper", "title": "Hidden Technical Debt in Machine Learning Systems (Sculley et al.)", "url": "https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems", "source": "ورقة بحثية"}, {"type": "blog", "title": "Made With ML — MLOps guide", "url": "https://madewithml.com/", "source": "مقال / مدونة"}, {"type": "video", "title": "Full Stack Deep Learning — MLOps lectures", "url": "https://fullstackdeeplearning.com/", "source": "فيديو"}, {"type": "podcast", "title": "Practical AI — ML in production episodes", "url": "https://changelog.com/practicalai", "source": "بودكاست"}]}, {"title": "الوحدة 2: تتبّع التجارب وسجل النماذج", "content": "", "resources": []}, {"title": "الوحدة 3: CI/CD لتدريب وتقييم النماذج", "content": "", "resources": []}, {"title": "الوحدة 4: خدمة النموذج FastAPI وDocker", "content": "", "resources": []}, {"title": "الوحدة 5: مراقبة الانجراف ومحفّزات إعادة التدريب", "content": "", "resources": []}], "slug": "mlops-from-experiment-to-production"}
-</script>
+<script id="course-data" type="application/json">{"title": "هندسة التعلّم الآلي للإنتاج (MLOps) من التجربة إلى الإنتاج", "description": "دورة هندسية مدفوعة: حوّل نماذجك من Jupyter إلى نظام إنتاجي — تتبّع تجارب MLflow، بوابات CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف مع محفّزات إعادة تدريب. للكود العربي والفرق التي تبيع ML كمنتج.", "tags": ["MLOps", "CI/CD", "Model Registry", "Monitoring", "FastAPI", "Docker"], "price": 39, "duration": "6 ساعات", "gradient": "from-rose-500 to-orange-500", "modules": [{"title": "الوحدة 1: الفجوة بين دفتر الملاحظات والإنتاج", "content": "# الفجوة بين دفتر الملاحظات والإنتاج\n\n## ماذا ستبني في هذه الدورة؟\nنظام **MLOps** كامل: من سكربت تدريب قابل لإعادة الإنتاج، إلى تتبّع تجارب، CI/CD، خدمة FastAPI/Docker، ومراقبة انجراف تُشغّل إعادة تدريب. الهدف ليس «نموذج بدقة عالية في Notebook» بل **منتج يُشغَّل ويُراقَب ويُباع**.\n\n## لماذا يفشل 80٪ من النماذج بعد التجربة؟\n| سبب | في Notebook | في الإنتاج |\n|-----|-------------|------------|\n| البيانات | CSV ثابت محلي | تدفق حي + مخطط يتغيّر |\n| البيئة | حزم عشوائية | صورة Docker + أقفال إصدارات |\n| الإصدار | «آخر خلية شغّالة» | Git + hash بيانات + model version |\n| التقييم | accuracy مرة واحدة | بوابة مقاييس + shadow deploy |\n| المراقبة | لا شيء | latency + drift + business KPIs |\n\n## ركائز MLOps (احفظها)\n1. **Version everything**: كود + بيانات + بيئة + نموذج.\n2. **Reproduce**: أي تشغيل قديم يمكن إعادته بنفس النتائج تقريباً.\n3. **Automate**: تدريب/تقييم/نشر عبر خطوط أنابيب.\n4. **Observe**: مقاييس تقنية + عمل + تنبيهات.\n5. **Govern**: من وافق على النشر؟ أي إصدار في الإنتاج؟\n\n## أول خطوة هندسية: أخرج التدريب من Jupyter\n\n```python\n# train.py — سكربت مستقل، لا يعتمد على حالة الخلايا\nfrom pathlib import Path\nimport json\nimport hashlib\nimport joblib\nimport pandas as pd\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\nfrom sklearn.metrics import f1_score, classification_report\n\nDATA = Path(\"data/train.csv\")\nOUT = Path(\"artifacts\")\nOUT.mkdir(exist_ok=True)\n\ndef data_fingerprint(path: Path) -> str:\n    h = hashlib.sha256()\n    h.update(path.read_bytes())\n    return h.hexdigest()[:16]\n\ndef main():\n    df = pd.read_csv(DATA)\n    y = df.pop(\"label\")\n    X = df\n    X_tr, X_te, y_tr, y_te = train_test_split(\n        X, y, test_size=0.2, random_state=42, stratify=y\n    )\n    model = RandomForestClassifier(\n        n_estimators=200, max_depth=12, random_state=42, n_jobs=-1\n    )\n    model.fit(X_tr, y_tr)\n    pred = model.predict(X_te)\n    f1 = float(f1_score(y_te, pred, average=\"weighted\"))\n    meta = {\n        \"f1_weighted\": f1,\n        \"data_sha\": data_fingerprint(DATA),\n        \"n_train\": len(X_tr),\n        \"n_test\": len(X_te),\n        \"features\": list(X.columns),\n    }\n    joblib.dump(model, OUT / \"model.joblib\")\n    (OUT / \"metrics.json\").write_text(\n        json.dumps(meta, ensure_ascii=False, indent=2), encoding=\"utf-8\"\n    )\n    print(classification_report(y_te, pred))\n    print(\"metrics:\", meta)\n    if f1 < 0.75:\n        raise SystemExit(\"GATE_FAIL: F1 below threshold\")\n\nif __name__ == \"__main__\":\n    main()\n```\n\n## متطلبات.txt وأقفال البيئة\nلا تقل «يعمل عندي». ثبّت:\n\n```text\n# requirements.txt (مثال)\nscikit-learn==1.5.2\npandas==2.2.3\njoblib==1.4.2\nmlflow==2.17.2\nfastapi==0.115.0\nuvicorn==0.32.0\n```\n\nوللتطوير استخدم `pip freeze > requirements.lock` أو Poetry/uv.\n\n## هيكل مشروع إنتاجي مقترح\n```\nml-service/\n  data/           # لا ترفع بيانات حساسة — استخدم DVC/S3\n  src/\n    features.py\n    train.py\n    evaluate.py\n    serve.py\n  tests/\n  artifacts/      # models + metrics (gitignore أو registry)\n  Dockerfile\n  .github/workflows/\n```\n\n## قائمة تحقق — هل خرجت من وضع «تجربة»؟\n- [ ] `python train.py` يعمل من جذر المشروع بلا Jupyter\n- [ ] metrics تُحفظ كملف JSON قابل للمقارنة\n- [ ] بصمة بيانات (hash) مربوطة بالنموذج\n- [ ] عتبة جودة تفشل التشغيل إن انخفض الأداء\n- [ ] README يشرح أمر التدريب والتقييم فقط\n\n## تمرين مدفوع القيمة\nحوّل آخر Notebook لديك إلى `train.py` + `evaluate.py`. شغّل مرتين بنفس البذرة: يجب أن تطابق المقاييس تقريباً. إن اختلفت جوهرياً — ابحث عن عشوائية غير مضبوطة (shuffle, GPU nondeterminism, تسريب بيانات).\n\n## أخطاء مكلفة\n- تسريب من test إلى train عبر feature engineering في الدفتر\n- حفظ pickle لنموذج مرتبط بمسارات مطلقة على جهازك\n- عدم فصل preprocessing عن inference → اختلاف توزيع عند الخدمة\n\n## مصادر إضافية (للتعمّق — اختَر 1–2 أسبوعياً)\n\n- **توثيق رسمي** — [Google — MLOps: Continuous delivery and automation](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)\n- **ورقة بحثية** — [Hidden Technical Debt in Machine Learning Systems (Sculley et al.)](https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems)\n- **مقال / مدونة** — [Made With ML — MLOps guide](https://madewithml.com/)\n- **فيديو** — [Full Stack Deep Learning — MLOps lectures](https://fullstackdeeplearning.com/)\n- **بودكاست** — [Practical AI — ML in production episodes](https://changelog.com/practicalai)\n\n> نصيحة: طبّق كود الوحدة أولاً، ثم عد للمصدر لتربط النظرية بالتنفيذ.\n", "resources": [{"type": "docs", "title": "Google — MLOps: Continuous delivery and automation", "url": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning", "source": "توثيق رسمي"}, {"type": "paper", "title": "Hidden Technical Debt in Machine Learning Systems (Sculley et al.)", "url": "https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems", "source": "ورقة بحثية"}, {"type": "blog", "title": "Made With ML — MLOps guide", "url": "https://madewithml.com/", "source": "مقال / مدونة"}, {"type": "video", "title": "Full Stack Deep Learning — MLOps lectures", "url": "https://fullstackdeeplearning.com/", "source": "فيديو"}, {"type": "podcast", "title": "Practical AI — ML in production episodes", "url": "https://changelog.com/practicalai", "source": "بودكاست"}]}, {"title": "الوحدة 2: تتبّع التجارب وسجل النماذج", "content": "", "resources": []}, {"title": "الوحدة 3: CI/CD لتدريب وتقييم النماذج", "content": "", "resources": []}, {"title": "الوحدة 4: خدمة النموذج FastAPI وDocker", "content": "", "resources": []}, {"title": "الوحدة 5: مراقبة الانجراف ومحفّزات إعادة التدريب", "content": "", "resources": []}], "slug": "mlops-from-experiment-to-production"}</script>
 <script src="../../assets/js/config.js"></script>
 <script>
-const SUPABASE_URL = window.PUBLIC_CONFIG?.SUPABASE_URL;
-const SUPABASE_ANON_KEY = window.PUBLIC_CONFIG?.SUPABASE_ANON_KEY;
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(window.PUBLIC_CONFIG.SUPABASE_URL, window.PUBLIC_CONFIG.SUPABASE_ANON_KEY);
 window.courseView = function(){return{
-  course:{}, activeModule:0, hasAccess:false, user:null, loading:false,
-  showAuth:false, otpSent:false, authEmail:'', authOTP:'', authError:'',
+  course:{}, activeModule:0, hasAccess:false, user:null, loading:false, showAuth:false, otpSent:false, authEmail:'', authOTP:'', authError:'',
   init(){
     this.course = JSON.parse(document.getElementById('course-data').textContent);
+    if(this.course?.slug) localStorage.setItem('last_course_slug', this.course.slug);
     this.$watch('activeModule', () => this.loadModule());
     sb.auth.getSession().then(({data}) => { this.user = data.session?.user||null; this.checkAccess(); });
     sb.auth.onAuthStateChange((e,s) => { this.user=s?.user||null; if(e==='SIGNED_IN') this.showAuth=false; this.checkAccess(); });
@@ -129,12 +107,11 @@ window.courseView = function(){return{
       this.loading=false;
     }
   },
-  async sendOTP(){ this.loading=true; this.authError=''; try{ const r=await fetch(window.PUBLIC_CONFIG.AUTH_OTP_FN,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY},body:JSON.stringify({email:this.authEmail})}); const d=await r.json().catch(()=>({})); if(!r.ok||d.error) throw new Error(d.error||'فشل الإرسال'); this.otpSent=true; }catch(e){ this.authError=e.message||'خطأ'; } this.loading=false; },
+  async sendOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.signInWithOtp({email:this.authEmail}); if(error) throw error; this.otpSent=true; }catch(e){ this.authError=e.message||'خطأ في الإرسال'; } this.loading=false; },
   async verifyOTP(){ this.loading=true; this.authError=''; try{ const {error}=await sb.auth.verifyOtp({email:this.authEmail,token:this.authOTP,type:'email'}); if(error) throw error; this.showAuth=false; }catch(e){ this.authError=e.message||'رمز خاطئ'; } this.loading=false; },
   async signOut(){ await sb.auth.signOut(); this.user=null; this.hasAccess=false; },
   renderMarkdown(md){ return md ? marked.parse(md) : ''; }
 };};
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));}
 </script>
 </body>
 </html>

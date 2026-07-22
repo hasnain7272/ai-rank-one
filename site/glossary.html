@@ -1,394 +1,59 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قاموس المصطلحات التقنية للذكاء الاصطناعي | AI Rank One</title>
-    <meta name="description" content="قاموس المصطلحات الفنية والتقنية للذكاء الاصطناعي وتعلم الآلة مع الترجمات والشروحات التفصيلية باللغة العربية الفصحى. مرجعك الموثوق للهندسة والـ MLOps.">
-    <meta name="keywords" content="قاموس ذكاء اصطناعي, مصطلحات RAG, معنى Fine-tuning, ترجمة LLM, قاموس تقني عربي">
-    <link rel="canonical" href="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/glossary.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="AI Rank One">
-    <meta property="og:locale" content="ar_AR">
-    <meta property="og:title" content="قاموس المصطلحات التقنية للذكاء الاصطناعي">
-    <meta property="og:description" content="مرجع عربي لمصطلحات الذكاء الاصطناعي وتعلم الآلة مع شروحات بالعربية الفصحى.">
-    <meta property="og:url" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/glossary.html">
-    <meta property="og:image" content="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/assets/images/icon.svg">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- PWA -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#0f172a">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    },
-                    colors: {
-                        brand: { 400: '#59b0ff', 500: '#338dff', 600: '#1b6ff5', 950: '#142957' },
-                        surface: { 50: '#f8fafc', 200: '#e2e8f0', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
-                    }
-                }
-            }
-        }
-    </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-        * { font-family: 'IBM Plex Sans Arabic', sans-serif; }
-        code { font-family: 'JetBrains Mono', monospace; direction: ltr; text-align: left; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قاموس المصطلحات التقنية | AI Rank One</title>
+<meta name="description" content="قاموس المصطلحات الفنية للذكاء الاصطناعي وتعلم الآلة مع الشرح باللغة العربية.">
+<link rel="canonical" href="https://ai-rank-one.hasnainrazalakhani7272.workers.dev/glossary.html"><link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script><script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>*{font-family:'IBM Plex Sans Arabic',sans-serif}</style>
 </head>
-<body class="bg-surface-950 text-white font-arabic antialiased" x-data="glossaryApp()">
-
-    <!-- Navbar -->
-    <nav class="fixed top-0 inset-x-0 z-50 bg-surface-950/80 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <a href="/" class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                </div>
-                <span class="text-lg font-bold bg-gradient-to-l from-brand-400 to-purple-400 bg-clip-text text-transparent">AI Rank One</span>
-            </a>
-            <div class="flex items-center gap-6">
-                <a href="index.html" class="text-sm text-surface-200 hover:text-white transition-colors">الرئيسية</a>
-                <a href="index.html#courses" class="text-sm text-surface-200 hover:text-white transition-colors">الدورات</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Header Section -->
-    <header class="pt-28 pb-10 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h1 class="text-3xl md:text-5xl font-extrabold mb-4 bg-gradient-to-l from-brand-400 to-purple-400 bg-clip-text text-transparent">
-                قاموس مصطلحات الذكاء الاصطناعي
-            </h1>
-            <p class="text-surface-200 text-lg max-w-2xl mx-auto mb-8">
-                دليلك التقني الشامل لفهم وترجمة مصطلحات تعلم الآلة، أنظمة الاسترجاع RAG، والضبط الدقيق بالعربية الفصحى.
-            </p>
-
-            <!-- Search Bar -->
-            <div class="max-w-md mx-auto relative mb-6">
-                <input
-                    type="text"
-                    x-model="search"
-                    placeholder="ابحث عن مصطلح بالإنجليزية أو العربية (مثال: RAG)..."
-                    class="w-full px-5 py-3.5 rounded-xl bg-surface-900 border border-white/10 text-white placeholder:text-surface-700 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 text-sm"
-                >
-                <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                    <svg class="w-5 h-5 text-surface-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Alphabet Filter -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <div class="flex flex-wrap justify-center gap-2 border-y border-white/5 py-4">
-            <button
-                @click="activeLetter = 'all'"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
-                :class="activeLetter === 'all' ? 'bg-brand-600 text-white' : 'bg-white/5 text-surface-200 hover:bg-white/10'"
-            >الكل</button>
-            <template x-for="letter in letters" :key="letter">
-                <button
-                    @click="activeLetter = letter"
-                    class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all uppercase"
-                    :class="activeLetter === letter ? 'bg-brand-600 text-white' : 'bg-white/5 text-surface-200 hover:bg-white/10'"
-                    x-text="letter"
-                ></button>
-            </template>
-        </div>
-    </section>
-
-    <!-- Terms Grid -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div class="grid md:grid-cols-2 gap-6">
-            <template x-for="term in filteredTerms()" :key="term.en">
-                <div class="p-6 rounded-2xl bg-surface-900/50 border border-white/5 hover:border-brand-500/20 transition-all duration-300">
-                    <div class="flex items-start justify-between gap-4 mb-3">
-                        <div>
-                            <h2 class="text-xl font-bold text-white uppercase" x-text="term.en"></h2>
-                            <h3 class="text-sm font-semibold text-brand-400 mt-1" x-text="term.ar"></h3>
-                        </div>
-                        <span class="text-xs font-mono text-surface-700 bg-white/5 px-2.5 py-0.5 rounded-md" x-text="term.en[0].toUpperCase()"></span>
-                    </div>
-                    <p class="text-sm text-surface-200 leading-relaxed mb-4" x-text="term.definition"></p>
-                    
-                    <!-- Course recommendation CTA if term matches course topics -->
-                    <template x-if="term.courseLink">
-                        <a :href="term.courseLink" class="inline-flex items-center gap-1 text-xs text-purple-400 hover:text-purple-300 transition-colors font-medium">
-                            <span>تعلم كيف تطبق هذا عملياً في دورة:</span>
-                            <span class="underline" x-text="term.courseTitle"></span>
-                            <svg class="w-3 h-3 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                        </a>
-                    </template>
-                </div>
-            </template>
-        </div>
-
-        <!-- No Results -->
-        <div x-show="filteredTerms().length === 0" class="text-center py-12">
-            <svg class="w-12 h-12 text-surface-700 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <h3 class="text-lg font-bold text-surface-200">لا توجد نتائج مطابقة لمصطلح البحث</h3>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-xs text-surface-700">© 2026 AI Rank One — جميع الحقوق محفوظة</p>
-        </div>
-    </footer>
-
-    <script>
-        function glossaryApp() {
-            return {
-                search: '',
-                activeLetter: 'all',
-                letters: 'abcdefghijklmnopqrstuvwxyz'.split(''),
-                
-                terms: [
-                    {
-                        en: 'RAG (Retrieval-Augmented Generation)',
-                        ar: 'الاسترجاع المعزز بالتوليد',
-                        definition: 'تقنية لربط النماذج اللغوية الكبيرة (LLMs) بمصادر بيانات خارجية (قواعد بيانات، ملفات) لاسترجاع المعلومات الدقيقة ودمجها بالسياق قبل توليد الإجابة النهائية، مما يقلل من الهلوسة بشكل كبير.',
-                        courseLink: 'courses/building-a-production-rag-system/',
-                        courseTitle: 'بناء نظام RAG للإنتاج'
-                    },
-                    {
-                        en: 'Fine-tuning',
-                        ar: 'الضبط الدقيق للنماذج',
-                        definition: 'عملية تدريب نموذج ذكاء اصطناعي مدرب مسبقاً (Pre-trained) على مجموعة بيانات إضافية متخصصة ومحددة لتكييفه للقيام بمهام مخصصة أو تحسين أسلوبه اللغوي.',
-                        courseLink: 'courses/llm-fine-tuning-with-lora-and-qlora/',
-                        courseTitle: 'ضبط النماذج باستخدام LoRA'
-                    },
-                    {
-                        en: 'Prompt Engineering',
-                        ar: 'هندسة الأوامر / التوجيه',
-                        definition: 'هندسة وصياغة المدخلات الممررة للنماذج اللغوية الكبيرة للحصول على مخرجات دقيقة، مهيكلة، وقابلة للتوقع، وتشمل صياغة السيناريوهات والقيود.',
-                        courseLink: 'courses/advanced-prompt-engineering-for-developers/',
-                        courseTitle: 'هندسة الأوامر المتقدمة'
-                    },
-                    {
-                        en: 'Multi-Agent Systems',
-                        ar: 'أنظمة الوكلاء المتعددة',
-                        definition: 'بنية برمجية تقسم المهام المعقدة على فريق من الوكلاء الأذكياء المتخصصين (مثال: كاتب الكود ومراجع الكود) يتعاونون من خلال شبكة عمل أو رسم بياني لحل المشكلة.',
-                        courseLink: 'courses/langgraph-multi-agents/',
-                        courseTitle: 'بناء أنظمة الوكلاء باستخدام LangGraph'
-                    },
-                    {
-                        en: 'MLOps',
-                        ar: 'عمليات تشغيل ودورة حياة تعلم الآلة',
-                        definition: 'مجموعة الممارسات والأدوات التي تهدف إلى أتمتة وتوحيد عملية نشر نماذج تعلم الآلة وإصداراتها ومراقبتها في بيئة الإنتاج الفعلية.',
-                        courseLink: 'courses/mlops-from-experiment-to-production/',
-                        courseTitle: 'أنظمة MLOps من التجربة للإنتاج'
-                    },
-                    {
-                        en: 'AI Governance',
-                        ar: 'حوكمة الذكاء الاصطناعي',
-                        definition: 'إطار تنظيمي وقانوني لضمان تطوير واستخدام تقنيات الذكاء الاصطناعي بشكل أخلاقي وآمن يضمن حماية الخصوصية ويمنع التحيز غير العادل.',
-                        courseLink: 'courses/ai-governance-and-ethics-in-the-arab-world/',
-                        courseTitle: 'حوكمة الذكاء الاصطناعي في العالم العربي'
-                    },
-                    {
-                        en: 'Vector Database',
-                        ar: 'قاعدة بيانات المتجهات',
-                        definition: 'قاعدة بيانات مخصصة لتخزين والبحث عن المتجهات عالية الأبعاد (Embeddings) بكفاءة وسرعة لتنفيذ عمليات البحث الدلالي أو التشابه الرياضي.'
-                    },
-                    {
-                        en: 'Embeddings',
-                        ar: 'التضمينات الدلالية / المتجهات',
-                        definition: 'تمثيل الكلمات أو النصوص كمتجهات عددية تعبر عن المعنى الدلالي للكلمة أو الفقرة في فضاء متعدد الأبعاد، بحيث تكون الكلمات المتقاربة بالمعنى متقاربة بالمسافة الرياضية.'
-                    },
-                    {
-                        en: 'Tokens',
-                        ar: 'الوحدات النصية / الرموز',
-                        definition: 'الوحدات الأساسية التي تقسم إليها النصوص قبل معالجتها بواسطة النموذج اللغوي. قد يكون التوكن كلمة كاملة أو جزءاً من كلمة، وتعتمد عليه تكلفة الاستهلاك.'
-                    },
-                    {
-                        en: 'Hallucination',
-                        ar: 'الهلوسة المعرفية',
-                        definition: 'ميل النماذج اللغوية الكبيرة لتوليد إجابات غير صحيحة علمياً أو منطقياً بثقة كاملة، وتحدث بسبب الفجوات في بيانات التدريب أو سوء التوجيه.'
-                    },
-                    {
-                        en: 'Transformer',
-                        ar: 'المحولات / معمارية الترانسفورمر',
-                        definition: 'معمارية شبكة عصبية عميقة تم تقديمها عام 2017 تعتمد على آلية الانتباه الذاتي (Self-Attention) لمعالجة البيانات النصية وتعتبر حجر الأساس لكافة النماذج اللغوية الحديثة.'
-                    },
-                    {
-                        en: 'Neural Network',
-                        ar: 'الشبكة العصبية الاصطناعية',
-                        definition: 'نموذج رياضي يحاكي بنية العصبونات البيولوجية في دماغ الإنسان، وتتكون من طبقات معالجة مترابطة تستخدم لتعلم الأنماط من البيانات.'
-                    },
-                    {
-                        en: 'LLM (Large Language Model)',
-                        ar: 'النموذج اللغوي الكبير',
-                        definition: 'نموذج تعلم عميق ضخم مدرّب على كميات هائلة من النصوص، قادر على فهم اللغة وتوليدها وأداء مهام متعددة مثل التلخيص والترجمة وكتابة الكود.'
-                    },
-                    {
-                        en: 'LoRA (Low-Rank Adaptation)',
-                        ar: 'التكييف منخفض الرتبة',
-                        definition: 'أسلوب ضبط فعّال يجمّد أوزان النموذج الأصلية ويدرّب مصفوفتين صغيرتين منخفضتي الرتبة فقط، مما يقلّص الذاكرة والتكلفة بشكل كبير مع الحفاظ على الجودة.',
-                        courseLink: 'courses/llm-fine-tuning-with-lora-and-qlora/',
-                        courseTitle: 'ضبط النماذج باستخدام LoRA'
-                    },
-                    {
-                        en: 'QLoRA',
-                        ar: 'LoRA المكمّم',
-                        definition: 'امتداد لـ LoRA يحمّل النموذج الأساس بدقة 4-بت (تكميم) ثم يدرّب محوّلات LoRA فوقه، مما يتيح ضبط نماذج كبيرة على وحدة معالجة رسومية واحدة.',
-                        courseLink: 'courses/llm-fine-tuning-with-lora-and-qlora/',
-                        courseTitle: 'ضبط النماذج باستخدام LoRA'
-                    },
-                    {
-                        en: 'PEFT (Parameter-Efficient Fine-Tuning)',
-                        ar: 'الضبط الفعّال للمعاملات',
-                        definition: 'عائلة من تقنيات الضبط (منها LoRA وQLoRA) تدرّب جزءاً صغيراً فقط من معاملات النموذج بدل الأوزان كاملة، لتوفير الذاكرة والتخزين وتقليل النسيان الكارثي.',
-                        courseLink: 'courses/llm-fine-tuning-with-lora-and-qlora/',
-                        courseTitle: 'ضبط النماذج باستخدام LoRA'
-                    },
-                    {
-                        en: 'SFT (Supervised Fine-Tuning)',
-                        ar: 'الضبط الخاضع للإشراف',
-                        definition: 'ضبط النموذج على أزواج (تعليمة، إجابة مرجعية) ليتعلّم اتّباع التعليمات بأسلوب محدد، وهو الخطوة الأولى قبل محاذاة التفضيلات.'
-                    },
-                    {
-                        en: 'Quantization',
-                        ar: 'التكميم',
-                        definition: 'تقليل دقة أوزان النموذج (مثل من 16-بت إلى 4-بت) لخفض استهلاك الذاكرة وتسريع الاستدلال، مقابل فقدان طفيف محتمل في الدقة.'
-                    },
-                    {
-                        en: 'Attention / Self-Attention',
-                        ar: 'آلية الانتباه الذاتي',
-                        definition: 'آلية تتيح للنموذج ترجيح أهمية كل رمز بالنسبة لبقية الرموز في التسلسل، وهي جوهر معمارية الترانسفورمر.'
-                    },
-                    {
-                        en: 'Context Window',
-                        ar: 'نافذة السياق',
-                        definition: 'الحد الأقصى لعدد الرموز التي يمكن للنموذج معالجتها في طلب واحد (المدخلات + المخرجات). تجاوزها يؤدي إلى اقتطاع أو فقدان معلومات.'
-                    },
-                    {
-                        en: 'Temperature',
-                        ar: 'درجة الحرارة',
-                        definition: 'معامل يتحكم في عشوائية مخرجات النموذج: قيمة منخفضة تعطي إجابات حتمية ومركّزة، وقيمة مرتفعة تزيد التنوّع والإبداع (والمخاطرة بالهلوسة).'
-                    },
-                    {
-                        en: 'Few-Shot Learning',
-                        ar: 'التعلّم بأمثلة قليلة',
-                        definition: 'تزويد النموذج بعدد قليل من الأمثلة داخل التلقين لتوجيه أسلوب ونمط الإجابة دون إعادة تدريب.',
-                        courseLink: 'courses/advanced-prompt-engineering-for-developers/',
-                        courseTitle: 'هندسة التلقين المتقدمة'
-                    },
-                    {
-                        en: 'Chain-of-Thought (CoT)',
-                        ar: 'سلسلة التفكير',
-                        definition: 'أسلوب تلقين يطلب من النموذج إظهار خطوات الاستدلال قبل الإجابة النهائية، مما يحسّن الأداء في المهام المنطقية والحسابية.',
-                        courseLink: 'courses/advanced-prompt-engineering-for-developers/',
-                        courseTitle: 'هندسة التلقين المتقدمة'
-                    },
-                    {
-                        en: 'Guardrails',
-                        ar: 'الحواجز الوقائية',
-                        definition: 'ضوابط برمجية تفحص مدخلات ومخرجات النموذج لمنع المحتوى الضار أو تسريب البيانات أو حقن التلقين (Prompt Injection).',
-                        courseLink: 'courses/advanced-prompt-engineering-for-developers/',
-                        courseTitle: 'هندسة التلقين المتقدمة'
-                    },
-                    {
-                        en: 'Prompt Injection',
-                        ar: 'حقن التلقين',
-                        definition: 'هجوم يدسّ فيه المهاجم تعليمات خبيثة داخل مدخلات المستخدم لتجاوز تعليمات النظام أو استخراج بيانات حساسة.'
-                    },
-                    {
-                        en: 'Chunking',
-                        ar: 'التقطيع',
-                        definition: 'تقسيم المستندات الطويلة إلى مقاطع أصغر متماسكة قبل تضمينها وفهرستها، وجودة التقطيع تؤثر مباشرة في جودة الاسترجاع في أنظمة RAG.',
-                        courseLink: 'courses/building-a-production-rag-system/',
-                        courseTitle: 'بناء نظام RAG للإنتاج'
-                    },
-                    {
-                        en: 'Hybrid Search',
-                        ar: 'البحث الهجين',
-                        definition: 'دمج البحث الكثيف (دلالي عبر المتجهات) مع البحث المتفرّق (لفظي مثل BM25) للحصول على استرجاع أدق يجمع بين المعنى والتطابق الحرفي.',
-                        courseLink: 'courses/building-a-production-rag-system/',
-                        courseTitle: 'بناء نظام RAG للإنتاج'
-                    },
-                    {
-                        en: 'RRF (Reciprocal Rank Fusion)',
-                        ar: 'دمج الرُّتب التبادلي',
-                        definition: 'خوارزمية تدمج نتائج عدة أنظمة بحث بالاعتماد على ترتيب كل نتيجة لا على درجاتها الخام، شائعة لدمج البحث الكثيف والمتفرّق.',
-                        courseLink: 'courses/building-a-production-rag-system/',
-                        courseTitle: 'بناء نظام RAG للإنتاج'
-                    },
-                    {
-                        en: 'Reranking',
-                        ar: 'إعادة الترتيب',
-                        definition: 'مرحلة ثانية تعيد ترتيب أفضل النتائج المسترجعة باستخدام نموذج أدق (Cross-Encoder غالباً) لرفع جودة السياق الممرّر للنموذج.',
-                        courseLink: 'courses/building-a-production-rag-system/',
-                        courseTitle: 'بناء نظام RAG للإنتاج'
-                    },
-                    {
-                        en: 'Agent',
-                        ar: 'الوكيل الذكي',
-                        definition: 'نظام يعتمد على نموذج لغوي يخطّط ويقرّر ويستدعي أدوات خارجية في حلقة لإنجاز مهمة متعددة الخطوات دون تدخل بشري مستمر.',
-                        courseLink: 'courses/langgraph-multi-agents/',
-                        courseTitle: 'بناء أنظمة الوكلاء باستخدام LangGraph'
-                    },
-                    {
-                        en: 'Function / Tool Calling',
-                        ar: 'استدعاء الأدوات',
-                        definition: 'قدرة النموذج على إخراج طلب مُنظَّم لاستدعاء دالة أو أداة خارجية (بحث، حاسبة، واجهة برمجية) ثم استخدام نتيجتها في إجابته.',
-                        courseLink: 'courses/langgraph-multi-agents/',
-                        courseTitle: 'بناء أنظمة الوكلاء باستخدام LangGraph'
-                    },
-                    {
-                        en: 'Model Drift',
-                        ar: 'انجراف النموذج',
-                        definition: 'تدهور أداء النموذج في الإنتاج مع تغيّر توزيع البيانات الواردة عن بيانات التدريب، ويستوجب المراقبة ومحفّزات إعادة التدريب.',
-                        courseLink: 'courses/mlops-from-experiment-to-production/',
-                        courseTitle: 'أنظمة MLOps من التجربة للإنتاج'
-                    },
-                    {
-                        en: 'CI/CD',
-                        ar: 'التكامل والنشر المستمر',
-                        definition: 'ممارسات أتمتة بناء واختبار ونشر الكود والنماذج عبر خطوط أنابيب، مع بوابات جودة تمنع نشر نموذج أضعف من الإصدار الحالي.',
-                        courseLink: 'courses/mlops-from-experiment-to-production/',
-                        courseTitle: 'أنظمة MLOps من التجربة للإنتاج'
-                    },
-                    {
-                        en: 'Model Registry',
-                        ar: 'سجل النماذج',
-                        definition: 'مستودع مركزي يخزّن إصدارات النماذج مع بياناتها الوصفية ومقاييسها وحالتها (تجريبي/إنتاجي)، لتتبّع ما هو منشور فعلياً.',
-                        courseLink: 'courses/mlops-from-experiment-to-production/',
-                        courseTitle: 'أنظمة MLOps من التجربة للإنتاج'
-                    }
-                ],
-
-                filteredTerms() {
-                    const q = this.search.toLowerCase().trim();
-                    return this.terms.filter(t => {
-                        // Letter filter
-                        const matchesLetter = this.activeLetter === 'all' || t.en[0].toLowerCase() === this.activeLetter;
-                        
-                        // Search text filter
-                        const matchesSearch = !q || 
-                            t.en.toLowerCase().includes(q) || 
-                            t.ar.toLowerCase().includes(q) || 
-                            t.definition.toLowerCase().includes(q);
-                            
-                        return matchesLetter && matchesSearch;
-                    }).sort((a, b) => a.en.localeCompare(b.en));
-                }
-            }
-        }
-    </script>
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/service-worker.js').catch(()=>{}));}</script>
+<body class="bg-slate-950 text-white" x-data="glossaryApp()">
+<nav class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-white/5">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="text-lg font-bold text-blue-400">AI Rank One</a>
+    <div class="flex items-center gap-6 text-sm">
+      <a href="index.html" class="text-slate-200 hover:text-white">الرئيسية</a>
+      <a href="index.html#courses" class="text-slate-200 hover:text-white">الدورات</a>
+    </div>
+  </div>
+</nav>
+<main class="pt-24 pb-20 max-w-5xl mx-auto px-4">
+  <div class="text-center mb-10">
+    <h1 class="text-3xl font-bold mb-3">قاموس مصطلحات الذكاء الاصطناعي</h1>
+    <p class="text-slate-300 text-sm max-w-xl mx-auto mb-6">دليلك التقني لترجمة وفهم مصطلحات RAG، Fine-Tuning، والـ MLOps بالعربية الفصحى.</p>
+    <input type="text" x-model="search" placeholder="ابحث بالإنجليزية أو العربية (مثال: RAG)..." class="w-full max-w-md px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-white text-sm">
+  </div>
+  <div class="grid md:grid-cols-2 gap-4">
+    <template x-for="t in filteredTerms()" :key="t.en">
+      <div class="p-5 rounded-2xl bg-slate-900 border border-white/5">
+        <h2 class="text-lg font-bold text-blue-400" x-text="t.en"></h2>
+        <h3 class="text-xs font-semibold text-slate-400 mb-2" x-text="t.ar"></h3>
+        <p class="text-sm text-slate-300 leading-relaxed" x-text="t.def"></p>
+        <template x-if="t.link"><a :href="t.link" class="inline-block mt-3 text-xs text-purple-400 hover:underline">عرض الدورة المتعلقة ←</a></template>
+      </div>
+    </template>
+  </div>
+</main>
+<footer class="py-8 border-t border-white/5 text-center text-xs text-slate-500">© 2026 AI Rank One</footer>
+<script>
+function glossaryApp(){return{
+  search:'',
+  terms:[
+    {en:'RAG (Retrieval-Augmented Generation)',ar:'الاسترجاع المعزز بالتوليد',def:'ربط النماذج اللغوية بمصادر بيانات خارجية لاسترجاع المعلومات الدقيقة قبل التوليد وتقليل الهلوسة.',link:'courses/building-a-production-rag-system/index.html'},
+    {en:'Fine-Tuning (LoRA / QLoRA)',ar:'الضبط الدقيق للنماذج',def:'تدريب نموذج مدرب مسبقاً على بيانات متخصصة لتكييفه لمهام محددة بكفاءة عالية.',link:'courses/llm-fine-tuning-with-lora-and-qlora/index.html'},
+    {en:'Prompt Engineering',ar:'هندسة التلقين',def:'صياغة المدخلات الممررة للنماذج اللغوية للحصول على مخرجات دقيقة ومثبتة.',link:'courses/advanced-prompt-engineering-for-developers/index.html'},
+    {en:'Multi-Agent Systems',ar:'أنظمة الوكلاء المتعددة',def:'بنية تقسم المهام المعقدة على شبكة وكلاء أذكياء يتواصلون لحل المشكلات.',link:'courses/langgraph-multi-agents/index.html'},
+    {en:'MLOps',ar:'عمليات تشغيل الذكاء الاصطناعي',def:'أتمتة وتوحيد نشر ومراقبة وتحديث نماذج تعلم الآلة في بيئة الإنتاج.',link:'courses/mlops-from-experiment-to-production/index.html'},
+    {en:'AI Governance',ar:'حوكمة الذكاء الاصطناعي',def:'إطار تنظيمي وأخلاقي لضمان سلامة وعدالة وامتثال تطبيقات الذكاء الاصطناعي.',link:'courses/ai-governance-and-ethics-in-the-arab-world/index.html'}
+  ],
+  filteredTerms(){
+    const q = this.search.toLowerCase().trim();
+    if(!q) return this.terms;
+    return this.terms.filter(t => t.en.toLowerCase().includes(q) || t.ar.includes(q) || t.def.includes(q));
+  }
+};}
+</script>
 </body>
 </html>
