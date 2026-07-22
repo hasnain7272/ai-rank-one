@@ -14,3 +14,9 @@ newsletter/issues/
 supabase/.temp/
 ai-rank-one.txt
 social/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
