@@ -16,10 +16,9 @@ def generate_config():
     cfg = {
         "SUPABASE_URL": url,
         "SUPABASE_ANON_KEY": anon,
-        "LEMON_VARIANT_ID": os.getenv("LEMON_SQUEEZY_VARIANT_ID", "VARIANT_ID"),
-        "LEMON_BUNDLE_VARIANT_ID": os.getenv("LEMON_SQUEEZY_BUNDLE_VARIANT_ID", "bundle-variant-id"),
-        "LEMON_ALL_ACCESS_VARIANT_ID": os.getenv("LEMON_SQUEEZY_ALL_ACCESS_VARIANT_ID", "all-access-variant-id"),
-        "LEMON_STORE_READY": os.getenv("LEMON_STORE_READY", "false"),
+        "DODO_PRODUCT_SINGLE": os.getenv("DODO_PRODUCT_SINGLE", "prod_single"),
+        "DODO_PRODUCT_BUNDLE": os.getenv("DODO_PRODUCT_BUNDLE", "prod_bundle"),
+        "PAYMENT_READY": os.getenv("PAYMENT_READY", "false"),
         "SUBSCRIBER_COUNT_FN": url.rstrip("/") + "/functions/v1/subscriber-count",
         "AUTH_OTP_FN": url.rstrip("/") + "/functions/v1/auth-otp",
         "SUBSCRIBE_FN": url.rstrip("/") + "/functions/v1/subscribe",

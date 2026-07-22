@@ -111,6 +111,7 @@ window.courseView = function(){return{
   showAuth:false, otpSent:false, authEmail:'', authOTP:'', authError:'',
   init(){
     this.course = JSON.parse(document.getElementById('course-data').textContent);
+    localStorage.setItem('last_course_slug', this.course.slug);
     this.$watch('activeModule', () => this.loadModule());
     sb.auth.getSession().then(({data}) => { this.user = data.session?.user||null; this.checkAccess(); });
     sb.auth.onAuthStateChange((e,s) => { this.user=s?.user||null; if(e==='SIGNED_IN') this.showAuth=false; this.checkAccess(); });
